@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/15 16:09:32 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
+/*   Updated: 2022/11/15 16:16:25 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac ,char **av ,char **envp)
+int	ft_isspace(int c)
 {
-	(void)ac;
-	(void)av;
-	//init env
-	//init sign
-	//boucle
-		//lexer
-		//parser
-		//expander
-		//excuter
+	return (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\n' || c == '\f' || c == '\r');
 }
