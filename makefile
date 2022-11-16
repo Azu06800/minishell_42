@@ -10,7 +10,8 @@ SOURCES			=	./sources
 INCLUDES		=	./includes
 OBJECTS			=	./bin
 
-SRCS			= minishell.c\
+SRCS			= tester.c\
+					minishell.c\
 					lexer/lexer.c\
 					lexer/lexer_utils.c\
 					lexer/lexer_utils2.c

@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 16:05:41 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/16 18:45:57 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char		*d;
+	const char	*s;
+
+	if ((dst == src) || n == 0)
+		return (dst);
+	if (!dst && !src)
+		return (0);
+	d = dst;
+	s = src;
+	while (n--)
+		d[n] = s[n];
+	return (dst);
 }
 
 char	*ft_strdup(const char *s1)
@@ -45,16 +61,16 @@ size_t cpt_word(char *str)
 
 	while (*str)
 	{
-		if (!ft_isspace(*str))
+		if (!ft_issep(*str))
 		{
 			i++;
-			while(*str && !ft_isspace(*str))
+			while(*str && !ft_issep(*str))
 				str++;
 		}
 		else
 			str++;
 	}
-
+	return (i);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
