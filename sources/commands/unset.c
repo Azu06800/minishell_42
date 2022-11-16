@@ -6,13 +6,14 @@
 /*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/16 17:51:17 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/11/16 18:14:12 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int ft_unset(char *name)
+int	ft_unset(char *name)
 {
-    
+	(void) name;
+	return (0);
 }

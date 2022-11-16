@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/16 17:51:23 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/11/16 18:14:24 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 // TODO: Export env
 int	ft_export(char *cmd)
 {
+	(void) cmd;
 	return (0);
 }

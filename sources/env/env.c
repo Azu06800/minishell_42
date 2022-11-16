@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:52:13 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/16 17:59:05 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/11/16 18:19:36 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ char	*get_path(t_minishell *ms)
 
 int	is_builtin(char *cmd)
 {
-	if (cmd == "cd" || cmd == "echo" || cmd == "env" || cmd == "exit"
-		|| cmd == "export" || cmd == "pwd" || cmd == "unset")
+	int	l;
+
+	l = ft_strlen(cmd);
+	if (ft_strncmp(cmd, "cd", l) || ft_strncmp(cmd, "echo", l)
+		|| ft_strncmp(cmd, "env", l) || ft_strncmp(cmd, "exit", l)
+		|| ft_strncmp(cmd, "export", l) || ft_strncmp(cmd, "pwd", l)
+		|| ft_strncmp(cmd, "unset", l)
+	)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 17:22:17 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/11/16 18:16:59 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,16 @@ char	*get_path(t_minishell *ms);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *str);
 
 // COMMANDS
-int		ft_pwd(void);
+int		ft_cd(char *cmd);
 int		ft_echo(char *text, int no_new_line);
+int		ft_env(void);
 int		ft_exit(void);
+int		ft_export(char *cmd);
+int		ft_pwd(void);
+int		ft_unset(char *name);
 
 #endif
