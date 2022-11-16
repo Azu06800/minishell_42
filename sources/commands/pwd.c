@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 16:30:03 by emorvan          ###   ########.fr       */
+/*   Created: 2022/11/16 16:49:40 by emorvan           #+#    #+#             */
+/*   Updated: 2022/11/16 17:15:40 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_type(char c)
+int	ft_pwd(void)
 {
-	//check les / > | 
-}
+	char	*cur_dir;
 
-void	check_command(char arg)
-{
-	//check les command
-}
-
-void	lexer(char *arg)
-{
-	int	i;
-
-	i = -1;
-	while (arg[++i])
-	{
-		if ()
-	}
+	cur_dir = malloc(sizeof(char) * 256);
+	if (getcwd(cur_dir, sizeof(char) * 256) == NULL)
+		return (1);
+	printf("%s", cur_dir);
+	return (0);
 }

@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/15 16:09:32 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/16 18:01:09 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac ,char **av ,char **envp)
+#include "../includes/minishell.h"
+
+int	main(int ac, char **av)
 {
+	t_minishell	*minishell;
+
 	(void)ac;
 	(void)av;
-	//init env
-	//init sign
-	//boucle
-		//lexer
-		//parser
-		//expander
-		//excuter
+	minishell = malloc(sizeof(t_minishell));
+	set_path(minishell);
 }

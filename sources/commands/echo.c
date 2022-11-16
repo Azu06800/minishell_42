@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 16:30:03 by emorvan          ###   ########.fr       */
+/*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
+/*   Updated: 2022/11/16 17:18:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_type(char c)
+int	ft_echo(char *text, int no_new_line)
 {
-	//check les / > | 
-}
-
-void	check_command(char arg)
-{
-	//check les command
-}
-
-void	lexer(char *arg)
-{
-	int	i;
-
-	i = -1;
-	while (arg[++i])
-	{
-		if ()
-	}
+	printf("%s", text);
+	if (no_new_line == 0)
+		printf("\n");
+	return (0);
 }
