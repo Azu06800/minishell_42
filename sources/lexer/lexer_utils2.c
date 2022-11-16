@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 16:06:48 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/16 15:48:34 by baroun            #+#    #+#             */
+/*   Updated: 2022/11/16 16:03:50 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**lexer(char *arg)
+int	ft_isspace(int c)
 {
-	size_t		len;
-	size_t		i;
-	const char	*start;
-	char		**token;
-	int			j;
+	return (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\n' || c == '\f' || c == '\r');
+}
 
-	i = 0;
-	j = 0;
+int ft_isword(char *str, int i)
+{
+	return ((str[i] > 32 && str[i] < 127) && (ft_isspace(str[i + 1] || str[i + 1] == '\0')));
+}
 
-	token = (char **)malloc(((cpt_sep(arg)) + 1) * sizeof(char *));
-	
-	while (arg[j])
-	{
-		while (arg[j] && (ft_issep(*arg)))
-			j++;
-		start = arg[j];
-		len = 0;
-		while (arg[j] && ft_issep(arg[j]) && (int)len++ != -1)
-			arg++;
-		if (!ft_issep(arg[i - 1]))
-			token[i++] = ft_substr(start, 0, len);
-	}
-	token[i] = 0;
-	return (token);
+int ft_issep(int c)
+{
+	return(ft_isspace(c));
 }

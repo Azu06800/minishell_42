@@ -10,12 +10,18 @@ SOURCES			=	./sources
 INCLUDES		=	./includes
 OBJECTS			=	./bin
 
-SRCS			= minishell.c
+SRCS			= minishell.c\
+					lexer/lexer.c\
+					lexer/lexer_utils.c\
+					lexer/lexer_utils2.c
+
+
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
 CFLAGS			=	-Wall -Wextra -Werror
 CC				=	clang
 CINCLUDES		=	-I ${INCLUDES}
+LINK			=	libreadline.a -lreadline -lncurses
 
 ${OBJECTS}/%.o: ${SOURCES}/%.c
 	@mkdir -p $(dir $@)
@@ -26,7 +32,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@echo "✅ $(GRE)Compilation terminée$(EOC) ✅"
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${CDEPENDENCIES}
+	@${CC} ${CFLAGS} ${LINK} -o ${NAME} ${OBJS}
 
 clean:
 	@echo "🗑 $(RED)Supression des fichiers binaires (.o).$(EOC) 🗑"
@@ -38,4 +44,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:	all clean fclean re
+run: all
+	./${NAME}
+
+.PHONY:	all clean fclean re run
