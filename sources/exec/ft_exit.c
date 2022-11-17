@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exec2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/17 16:54:15 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/17 15:56:08 by baroun            #+#    #+#             */
+/*   Updated: 2022/11/17 16:09:40 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void boucle()
+void	ft_exit(char **token)
 {
-	char *str;
-	char **token;
-	
-	while(1)
-	{
-		str = readline(prompt);
-		token = ft_lexer(str);
-		//tester_lexer(token);
-		ft_parsing(token);
+	int	i;
 
-	}
-}
-
-int	main(int ac ,char **av ,char **envp)
-{
-	(void)ac;
-	(void)av;
-	(void) envp;//init env
-
-	//init sign
-	boucle();
-		//parser
-		//expander
-		//excuter
+	i = -1;
+	while (token[++i])
+		free(token[i]);
+	free(token[i]);
+	free(token);
+	exit(0);
 }

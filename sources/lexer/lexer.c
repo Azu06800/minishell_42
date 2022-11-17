@@ -6,13 +6,13 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 18:57:13 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/17 16:52:52 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**lexer(char *arg)
+char	**ft_lexer(char *arg)
 {
 	size_t		len;
 	size_t		i;

@@ -14,7 +14,11 @@ SRCS			= tester.c\
 					minishell.c\
 					lexer/lexer.c\
 					lexer/lexer_utils.c\
-					lexer/lexer_utils2.c
+					lexer/lexer_utils2.c\
+					parsing/parsing.c\
+					parsing/parsing_utils.c\
+					exec/ft_echo.c\
+					exec/ft_exit.c
 
 
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))

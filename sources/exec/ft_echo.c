@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/17 16:54:15 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/17 15:40:01 by baroun            #+#    #+#             */
+/*   Updated: 2022/11/17 17:24:53 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void boucle()
+void echo_print(char **token,int i)
 {
-	char *str;
-	char **token;
-	
-	while(1)
-	{
-		str = readline(prompt);
-		token = ft_lexer(str);
-		//tester_lexer(token);
-		ft_parsing(token);
 
-	}
 }
 
-int	main(int ac ,char **av ,char **envp)
+void	ft_echo(char **token)
 {
-	(void)ac;
-	(void)av;
-	(void) envp;//init env
+	int	i;
 
-	//init sign
-	boucle();
-		//parser
-		//expander
-		//excuter
+	i = 0;
+
+	//if (cmp_str(token[1],"-n"))
+		//option -n
+	while (token[++i])
+		printf("%s ",token[i]);
+	printf("\n");
 }
+
+
