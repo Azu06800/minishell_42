@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/23 16:16:25 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/23 17:03:00 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void boucle()
 	while(1)
 	{
 		str = readline(prompt);
-		printf("%s\n",str);
 		if (*str == '\0')
 			continue;
 		token = ft_lexer(str);

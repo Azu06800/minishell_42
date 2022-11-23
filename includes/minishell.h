@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/17 16:53:00 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/23 18:41:24 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 int	ft_isspace(int c);
 int ft_issep(int c);
 size_t cpt_word(char *str);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char const *s, unsigned int start);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
