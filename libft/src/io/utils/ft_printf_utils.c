@@ -1,30 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2022/04/07 17:54:39 by emorvan           #+#    #+#             */
+/*   Updated: 2022/06/21 18:27:28 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../libft.h"
 
-int	ft_unset(char **args)
+int	ft_putchar(int c)
 {
-	int	i;
+	write(1, &c, 1);
+	return (1);
+}
 
-	if (!args[0])
+int	ft_putstr(char *s)
+{
+	int	len;
+
+	if (s == NULL)
 	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
+		ft_putstr_fd("(null)", 1);
+		return (6);
 	}
-	i = 0;
-	while (args[i])
-	{
-		// If variable has been set, then delete it.
-		i++;
-	}
+	len = ft_strlen(s);
+	write(1, s, len);
+	return (len);
+}
+
+int	ft_putnbr(int nbr)
+{
+	int		len;
+	char	*num;
+
+	len = 0;
+	num = ft_itoa(nbr);
+	printf("[%s]", num);
+	len = ft_putstr(num);
+	free(num);
+	return (len);
 }

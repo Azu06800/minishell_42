@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2021/10/26 11:11:25 by emorvan           #+#    #+#             */
+/*   Updated: 2022/05/02 13:28:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../libft.h"
 
-int	ft_unset(char **args)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int	i;
-
-	if (!args[0])
+	if (n == -2147483648)
 	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	i = 0;
-	while (args[i])
+	if (n < 0)
 	{
-		// If variable has been set, then delete it.
-		i++;
+		ft_putchar_fd('-', fd);
+		n = -n;
 	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+	}
+	ft_putchar_fd((n % 10) + '0', fd);
 }
