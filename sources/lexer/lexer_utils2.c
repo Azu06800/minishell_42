@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:48:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/23 18:34:50 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/25 15:53:20 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_isword(char *str, int i)
 
 int ft_issep(int c)
 {
-	return(c == '>'|| c == '<');
+	return(c == '>'|| c == '<' || c == '\"' || c == '\'');
 }
 
 size_t	next_wrd(char *s)
@@ -33,7 +33,7 @@ size_t	next_wrd(char *s)
 	size_t	i;
 
 	i = 0;
-	while (ft_isspace(s[i]))
+	while (!ft_isspace(s[i]) && !ft_issep(s[i]))
 		i++;
 	return (i);
 }

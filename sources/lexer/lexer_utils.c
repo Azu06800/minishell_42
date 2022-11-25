@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/22 17:40:10 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/25 15:33:22 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*dst;
 	size_t	i;
 
-	if (!s)
-		return (NULL);
 	if ((size_t)start > ft_strlen(s))
 		return (ft_strdup(""));
 	if (ft_strlen(s + start) < len)
 		len = ft_strlen(s + start);
 	i = 0;
 	dst = malloc(sizeof(char) * (len + 1));
-	if (!dst)
-		return (NULL);
 	while (i < len)
 	{
 		dst[i] = *(s + start + i);
