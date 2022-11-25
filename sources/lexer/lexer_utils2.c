@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:48:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 15:53:20 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/25 20:17:59 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,26 @@ int ft_isword(char *str, int i)
 
 int ft_issep(int c)
 {
-	return(c == '>'|| c == '<' || c == '\"' || c == '\'');
+	return(c == '>'|| c == '<');
 }
 
-size_t	next_wrd(char *s)
+int	ft_isquote(int c)
 {
-	size_t	i;
+	return(c == '\"' || c == '\'');
+}
 
+size_t	cpt_quote(char *s)
+{
+	int	i;
+	int	j;
+
+	j = 0;
 	i = 0;
-	while (!ft_isspace(s[i]) && !ft_issep(s[i]))
+	while(s[i])
+	{
+		if (ft_isquote(s[i]))
+			j++;
 		i++;
-	return (i);
+	}
+	return ((j / 2 * 3));
 }

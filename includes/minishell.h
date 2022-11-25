@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 15:27:57 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/25 16:30:14 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 // Lexer
 int	ft_isspace(int c);
 int ft_issep(int c);
+int	ft_isquote(int c);
+size_t	cpt_quote(char *s);
 size_t cpt_word(char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);

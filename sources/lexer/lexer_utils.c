@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 15:33:22 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/25 20:12:22 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,20 @@ size_t cpt_word(char *str)
     i = 0;
     a = 0;
 
-    while (*str)
+    while (str[a])
     {
-        if (ft_issep(*str))
+        if (ft_issep(str[a]))
           i++;
-        if (!ft_isspace(*str) && !ft_issep(*str))
+        if (!ft_isspace(str[a]) && !ft_issep(str[a]))
         {
             i++;
-            while(*str && !ft_isspace(*str) && !ft_issep(*str)) 
-                str++;
+            while(str[a] && !ft_isspace(str[a]) && !ft_issep(str[a])) 
+                a++;
         }
         else
-            str++;
+            a++;
     }
-    return (i);
+    return (i + cpt_quote(str));
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
