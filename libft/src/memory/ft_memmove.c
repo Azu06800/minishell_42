@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2021/10/26 09:34:57 by emorvan           #+#    #+#             */
+/*   Updated: 2022/05/02 13:28:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../libft.h"
 
-int	ft_unset(char **args)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*dst_c;
+	unsigned char	*src_c;
 
-	if (!args[0])
-	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
-	}
+	if (dst == NULL && src == NULL)
+		return (NULL);
 	i = 0;
-	while (args[i])
+	dst_c = (unsigned char *)dst;
+	src_c = (unsigned char *)src;
+	if (src_c < dst_c)
 	{
-		// If variable has been set, then delete it.
-		i++;
+		while (len--)
+			dst_c[len] = src_c[len];
 	}
+	else
+	{
+		while (i < len)
+		{
+			dst_c[i] = src_c[i];
+			i++;
+		}
+	}
+	return (dst);
 }

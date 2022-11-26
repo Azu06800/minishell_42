@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2021/10/26 09:43:06 by emorvan           #+#    #+#             */
+/*   Updated: 2022/05/02 13:28:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../libft.h"
 
-int	ft_unset(char **args)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
-	if (!args[0])
-	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
-	}
 	i = 0;
-	while (args[i])
+	if (!needle[i])
+		return ((char *)haystack);
+	while (haystack[i] && i < len)
 	{
-		// If variable has been set, then delete it.
+		if (haystack[i] == needle[0])
+		{
+			j = 1;
+			while (needle[j] && (i + j) < len && haystack[i + j] == needle[j])
+				j++;
+			if (!needle[j])
+				return ((char *)haystack + i);
+		}
 		i++;
 	}
+	return (NULL);
 }

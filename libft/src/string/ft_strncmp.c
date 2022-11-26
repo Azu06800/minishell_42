@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2021/10/26 09:42:35 by emorvan           #+#    #+#             */
+/*   Updated: 2022/05/02 13:28:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../libft.h"
 
-int	ft_unset(char **args)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	if (!args[0])
+	if (n == 0)
+		return (0);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (*str1 && *str2 && *str1 == *str2 && n > 1)
 	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
+		str1++;
+		str2++;
+		n--;
 	}
-	i = 0;
-	while (args[i])
-	{
-		// If variable has been set, then delete it.
-		i++;
-	}
+	return (*str1 - *str2);
 }

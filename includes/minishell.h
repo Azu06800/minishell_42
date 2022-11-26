@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/16 18:16:59 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/11/25 16:30:16 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <signal.h>
+# include <sys/signal.h>
+# include "../libft/libft.h"
 
 typedef struct token
 {
@@ -29,6 +32,8 @@ typedef struct token
 typedef struct s_minishell
 {
 	char	*path;
+	char	**env;
+	char	**builtins;
 }	t_minishell;
 
 int		ft_isspace(int c);

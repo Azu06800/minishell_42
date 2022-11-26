@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2021/11/02 18:22:54 by emorvan           #+#    #+#             */
+/*   Updated: 2022/05/02 13:28:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../libft.h"
 
-int	ft_unset(char **args)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	i;
+	t_list	*tmp;
 
-	if (!args[0])
+	if (!lst || !new)
+		return ;
+	tmp = *lst;
+	if (!tmp)
 	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
+		*lst = new;
+		return ;
 	}
-	i = 0;
-	while (args[i])
-	{
-		// If variable has been set, then delete it.
-		i++;
-	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 }

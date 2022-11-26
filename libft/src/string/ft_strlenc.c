@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_strlenc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/25 16:17:55 by emorvan          ###   ########.fr       */
+/*   Created: 2022/05/17 22:25:55 by emorvan           #+#    #+#             */
+/*   Updated: 2022/05/17 22:30:14 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../libft.h"
 
-int	ft_unset(char **args)
+int	ft_strlenc(char *str, char c)
 {
 	int	i;
 
-	if (!args[0])
-	{
-		ft_putstr_fd("unset: not enough arguments\n", 2);
-		return (1);
-	}
 	i = 0;
-	while (args[i])
-	{
-		// If variable has been set, then delete it.
+	while (str[i] && str[i] != c)
 		i++;
-	}
+	return (i);
 }
