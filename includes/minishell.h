@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 16:30:14 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/30 18:24:16 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,24 @@
 
 # define prompt "minishell$ "
 
-// Lexer
+//		-LEXER-
+	//is
 int	ft_isspace(int c);
 int ft_issep(int c);
 int	ft_isquote(int c);
+int ft_isfle(int c);
+	//malloc split
 size_t	cpt_quote(char *s);
 size_t cpt_word(char *str);
+	//sep
+int		ft_strlenspc(char *arg);
+char    *ft_add_spc(char *arg);
+	//split
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	**ft_lexer(char *arg);
-size_t	next_wrd(char *s);
 
 //parsing
 int	cmp_str(char *str, char *cmp);

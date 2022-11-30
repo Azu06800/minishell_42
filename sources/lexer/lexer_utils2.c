@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:48:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 20:17:59 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/28 16:48:16 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_isword(char *str, int i)
 
 int ft_issep(int c)
 {
-	return(c == '>'|| c == '<');
+	return(ft_isfle(c) || ft_isquote(c));
 }
 
 int	ft_isquote(int c)
@@ -33,18 +33,7 @@ int	ft_isquote(int c)
 	return(c == '\"' || c == '\'');
 }
 
-size_t	cpt_quote(char *s)
+int ft_isfle(int c)
 {
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	while(s[i])
-	{
-		if (ft_isquote(s[i]))
-			j++;
-		i++;
-	}
-	return ((j / 2 * 3));
+	return (c == '>' || c == '<');
 }
