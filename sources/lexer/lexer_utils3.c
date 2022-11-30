@@ -6,9 +6,11 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:19:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/30 18:37:55 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/30 18:43:24 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/minishell.h"
 
 int	ft_strlenspc(char *arg)
 {

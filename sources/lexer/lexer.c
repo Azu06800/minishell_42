@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/30 18:26:44 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/30 18:42:37 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**ft_lexer(char *args)
 	i = 0;
 	j = 0;
 	b = 0;
-	arg = add_spc(args);
+	arg = ft_add_spc(args);
 	token = (char **)malloc(((cpt_word(arg)) + 1) * sizeof(char *));
 	printf("t = %zu\n",cpt_word(arg));
 	while (arg[j])
