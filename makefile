@@ -19,13 +19,14 @@ SRCS			= tester.c\
 					parsing/parsing.c\
 					parsing/parsing_utils.c\
 					exec/ft_echo.c\
-					exec/ft_exit.c
-
+					exec/ft_exit.c\
+					signal/ctrl_c.c\
+					error/error.c
 
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
-CFLAGS			=	-Wall -Wextra -Werror
-CC				=	clang
+CFLAGS			=	-Wall -Wextra -Werror -Iincludes
+CC				=	gcc
 CINCLUDES		=	-I ${INCLUDES}
 LINK			=	libreadline.a -lreadline -lncurses
 

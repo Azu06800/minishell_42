@@ -6,11 +6,13 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/28 16:42:46 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/30 18:55:29 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+//utils pour split
 
 size_t	ft_strlen(const char *s)
 {
