@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/30 18:55:29 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:51:44 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ size_t cpt_word(char *str)
 				b = !b;
 			a++;
 		}
-        if (!ft_isspace(str[a]) && !ft_issep(str[a]))
+        if (!ft_isspace(str[a]) && !ft_issep(str[a]) && str[a])
         {
             i++;
             while((str[a] && !ft_isspace(str[a]) && !ft_issep(str[a])))

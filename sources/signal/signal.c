@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ctrl_c.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 19:19:29 by baroun           ###   ########.fr       */
+/*   Created: 2022/12/06 18:29:17 by baroun            #+#    #+#             */
+/*   Updated: 2022/12/07 15:08:43 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ctr_c(int sig)
+void	ft_signalhandler(int sig)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (sig == SIGINT)
+	{
+	}
+	else if (sig == SIGQUIT)
+	{
+
+	}
 }
-	
-	
+
+void	init_signal(void)
+{
+	signal(SIGINT, ft_signalhandler);
+	signal(SIGQUIT, ft_signalhandler);
+}
+
+//afficher un nouveau prompt

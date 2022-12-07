@@ -6,30 +6,48 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 17:16:55 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:36:42 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+void tester_lexer(char **token)
+{
+	int i;
+
+	i = -1;
+	while (token[++i])
+		printf("\ntoken %i = %s \n",i,token[i]);
+}
+
+void	ft_freeall(char **token, char *str)
+{
+	int i;
+
+	i = -1;
+	while (token[++i])
+		free(token[i]);
+	free(str);
+	free(token);
+}
 
 void boucle()
 {
 	char *str;
 	char **token;
 	
-	signal(SIGINT, ctr_c);
+	//init_signal();
 	while(1)
 	{
 		str = readline(prompt);
 		if (*str == '\0')
 			continue;
-		add_history(str);
-		if (error_quote(str))
-			continue;
+		if (!ft_isspace(*str))
+			add_history(str);
 		token = ft_lexer(str);
-		free(str);
 		tester_lexer(token);
-		ft_parsing(token);
+		//ft_parsing(token);
+		ft_freeall(token, str);
 	}
 }
 

@@ -7,28 +7,29 @@ EOC		=	\033[0m
 NAME 			= minishell
 
 SOURCES			=	./sources
-INCLUDES		=	./includes
 OBJECTS			=	./bin
 
-SRCS			= tester.c\
-					minishell.c\
+SRCS			=	minishell.c\
 					lexer/lexer.c\
 					lexer/lexer_utils.c\
 					lexer/lexer_utils2.c\
 					lexer/lexer_utils3.c\
+					lexer/lexer_utils4.c\
 					parsing/parsing.c\
 					parsing/parsing_utils.c\
 					exec/ft_echo.c\
 					exec/ft_exit.c\
-					signal/ctrl_c.c\
-					error/error.c
+					signal/signal.c\
+					utils/utils.c\
+					error/error.c\
+					error/error_utils.c
 
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
 CFLAGS			=	-Wall -Wextra -Werror -Iincludes
 CC				=	gcc
-CINCLUDES		=	-I ${INCLUDES}
-LINK			=	libreadline.a -lreadline -lncurses
+CINCLUDES		=	-I ./includes
+LINK			=	libhistory.a libreadline.a -lreadline -lncurses
 
 ${OBJECTS}/%.o: ${SOURCES}/%.c
 	@mkdir -p $(dir $@)

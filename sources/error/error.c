@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 19:20:30 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/06 18:18:24 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	error_quote(char *str)
 	i = -1;
 	quote = 0;
 	dquote = 0;
-
 	while (str[++i])
 	{
 		if (str[i] == '\'' && dquote % 2 == 0)

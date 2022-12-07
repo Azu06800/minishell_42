@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 19:21:55 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 17:22:22 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <dirent.h>
 # include <fcntl.h>
 
+# include <stdio.h>
+
 
 # define prompt "minishell$ "
 
@@ -43,12 +45,15 @@ size_t cpt_word(char *str);
 	//sep
 int		ft_strlenspc(char *arg);
 char    *ft_add_spc(char *arg);
+int	ft_strlenspquote(char *arg);
+char    *ft_add_spcquote(char *arg);
 	//split
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	**ft_lexer(char *arg);
+char    **ft_lasttoken(char **token);
 
 //-------------------PARSER-------------------//
 int	cmp_str(char *str, char *cmp);
@@ -59,17 +64,21 @@ void	ft_echo(char **token);
 void	ft_exit(char **token);
 
 //-------------------SIGNAL-------------------//
-void	ctr_c(int sig);
+void	init_signal(void);
 
 //-------------------ERROR-------------------//
 int		error_quote(char *str);
-char **listofcmd(void);
+char 	**listofcmd(void);
 int		check_cmd(char *str);
 int		ft_cmdcmp(char *s1, char **s2);
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 
+//-------------------UTILS-------------------//
+int	ft_cinstr(char *str, char c);
+int ft_onlyspace(char *str);
 
 //tester
 void tester_lexer(char **token);
+
 
 #endif
