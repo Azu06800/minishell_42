@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 16:34:38 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/07 14:42:04 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 void	init_minishell(t_minishell *minishell)
 {
-	int	nb_builtins;
-
-	nb_builtins = 7;
-	minishell->builtins = malloc(sizeof(char *) * nb_builtins);
+	minishell->builtins = malloc(sizeof(char *) * 7);
 	minishell->builtins[0] = "echo";
 	minishell->builtins[1] = "cd";
 	minishell->builtins[2] = "pwd";
@@ -27,13 +24,25 @@ void	init_minishell(t_minishell *minishell)
 	minishell->builtins[6] = "exit";
 }
 
-static void	shell_loop(t_minishell *minishell)
+void	boucle(void)
 {
-	struct termios	term;
-	int				ret;
+	char	*str;
+	char	**token;
 
-	ret = tcgetattr(0, &term);
-	// populate termios params with built-ins
+	signal(SIGINT, ctr_c);
+	while (1)
+	{
+		str = readline(PROMPT);
+		if (*str == '\0')
+			continue ;
+		add_history(str);
+		if (error_quote(str))
+			continue ;
+		token = ft_lexer(str);
+		free(str);
+		tester_lexer(token);
+		ft_parsing(token);
+	}
 }
 
 int	main(int ac, char **av, char **env)
@@ -47,5 +56,7 @@ int	main(int ac, char **av, char **env)
 			return (0);
 		minishell->env = env;
 		init_minishell(minishell);
+		boucle();
 	}
+	return (1);
 }

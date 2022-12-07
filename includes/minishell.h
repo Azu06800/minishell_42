@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/25 16:30:16 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/07 14:37:35 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 # include <signal.h>
 # include <sys/signal.h>
 # include "../libft/libft.h"
-
-typedef struct token
-{
-	struct token	*next;
-	struct token	*prev;
-	char			*str;
-}	t_token;
 
 typedef struct s_minishell
 {
@@ -54,5 +47,45 @@ int		ft_exit(void);
 int		ft_export(char *cmd);
 int		ft_pwd(void);
 int		ft_unset(char *name);
+//-------------------LEXER-------------------//
+	//is
+int	ft_isspace(int c);
+int ft_issep(int c);
+int	ft_isquote(int c);
+int ft_isfle(int c);
+	//malloc split
+size_t	cpt_quote(char *s);
+size_t cpt_word(char *str);
+	//sep
+int		ft_strlenspc(char *arg);
+char    *ft_add_spc(char *arg);
+	//split
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *s1);
+size_t	ft_strlen(const char *s);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	**ft_lexer(char *arg);
+
+//-------------------PARSER-------------------//
+int	cmp_str(char *str, char *cmp);
+void	ft_parsing(char **token);
+
+//--------------------EXEC--------------------//
+void	ft_echo(char **token);
+void	ft_exit(char **token);
+
+//-------------------SIGNAL-------------------//
+void	ctr_c(int sig);
+
+//-------------------ERROR-------------------//
+int		error_quote(char *str);
+char **listofcmd(void);
+int		check_cmd(char *str);
+int		ft_cmdcmp(char *s1, char **s2);
+int	ft_strcmp(const char *s1, const char *s2);
+
+
+//tester
+void tester_lexer(char **token);
 
 #endif
