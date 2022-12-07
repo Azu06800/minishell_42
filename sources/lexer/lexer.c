@@ -6,29 +6,37 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/15 17:23:28 by baroun           ###   ########.fr       */
+/*   Updated: 2022/11/30 18:42:37 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-void	check_type(char c)
+char	**ft_lexer(char *args)
 {
-	//check les / > | 
-}
+	size_t	i;
+	int		tmp;
+	char	**token;
+	int		j;
+	int		b;
+	char	*arg;
 
-void	check_command(char arg)
-{
-	//check les command
-}
-
-void	lexer(char *arg)
-{
-	int	i;
-
-	i = -1;
-	while (arg[++i])
+	i = 0;
+	j = 0;
+	b = 0;
+	arg = ft_add_spc(args);
+	token = (char **)malloc(((cpt_word(arg)) + 1) * sizeof(char *));
+	printf("t = %zu\n",cpt_word(arg));
+	while (arg[j])
 	{
-		if ()
+		while ((arg[j] && ft_isspace(arg[j])))
+			j++;
+		tmp = j;
+		while (arg[j] && !ft_isspace(arg[j]))
+			j++;
+		if (!ft_isspace(arg[j - 1]))
+			token[i++] = ft_substr(arg, tmp, j - tmp);
 	}
+	token[i] = NULL;
+	return (token);
 }
