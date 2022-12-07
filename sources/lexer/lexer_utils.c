@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/30 18:55:29 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/17 15:27:45 by baroun            #+#    #+#             */
+/*   Updated: 2022/12/07 14:44:53 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	cmp_str(char *str, char *cmp)
+{
+	int	i;
+
+	i = -1;
+
+	while (str[++i])
+	{
+		if (str[i] != cmp[i])
+			return (0);
+	}
+	return (1);
+}
 
 //utils pour split
 
@@ -55,36 +69,36 @@ char	*ft_strdup(const char *s1)
 	return (dst);
 }
 
-size_t cpt_word(char *str)
+size_t	cpt_word(char *str)
 {
-    size_t		i;
-    int			a;
-	int			b;
+	size_t	i;
+	int		a;
+	int		b;
 
-    i = 0;
-    a = 0;
+	i = 0;
+	a = 0;
 	b = 0;
 
-    while (str[a])
-    {
-        if (ft_issep(str[a]))
-          i++;
+	while (str[a])
+	{
+		if (ft_issep(str[a]))
+			i++;
 		while (ft_issep(str[a]) || b)
 		{
 			if (ft_isquote(str[a]))
 				b = !b;
 			a++;
 		}
-        if (!ft_isspace(str[a]) && !ft_issep(str[a]))
-        {
-            i++;
-            while((str[a] && !ft_isspace(str[a]) && !ft_issep(str[a])))
-                a++;
-        }
-        else
-            a++;
-    }
-    return (i);
+		if (!ft_isspace(str[a]) && !ft_issep(str[a]))
+		{
+			i++;
+			while ((str[a] && !ft_isspace(str[a]) && !ft_issep(str[a])))
+				a++;
+		}
+		else
+			a++;
+	}
+	return (i);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

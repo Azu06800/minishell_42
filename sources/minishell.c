@@ -3,29 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 17:16:55 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 14:42:04 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void boucle()
+void	init_minishell(t_minishell *minishell)
 {
-	char *str;
-	char **token;
-	
+	minishell->builtins = malloc(sizeof(char *) * 7);
+	minishell->builtins[0] = "echo";
+	minishell->builtins[1] = "cd";
+	minishell->builtins[2] = "pwd";
+	minishell->builtins[3] = "export";
+	minishell->builtins[4] = "unset";
+	minishell->builtins[5] = "env";
+	minishell->builtins[6] = "exit";
+}
+
+void	boucle(void)
+{
+	char	*str;
+	char	**token;
+
 	signal(SIGINT, ctr_c);
-	while(1)
+	while (1)
 	{
-		str = readline(prompt);
+		str = readline(PROMPT);
 		if (*str == '\0')
-			continue;
+			continue ;
 		add_history(str);
 		if (error_quote(str))
-			continue;
+			continue ;
 		token = ft_lexer(str);
 		free(str);
 		tester_lexer(token);
@@ -33,15 +45,18 @@ void boucle()
 	}
 }
 
-int	main(int ac ,char **av ,char **envp)
+int	main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
-	(void) envp;//init env
+	t_minishell	*minishell;
 
-	//init sign
-	boucle();
-		//parser
-		//expander
-		//excuter
+	if (ac == 1)
+	{
+		minishell = malloc(sizeof(t_minishell));
+		if (!minishell)
+			return (0);
+		minishell->env = env;
+		init_minishell(minishell);
+		boucle();
+	}
+	return (1);
 }

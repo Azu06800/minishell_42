@@ -3,34 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 19:21:55 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 14:37:35 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//------------------INCLUDES------------------//
-
-# include <sys/stat.h>
+# define PROMPT "minishell$ "
+# include <readline/readline.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
-# include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <signal.h>
-# include <termios.h>
-# include <sys/wait.h>
-# include <dirent.h>
-# include <fcntl.h>
+# include <sys/signal.h>
+# include "../libft/libft.h"
 
+typedef struct s_minishell
+{
+	char	*path;
+	char	**env;
+	char	**builtins;
+}	t_minishell;
 
-# define prompt "minishell$ "
+int		ft_isspace(int c);
+int		is_in_env(char *cmd, t_minishell *ms);
+void	set_path(t_minishell *ms);
+char	*get_path(t_minishell *ms);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *str);
 
+// COMMANDS
+int		ft_cd(char *cmd);
+int		ft_echo(char *text, int no_new_line);
+int		ft_env(void);
+int		ft_exit(void);
+int		ft_export(char *cmd);
+int		ft_pwd(void);
+int		ft_unset(char *name);
 //-------------------LEXER-------------------//
 	//is
 int	ft_isspace(int c);

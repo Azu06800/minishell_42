@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 19:20:30 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 14:43:00 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	err_not_found(char *cmd)
+{
+	ft_putstr_fd("minishell: command not found: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd("\n", 2);
+}
+
+void	err_perm_denied(char *cmd)
+{
+	ft_putstr_fd("minishell: permission denied: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd("\n", 2);
+}
 
 int	error_quote(char *str)
 {
@@ -40,7 +54,7 @@ int	error_quote(char *str)
 
 int	check_cmd(char *str)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = listofcmd();
 	if (ft_cmdcmp(str, cmd) == 1)
@@ -51,9 +65,9 @@ int	check_cmd(char *str)
 	return (0);
 }
 
-char **listofcmd(void)
+char	**listofcmd(void)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = (char **)malloc(sizeof(char *) * 7);
 	cmd[0] = "echo";
