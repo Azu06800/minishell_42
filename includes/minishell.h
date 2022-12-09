@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 17:22:22 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/09 19:30:29 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int	ft_isquote(int c);
 int ft_isfle(int c);
 	//malloc split
 size_t	cpt_quote(char *s);
-size_t cpt_word(char *str);
+size_t	cpt_word(char *str, int a);
 	//sep
-int		ft_strlenspc(char *arg);
+char    *ft_remove_spcqu(char *arg);
+char    *ft_add_spcqu(char *arg);
+char    *ft_remove_spc(char *arg);
 char    *ft_add_spc(char *arg);
-int	ft_strlenspquote(char *arg);
-char    *ft_add_spcquote(char *arg);
 	//split
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);

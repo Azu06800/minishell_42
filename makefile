@@ -13,8 +13,8 @@ SRCS			=	minishell.c\
 					lexer/lexer.c\
 					lexer/lexer_utils.c\
 					lexer/lexer_utils2.c\
-					lexer/lexer_utils3.c\
 					lexer/lexer_utils4.c\
+					lexer/lexer_utils3.c\
 					parsing/parsing.c\
 					parsing/parsing_utils.c\
 					exec/ft_echo.c\

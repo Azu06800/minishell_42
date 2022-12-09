@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 18:16:41 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/09 19:37:22 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,17 @@ char	**ft_lexer_boucle(char	*arg,	char	**token, int i, int j)
 		while (arg[j] && !ft_isspace(arg[j]) && !ft_isquote(arg[j + 1]))
 		{
 			if (ft_isquote(arg[j]))
-			{
-				b = !b;			
-				break;
-			}
+				b = !b;
+			if (ft_isquote(arg[j]))
+				break ;
 			j++;
 		}
-		if (b)
+		if (++b)
 			j = ft_inquote(arg, j);
 		if (ft_isquote(arg[j]) || ft_isquote(arg[j + 1]))
 			j++;
 		token[i++] = ft_substr(arg, tmp, j - tmp);
 	}
-	token[i] = NULL;
 	return (token);
 }
 
@@ -70,15 +68,14 @@ char	**ft_lexer(char *args)
 	size_t	i;
 	char	**token;
 	int		j;
-	char		*arg;
+	char	*arg;
 
 	i = 0;
 	j = 0;
-
 	arg = ft_add_spc(args);
-	token = (char **)malloc(((cpt_word(arg)) + 1) * sizeof(char *));
-	printf("t = %zu\n",cpt_word(arg));
+	token = malloc(((cpt_word(arg, j)) + 1) * sizeof(char *));
 	token = ft_lexer_boucle(arg, token, i, j);
+	token[cpt_word(arg, j)] = NULL;
 	free(arg);
 	token = ft_lasttoken(token);
 	return (token);
