@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ctrl_c.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/01 19:19:29 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:05:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ctr_c(int sig)
+void	ctrl_c(int sig)
 {
 	(void)sig;
 	rl_on_new_line();

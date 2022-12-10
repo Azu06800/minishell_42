@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/26 09:34:57 by emorvan           #+#    #+#             */
-/*   Updated: 2022/05/02 13:28:37 by emorvan          ###   ########.fr       */
+/*   Created: 2022/12/07 14:58:30 by emorvan           #+#    #+#             */
+/*   Updated: 2022/12/07 14:58:47 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft.h"
+#include "../../includes/minishell.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memset(void *b, int c, size_t len)
 {
 	size_t			i;
-	unsigned char	*dst_c;
-	unsigned char	*src_c;
+	unsigned char	*ptr;
 
-	if (dst == NULL && src == NULL)
-		return (NULL);
 	i = 0;
-	dst_c = (unsigned char *)dst;
-	src_c = (unsigned char *)src;
-	if (src_c < dst_c)
+	ptr = (unsigned char *)b;
+	while (i < len)
 	{
-		while (len--)
-			dst_c[len] = src_c[len];
+		ptr[i] = (unsigned char)c;
+		i++;
 	}
-	else
-	{
-		while (i < len)
-		{
-			dst_c[i] = src_c[i];
-			i++;
-		}
-	}
-	return (dst);
+	return (b);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }

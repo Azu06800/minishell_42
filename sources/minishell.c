@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 14:42:04 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/07 15:05:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	boucle(void)
 	char	*str;
 	char	**token;
 
-	signal(SIGINT, ctr_c);
+	signal(SIGINT, ctrl_c);
 	while (1)
 	{
 		str = readline(PROMPT);
 		if (*str == '\0')
 			continue ;
 		add_history(str);
-		if (error_quote(str))
+		if (err_unclosed_quote(str))
 			continue ;
 		token = ft_lexer(str);
 		free(str);

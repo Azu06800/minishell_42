@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 14:43:00 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/10 11:29:36 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	err_perm_denied(char *cmd)
 	ft_putstr_fd("\n", 2);
 }
 
-int	error_quote(char *str)
+int	err_unclosed_quote(char *str)
 {
 	int	i;
 	int	quote;
@@ -52,30 +52,15 @@ int	error_quote(char *str)
 	return (0);
 }
 
-int	check_cmd(char *str)
+int	check_cmd(char *str, t_minishell *minishell)
 {
 	char	**cmd;
 
-	cmd = listofcmd();
+	cmd = minishell->builtins;
 	if (ft_cmdcmp(str, cmd) == 1)
 	{
 		printf("minishell: command not found: %s\n", str);
 		return (1);
 	}
 	return (0);
-}
-
-char	**listofcmd(void)
-{
-	char	**cmd;
-
-	cmd = (char **)malloc(sizeof(char *) * 7);
-	cmd[0] = "echo";
-	cmd[1] = "cd";
-	cmd[2] = "pwd";
-	cmd[3] = "export";
-	cmd[4] = "unset";
-	cmd[5] = "env";
-	cmd[6] = "exit";
-	return (cmd);
 }

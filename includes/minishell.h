@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 14:37:35 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/07 15:05:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/signal.h>
-# include "../libft/libft.h"
 
 typedef struct s_minishell
 {
@@ -75,12 +74,12 @@ void	ft_echo(char **token);
 void	ft_exit(char **token);
 
 //-------------------SIGNAL-------------------//
-void	ctr_c(int sig);
+void	ctrl_c(int sig);
 
 //-------------------ERROR-------------------//
-int		error_quote(char *str);
+int		err_unclosed_quote(char *str);
 char **listofcmd(void);
-int		check_cmd(char *str);
+int		check_cmd(char *str, t_minishell *minishell);
 int		ft_cmdcmp(char *s1, char **s2);
 int	ft_strcmp(const char *s1, const char *s2);
 
