@@ -6,13 +6,13 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/09 19:37:22 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/12 14:06:42 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_inquote(char	*arg, int j)
+int	ft_inquote(char	*arg, int j, int *b)
 {
 	int		in_sq;
 	int		in_dq;
@@ -32,6 +32,7 @@ int	ft_inquote(char	*arg, int j)
 			in_dq = !in_dq;
 		j++;
 	}
+	*b = 0;
 	return (j);
 }
 
@@ -54,8 +55,8 @@ char	**ft_lexer_boucle(char	*arg,	char	**token, int i, int j)
 				break ;
 			j++;
 		}
-		if (++b)
-			j = ft_inquote(arg, j);
+		if (b)
+			j = ft_inquote(arg, j, &b);
 		if (ft_isquote(arg[j]) || ft_isquote(arg[j + 1]))
 			j++;
 		token[i++] = ft_substr(arg, tmp, j - tmp);

@@ -10,44 +10,61 @@ SOURCES			=	./sources
 OBJECTS			=	./bin
 
 SRCS			=	minishell.c\
-					lexer/lexer.c\
-					lexer/lexer_utils.c\
-					lexer/lexer_utils2.c\
-					lexer/lexer_utils4.c\
-					lexer/lexer_utils3.c\
-					parsing/parsing.c\
-					parsing/parsing_utils.c\
-					exec/ft_echo.c\
-					exec/ft_exit.c\
+					$(addprefix lexer/, lexer.c lexer_utils.c lexer_utils2.c lexer_utils3.c lexer_utils4.c)\
+					$(addprefix parsing/, parsing.c parsing_utils.c)\
+					$(addprefix exec/, ft_echo.c ft_exit.c)\
 					signal/signal.c\
 					utils/utils.c\
 					error/error.c\
 					error/error_utils.c
+
 
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
 CFLAGS			=	-Wall -Wextra -Werror -Iincludes
 CC				=	gcc
 CINCLUDES		=	-I ./includes
-LINK			=	libhistory.a libreadline.a -lreadline -lncurses
+LINK			=	libreadline.a -lreadline -lncurses
 
 ${OBJECTS}/%.o: ${SOURCES}/%.c
+	@if [ ! -d "includes/readline" ]; then make rl; fi
 	@mkdir -p $(dir $@)
 	@echo "⏳ Compilation de $(YEL)${notdir $<}$(EOC). ⏳"
 	@${CC} ${CFLAGS} -o $@ -c $< ${CINCLUDES}
 
 all: ${NAME}
 
+rl:
+	@rm -rf req.sh
+	@rm -rf t
+	@echo "touch readline-8.1.tar.gz" >> req.sh
+	@echo "⏳ Creation de $(YEL)libreadline$(EOC). ⏳"
+	@echo "curl -ks https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz > readline-8.1.tar.gz" >> req.sh
+	@echo "(tar -xf readline-8.1.tar.gz) >> t"  >> req.sh
+	@echo "mv readline-8.1 readline" >> req.sh
+	@echo "rm -rf readline-8.1.tar.gz" >> req.sh
+	@echo "mv readline includes" >> req.sh
+	@echo "cd includes/readline/" >> req.sh
+	@echo "(./configure --prefix=$$(pwd)/includes/readline) >> t" >> req.sh
+	@echo "make && make install && make clean" >> req.sh
+	@echo "rm -rf t" >> req.sh
+	@echo "cd ../../" >> req.sh
+	@echo "clear" >> req.sh
+	@sh req.sh
+	@stty -echoctl
+	@echo "✅ $(GRE)Creation de libreadline terminée.$(EOC) ✅"
+
 ${NAME}: ${OBJS}
-	@echo "✅ $(GRE)Compilation terminée$(EOC) ✅"
+	@echo "✅ $(GRE)Compilation terminée.$(EOC) ✅"
 	@${CC} ${CFLAGS} ${LINK} -o ${NAME} ${OBJS}
 
 clean:
-	@echo "🗑 $(RED)Supression des fichiers binaires (.o).$(EOC) 🗑"
+	@echo "🗑  $(RED)Supression des fichiers binaires (.o).$(EOC) 🗑"
 	@rm -rf ${OBJECTS}
 
 fclean: clean
-	@echo "🗑 $(RED)Supression des executables et librairies.$(EOC) 🗑"
+	@echo "🗑  $(RED)Supression des executables et librairies.$(EOC) 🗑"
+	@rm -rf includes/readline
 	@rm -f ${NAME}
 
 re: fclean all

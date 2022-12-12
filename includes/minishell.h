@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/09 19:30:29 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/12 11:53:50 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 //------------------INCLUDES------------------//
 
+# include <stdio.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -27,8 +28,6 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <fcntl.h>
-
-# include <stdio.h>
 
 
 # define prompt "minishell$ "

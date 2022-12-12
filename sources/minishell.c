@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 15:36:42 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/12 12:12:36 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_freeall(char **token, char *str)
 	i = -1;
 	while (token[++i])
 		free(token[i]);
+	free(token[i]);
 	free(str);
 	free(token);
 }
@@ -36,7 +37,7 @@ void boucle()
 	char *str;
 	char **token;
 	
-	//init_signal();
+	init_signal();
 	while(1)
 	{
 		str = readline(prompt);
@@ -46,7 +47,7 @@ void boucle()
 			add_history(str);
 		token = ft_lexer(str);
 		tester_lexer(token);
-		//ft_parsing(token);
+		ft_parsing(token);
 		ft_freeall(token, str);
 	}
 }
