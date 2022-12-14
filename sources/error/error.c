@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/10 11:29:36 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:57:34 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,23 @@
 
 void	err_not_found(char *cmd)
 {
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd("\n", 2);
+	write(2, "minishell: command not found: ", 30);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
 }
 
 void	err_perm_denied(char *cmd)
 {
-	ft_putstr_fd("minishell: permission denied: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd("\n", 2);
+	write(2, "minishell: permission denied: ", 30);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
+}
+
+void	err_no_file_or_dir(char *cmd)
+{
+	write(2, "minishell: no such file or directory: ", 38);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
 }
 
 int	err_unclosed_quote(char *str)
@@ -32,11 +39,9 @@ int	err_unclosed_quote(char *str)
 	int	quote;
 	int	dquote;
 
-
 	i = -1;
 	quote = 0;
 	dquote = 0;
-
 	while (str[++i])
 	{
 		if (str[i] == '\'' && dquote % 2 == 0)
@@ -46,7 +51,7 @@ int	err_unclosed_quote(char *str)
 	}
 	if (quote % 2 == 1 || dquote % 2 == 1)
 	{
-		printf("minishell: syntax error unclosed quote\n");
+		write(2, "minishell: syntax error unclosed quote\n", );
 		return (1);
 	}
 	return (0);

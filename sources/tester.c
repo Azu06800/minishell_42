@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/10 11:27:54 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:29:56 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	tester_lexer(char **token)
 
 	i = -1;
 	while (token[++i])
-		printf("\ntoken %i = %s\n",i,token[i]);
+		printf("\ntoken %i = %s\n", i, token[i]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:52:13 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/16 18:19:36 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:30:49 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	*get_path_for_cmd(char *cmd, t_minishell *ms)
 		return ("builtin");
 	command = ft_strjoin("/", cmd);
 	paths = ft_split(get_path(ms), ':');
-
 	i = 0;
 	while (paths[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 14:56:02 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/07 14:57:49 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:17:25 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (*str1 - *str2);
 }
 
-static int	count_strs(char const *s, char c)
-{
-	int	i;
-
-	i = 0;
-	while (*s)
-	{
-		if (*s == c)
-		{
-			s++;
-		}
-		else
-		{
-			i++;
-			while (*s != '\0' && *s != c)
-			{
-				s++;
-			}
-		}
-	}
-	return (i);
-}
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -84,12 +61,29 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (i);
 }
 
-size_t	ft_strlen(const char *str)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	i;
+	char	*str;
+	int		i;
+	int		j;
 
+	if (!s1 || !s2)
+		return (NULL);
 	i = 0;
-	while (str[i])
+	j = 0;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
 		i++;
-	return (i);
+	}
+	while (s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }

@@ -6,28 +6,20 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 14:57:57 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/07 15:04:33 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:21:34 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
+	int	i;
 
-	if (n == 0)
-		return (0);
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (*str1 && *str2 && *str1 == *str2 && n > 1)
-	{
-		str1++;
-		str2++;
-		n--;
-	}
-	return (*str1 - *str2);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 static int	count_strs(char const *s, char c)
@@ -53,33 +45,31 @@ static int	count_strs(char const *s, char c)
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
+	int			len;
+	int			i;
+	const char	*start;
+	char		**array;
 
+	array = (char **) malloc(((count_strs(s, c)) + 1) * sizeof(*array));
+	if (!array)
+		return (0);
 	i = 0;
-	j = 0;
-	while (src[i] != '\0')
-		i++;
-	if (dstsize > 0)
+	while (*s)
 	{
-		while (src[j] != '\0' && j < dstsize - 1)
+		while (*s && *s == c)
+			s++;
+		start = s;
+		len = 0;
+		while (*s && *s != c)
 		{
-			dst[j] = src[j];
-			j++;
+			s++;
+			len++;
 		}
-		dst[j] = '\0';
+		if (*(s - 1) != c)
+			array[i++] = ft_substr(start, 0, len);
 	}
-	return (i);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	array[i] = 0;
+	return (array);
 }

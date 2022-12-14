@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 15:05:17 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:29:01 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_minishell	*minishell;
 
+	(void) av;
 	if (ac == 1)
 	{
 		minishell = malloc(sizeof(t_minishell));

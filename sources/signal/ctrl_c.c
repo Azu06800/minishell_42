@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 15:05:17 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 15:40:00 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,3 @@ void	ctrl_c(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
-	
-	
