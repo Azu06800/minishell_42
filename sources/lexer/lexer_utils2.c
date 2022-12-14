@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:09:37 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/16 15:48:34 by baroun            #+#    #+#             */
+/*   Updated: 2022/12/09 19:38:41 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_signalhandler(int sig)
+int	ft_isspace(int c)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}	
+	return (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\n' || c == '\f' || c == '\r');
 }
 
-void	init_signal(void)
+int	ft_isword(char *str, int i)
 {
-	signal(SIGINT, ft_signalhandler);
-	signal(SIGQUIT, ft_signalhandler);
+	return ((str[i] > 32 && str[i] < 127) \
+	&& (ft_isspace(str[i + 1] || str[i + 1] == '\0')));
 }
 
+int	ft_issep(int c)
+{
+	return (ft_isfle(c) || ft_isquote(c));
+}
+
+int	ft_isquote(int c)
+{
+	return (c == '\"' || c == '\'');
+}
+
+int	ft_isfle(int c)
+{
+	return (c == '>' || c == '<' || c == '|');
+}
