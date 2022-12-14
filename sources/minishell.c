@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
 /*   Updated: 2022/12/14 16:46:11 by baroun           ###   ########.fr       */
@@ -12,31 +12,20 @@
 
 #include "../includes/minishell.h"
 
-void	ft_freeall(char **token, char *str)
+void	boucle(void)
 {
-	int i;
+	char	*str;
+	char	**token;
 
-	i = -1;
-	while (token[++i])
-		free(token[i]);
-	free(token[i]);
-	free(str);
-	free(token);
-}
-
-void boucle()
-{
-	char *str;
-	char **token;
-	
-	init_signal();
-	while(1)
+	signal(SIGINT, ctrl_c);
+	while (1)
 	{
-		str = readline(prompt);
+		str = readline(PROMPT);
 		if (*str == '\0')
-			continue;
-		if (!ft_isspace(*str))
-			add_history(str);
+			continue ;
+		add_history(str);
+		if (err_unclosed_quote(str))
+			continue ;
 		token = ft_lexer(str);
 		tester_lexer(token);
 		ft_parsing(token);
@@ -44,15 +33,19 @@ void boucle()
 	}
 }
 
-int	main(int ac ,char **av ,char **envp)
+int	main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
-	(void) envp;//init env
+	t_minishell	*minishell;
 
-	//init sign
-	boucle();
-		//parser
-		//expander
-		//excuter
+	(void) av;
+	if (ac == 1)
+	{
+		minishell = malloc(sizeof(t_minishell));
+		if (!minishell)
+			return (0);
+		minishell->env = env;
+		init_minishell(minishell);
+		boucle();
+	}
+	return (1);
 }

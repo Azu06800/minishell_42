@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 15:27:45 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/17 16:55:09 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/16 17:10:04 by emorvan           #+#    #+#             */
+/*   Updated: 2022/12/14 14:56:06 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	cmp_str(char *str, char *cmp)
+#include "../../includes/minishell.h"
+
+void	ft_exit(char **token)
 {
 	int	i;
 
 	i = -1;
-
-	while (str[++i])
-	{
-		if (str[i] != cmp[i])
-			return (0);
-	}
-	return (1);
+	while (token[++i])
+		free(token[i]);
+	free(token[i]);
+	free(token);
+	exit(0);
 }

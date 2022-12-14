@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec2.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 15:56:08 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/17 16:09:40 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/16 16:49:40 by emorvan           #+#    #+#             */
+/*   Updated: 2022/11/16 18:34:15 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_exit(char **token)
+int	ft_pwd(void)
 {
-	int	i;
+	char	*cur_dir;
 
-	i = -1;
-	while (token[++i])
-		free(token[i]);
-	free(token[i]);
-	free(token);
-	exit(0);
+	cur_dir = malloc(sizeof(char) * 256);
+	if (getcwd(cur_dir, sizeof(char) * 256) == NULL)
+		return (1);
+	printf("%s", cur_dir);
+	return (0);
 }

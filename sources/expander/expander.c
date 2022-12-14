@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_utils.c                                      :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 18:56:22 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 14:59:33 by emorvan          ###   ########.fr       */
+/*   Created: 2022/11/23 14:29:07 by emorvan           #+#    #+#             */
+/*   Updated: 2022/11/26 11:08:45 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cmdcmp(char *s1, char **s2)
+// Expand $VARIABLES to their value
+char	*expand_env(char *dollar_sign)
 {
-	int	i;
+	char	*env_variable;
 
-	i = -1;
-	while (s2[++i])
-	{
-		if (ft_strcmp(s1, s2[i]) == 0)
-			return (1);
-	}
-	return (0);
+	env_variable = getenv(ft_substr(dollar_sign, 1, ft_strlen(dollar_sign)));
+	return (env_variable);
 }

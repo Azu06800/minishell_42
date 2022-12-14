@@ -3,33 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 18:29:17 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/12 12:17:18 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
+/*   Updated: 2022/12/14 16:32:34 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_signalhandler(int sig)
+void	tester_lexer(char **token)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}	
-}
+	int	i;
 
-void	init_signal(void)
-{
-	signal(SIGINT, ft_signalhandler);
-	signal(SIGQUIT, ft_signalhandler);
+	i = -1;
+	while (token[++i])
+		printf("\ntoken %i = %s\n", i, token[i]);
 }

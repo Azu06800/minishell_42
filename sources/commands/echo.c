@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 15:40:01 by baroun            #+#    #+#             */
-/*   Updated: 2022/11/22 16:35:29 by baroun           ###   ########.fr       */
+/*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
+/*   Updated: 2022/12/14 15:45:01 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*void echo_print(char **token,int i)
-{
-
-}*/
-void	ft_echo(char **token)
+int	ft_echo(char **token)
 {
 	int	i;
 
 	i = 0;
-
-	//if ())
-		//option -n
 	while (token[++i])
-		printf("%s ",token[i]);
-	printf("\n");
+	{
+		printf("%s ", token[i]);
+	}
+	if (!no_new_line)
+		printf("\n");
+	return (0);
 }
-
-

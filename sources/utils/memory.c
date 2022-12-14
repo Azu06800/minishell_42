@@ -1,40 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils2.c                                     :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:48:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/09 19:38:41 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/14 16:32:56 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_isspace(int c)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	return (c == ' ' || c == '\t' || c == '\v'
-		|| c == '\n' || c == '\f' || c == '\r');
+	size_t			i;
+	unsigned char	*ptr;
+
+	i = 0;
+	ptr = (unsigned char *)b;
+	while (i < len)
+	{
+		ptr[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
 }
 
-int	ft_isword(char *str, int i)
+void	ft_bzero(void *s, size_t n)
 {
-	return ((str[i] > 32 && str[i] < 127) \
-	&& (ft_isspace(str[i + 1] || str[i + 1] == '\0')));
+	ft_memset(s, '\0', n);
 }
 
-int	ft_issep(int c)
+void	*ft_calloc(size_t count, size_t size)
 {
-	return (ft_isfle(c) || ft_isquote(c));
-}
+	void	*ptr;
 
-int	ft_isquote(int c)
-{
-	return (c == '\"' || c == '\'');
-}
-
-int	ft_isfle(int c)
-{
-	return (c == '>' || c == '<' || c == '|');
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }

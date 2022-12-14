@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_utils.c                                      :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 18:56:22 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 14:59:33 by emorvan          ###   ########.fr       */
+/*   Created: 2022/11/25 16:22:23 by emorvan           #+#    #+#             */
+/*   Updated: 2022/12/14 15:39:47 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cmdcmp(char *s1, char **s2)
+void	ft_sigint(int sig)
 {
-	int	i;
-
-	i = -1;
-	while (s2[++i])
-	{
-		if (ft_strcmp(s1, s2[i]) == 0)
-			return (1);
-	}
-	return (0);
+	(void)sig;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }

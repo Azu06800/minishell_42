@@ -3,21 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/06 18:18:24 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/14 16:31:53 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	error_quote(char *str)
+void	err_not_found(char *cmd)
+{
+	write(2, "minishell: command not found: ", 30);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
+}
+
+void	err_perm_denied(char *cmd)
+{
+	write(2, "minishell: permission denied: ", 30);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
+}
+
+void	err_no_file_or_dir(char *cmd)
+{
+	write(2, "minishell: no such file or directory: ", 38);
+	write(2, cmd, ft_strlen(cmd));
+	write(2, "\n", 1);
+}
+
+int	err_unclosed_quote(char *str)
 {
 	int	i;
 	int	quote;
 	int	dquote;
-
 
 	i = -1;
 	quote = 0;
@@ -31,36 +51,21 @@ int	error_quote(char *str)
 	}
 	if (quote % 2 == 1 || dquote % 2 == 1)
 	{
-		printf("minishell: syntax error unclosed quote\n");
+		write(2, "minishell: syntax error unclosed quote\n", 2);
 		return (1);
 	}
 	return (0);
 }
 
-int	check_cmd(char *str)
+int	check_cmd(char *str, t_minishell *minishell)
 {
-	char **cmd;
+	char	**cmd;
 
-	cmd = listofcmd();
+	cmd = minishell->builtins;
 	if (ft_cmdcmp(str, cmd) == 1)
 	{
 		printf("minishell: command not found: %s\n", str);
 		return (1);
 	}
 	return (0);
-}
-
-char **listofcmd(void)
-{
-	char **cmd;
-
-	cmd = (char **)malloc(sizeof(char *) * 7);
-	cmd[0] = "echo";
-	cmd[1] = "cd";
-	cmd[2] = "pwd";
-	cmd[3] = "export";
-	cmd[4] = "unset";
-	cmd[5] = "env";
-	cmd[6] = "exit";
-	return (cmd);
 }
