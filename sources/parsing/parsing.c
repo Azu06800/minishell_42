@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 15:26:52 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 15:38:50 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:32:58 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	cmp_str(char *str, char *cmp)
+{
+	int	i;
+
+	i = -1;
+
+	while (str[++i])
+	{
+		if (str[i] != cmp[i])
+			return (0);
+	}
+	return (1);
+}
 
 void	ft_parsing(char **token)
 {

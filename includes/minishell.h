@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:27:56 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:39:42 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 //-------------------UTILS-------------------//
 int	ft_cinstr(char *str, char c);
 int ft_onlyspace(char *str);
+size_t	ft_strlen(const char *str);
 
 
 #endif

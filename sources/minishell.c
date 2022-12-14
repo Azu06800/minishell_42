@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:15:13 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/14 17:44:20 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	boucle(void)
 	{
 		str = readline("minishell$ ");
 		if (*str == '\0')
+			continue ;
+		if (err_unclosed_quote(str))
 			continue ;
 		add_history(str);
 		if (err_unclosed_quote(str))

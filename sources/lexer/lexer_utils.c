@@ -6,25 +6,13 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/09 19:30:06 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/14 17:40:11 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 //utils pour split
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
