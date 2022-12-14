@@ -6,14 +6,21 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 15:45:23 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:34:58 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define PROMPT "minishell$ "
+//------------------INCLUDES------------------//
+
+# include <stdio.h>
+# include <sys/stat.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdio.h>
@@ -53,14 +60,17 @@ int		ft_isspace(int c);
 int		ft_issep(int c);
 int		ft_isquote(int c);
 size_t	cpt_quote(char *s);
-size_t	cpt_word(char *str);
+size_t cpt_word(char *str);
+	//sep
 int		ft_strlenspc(char *arg);
-char	*ft_add_spc(char *arg);
+char    *ft_add_spc(char *arg);
+	//split
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	**ft_lexer(char *arg);
+char    **ft_lasttoken(char **token);
 
 // PARSER
 int		cmp_str(char *str, char *cmp);
@@ -69,16 +79,18 @@ void	ft_parsing(char **token);
 // EXEC
 void	ft_exit(char **token);
 
-// SIGNAL
-void	ctrl_c(int sig);
+//-------------------SIGNAL-------------------//
+void	ctr_c(int sig);
 
-// ERROR
-int		err_unclosed_quote(char *str);
-char	**listofcmd(void);
-int		check_cmd(char *str, t_minishell *minishell);
+//-------------------ERROR-------------------//
+int		error_quote(char *str);
+char **listofcmd(void);
+int		check_cmd(char *str);
 int		ft_cmdcmp(char *s1, char **s2);
-int		ft_strcmp(const char *s1, const char *s2);
+int	ft_strcmp(const char *s1, const char *s2);
 
-// TESTER
-void	tester_lexer(char **token);
+
+//tester
+void tester_lexer(char **token);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 15:57:34 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:31:53 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	err_unclosed_quote(char *str)
 	}
 	if (quote % 2 == 1 || dquote % 2 == 1)
 	{
-		write(2, "minishell: syntax error unclosed quote\n", );
+		write(2, "minishell: syntax error unclosed quote\n", 2);
 		return (1);
 	}
 	return (0);

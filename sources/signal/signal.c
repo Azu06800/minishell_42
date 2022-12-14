@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ctrl_c.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 15:40:00 by emorvan          ###   ########.fr       */
+/*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
+/*   Updated: 2022/12/14 16:32:34 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ctrl_c(int sig)
+void	tester_lexer(char **token)
 {
-	(void)sig;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	int	i;
+
+	i = -1;
+	while (token[++i])
+		printf("\ntoken %i = %s\n", i, token[i]);
 }
