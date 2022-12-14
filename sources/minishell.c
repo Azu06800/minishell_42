@@ -6,19 +6,11 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/12 12:12:36 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/14 16:46:11 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-void tester_lexer(char **token)
-{
-	int i;
-
-	i = -1;
-	while (token[++i])
-		printf("\ntoken %i = %s \n",i,token[i]);
-}
 
 void	ft_freeall(char **token, char *str)
 {
