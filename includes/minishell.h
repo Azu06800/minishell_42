@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:16:24 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/14 17:27:56 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,20 @@ size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	**ft_lexer(char *arg);
 char    **ft_lasttoken(char **token);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	**ft_split(char const *s, char c);
 
 //-------------------PARSER-------------------//
 int	cmp_str(char *str, char *cmp);
 void	ft_parsing(char **token);
 
 //------------------COMMANDS------------------//
-int		ft_cd(char *cmd);
+int		ft_cd(char **token);
 int		ft_echo(char **token);
-int		t_env(void);
-int		ft_export(char *cmd);
-int		ft_pwd(void);
+int		ft_env(char **token);
+int		ft_export(char **token);
+int		ft_pwd(char **token);
 int		ft_unset(char **token);
 void	ft_exit(char **token);
 
@@ -79,7 +82,7 @@ void	init_signal(void);
 int		error_quote(char *str);
 int		err_unclosed_quote(char *str);
 char 	**listofcmd(void);
-int		check_cmd(char *str);
+int		check_cmd(char *str, t_minishell *minishell);
 int		ft_cmdcmp(char *s1, char **s2);
 int		ft_strcmp(const char *s1, const char *s2);
 

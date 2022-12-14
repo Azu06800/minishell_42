@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:50:36 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/16 18:14:43 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:20:29 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cd(char *cmd)
+int	ft_cd(char **token)
 {
-	(void) cmd;
+	(void) token;
 	return (0);
 }

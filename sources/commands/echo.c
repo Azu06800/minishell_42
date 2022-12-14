@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/14 15:45:01 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:26:13 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 int	ft_echo(char **token)
 {
 	int	i;
+	int	should_nl;
 
 	i = 0;
-	while (token[++i])
+	should_nl = 1;
+	if (ft_strcmp(token[1], "-n"))
 	{
-		printf("%s ", token[i]);
+		should_nl = 0;
+		i++;
 	}
-	if (!no_new_line)
+	while (token[++i])
+		printf("%s ", token[i]);
+	if (should_nl)
 		printf("\n");
 	return (0);
 }

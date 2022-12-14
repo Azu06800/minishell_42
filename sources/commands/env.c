@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:47:48 by emorvan           #+#    #+#             */
-/*   Updated: 2022/11/16 17:51:27 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:26:29 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_env(void)
+int	ft_env(char **token)
 {
+	(void) token;
 	return (0);
 }

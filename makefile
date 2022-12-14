@@ -11,8 +11,7 @@ OBJECTS			=	./bin
 
 SRCS			=	minishell.c\
 					$(addprefix lexer/, lexer.c lexer_utils.c lexer_utils2.c lexer_utils3.c lexer_utils4.c)\
-					$(addprefix parsing/, parsing.c parsing_utils.c)\
-					$(addprefix exec/, ft_echo.c ft_exit.c)\
+					$(addprefix parsing/, parsing.c)\
 					$(addprefix parsing/, parsing.c)\
 					$(addprefix env/, env.c env_utils.c)\
 					$(addprefix commands/, cd.c echo.c env.c exit.c export.c pwd.c unset.c)\
@@ -54,6 +53,7 @@ rl:
 	@echo "clear" >> req.sh
 	@sh req.sh
 	@rm -rf req.sh
+	@rm -rf t
 	@stty -echoctl
 	@echo "✅ $(GRE)Creation de libreadline terminée.$(EOC) ✅"
 
