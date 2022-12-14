@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 16:16:22 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/07 16:23:02 by baroun           ###   ########.fr       */
+/*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
+/*   Updated: 2022/12/14 16:29:33 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_cinstr(char *str, char c)
+int	ftl_cinstr(char *str, char c)
 {
 	int	i;
 
