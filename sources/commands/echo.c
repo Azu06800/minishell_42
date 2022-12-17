@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/14 17:54:47 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/17 15:10:13 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	ft_echo(char **token)
 	}
 	
 	while (token[++i])
-		print()
 		printf("%s", token[i]);
 	if (should_nl)
 		printf("\n");

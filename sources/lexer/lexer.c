@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 13:00:50 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/17 15:44:26 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ int	ft_inquote(char	*arg, int j, int *b)
 	}
 	*b = 0;
 	return (j);
+}
+
+int ft_backslash(char *arg, int j)
+{
+	if (arg[j] == '\\' && ft_isquote(arg[j + 1]))
+		return (1);
+	return (0);
 }
 
 char	**ft_lexer_boucle(char	*arg,	char	**token, int i, int j)

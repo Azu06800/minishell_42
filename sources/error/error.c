@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:50:59 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/17 15:12:49 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	err_unclosed_quote(char *str)
 	dquote = 0;
 	while (str[++i])
 	{
-		if (str[i] == '\'' && dquote % 2 == 0)
+		if (str[i] == '\'' && dquote % 2 == 0 && str[i - 1] != '\\')
 			quote++;
-		if (str[i] == '\"' && quote % 2 == 0)
+		if (str[i] == '\"' && quote % 2 == 0 && str[i - 1] != '\\')
 			dquote++;
 	}
 	if (quote % 2 == 1 || dquote % 2 == 1)
