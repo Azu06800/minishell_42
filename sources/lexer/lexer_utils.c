@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:40:11 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/19 01:17:42 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ size_t	cpt_word(char *str, int a)
 	b = 0;
 	while (str[a])
 	{
-		if (ft_issep(str[a]))
+		if (ft_issep(str[a]) && str[a - 1] != '\\')
 			i++;
 		while (ft_issep(str[a]) || b)
 		{
-			if (ft_isquote(str[a]))
+			if (ft_isquote(str[a]) && str[a - 1] != '\\')
 				b = !b;
 			a++;
 		}
 		if (!ft_isspace(str[a]) && !ft_issep(str[a]) && str[a])
 		{
 			i++;
-			while ((str[a] && !ft_isspace(str[a]) && !ft_issep(str[a])))
+			while ((str[a] && !ft_isspace(str[a]) && (!ft_issep(str[a]) || str[a - 1] == '\\' )))
 				a++;
 		}
 		else

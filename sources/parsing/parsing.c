@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 15:26:52 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:32:58 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/19 02:11:09 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	cmp_str(char *str, char *cmp)
 
 	i = -1;
 
-	while (str[++i])
+	while (cmp[++i])
 	{
 		if (str[i] != cmp[i])
 			return (0);

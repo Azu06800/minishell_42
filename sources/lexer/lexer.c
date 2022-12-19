@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:54:34 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/17 15:44:26 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/19 02:05:30 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@ int	ft_inquote(char	*arg, int j, int *b)
 	return (j);
 }
 
-int ft_backslash(char *arg, int j)
-{
-	if (arg[j] == '\\' && ft_isquote(arg[j + 1]))
-		return (1);
-	return (0);
-}
-
 char	**ft_lexer_boucle(char	*arg,	char	**token, int i, int j)
 {
 	int		tmp;
@@ -54,17 +47,17 @@ char	**ft_lexer_boucle(char	*arg,	char	**token, int i, int j)
 		while ((arg[j] && ft_isspace(arg[j])))
 			j++;
 		tmp = j;
-		while (arg[j] && !ft_isspace(arg[j]) && !ft_isquote(arg[j + 1]))
+		while (arg[j] && !ft_isspace(arg[j]) && (!ft_isquote(arg[j + 1]) || arg[i] != '\\'))
 		{
-			if (ft_isquote(arg[j]))
+			if (ft_isquote(arg[j]) && arg[i - 1] != '\\')
 				b = !b;
-			if (ft_isquote(arg[j]))
+			if (ft_isquote(arg[j]) && arg[i - 1] != '\\')
 				break ;
 			j++;
 		}
 		if (b)
 			j = ft_inquote(arg, j, &b);
-		if (ft_isquote(arg[j]) || ft_isquote(arg[j + 1]))
+		if ((ft_isquote(arg[j]) && arg[i + 1]) || (ft_isquote(arg[j + 1]) && arg[i] != '\\'))
 			j++;
 		token[i++] = ft_substr(arg, tmp, j - tmp);
 	}

@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:39:42 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/19 01:59:10 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char    *ft_remove_spcqu(char *arg);
 char    *ft_add_spcqu(char *arg);
 char    *ft_remove_spc(char *arg);
 char    *ft_add_spc(char *arg);
+char	*ft_remove_bslash(char *arg);
+int 	ft_strlenrslash(char *arg);
 	//split
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
