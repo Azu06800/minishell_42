@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/17 15:00:17 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:55:30 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char    *ft_remove_spcqu(char *arg);
 char    *ft_add_spcqu(char *arg);
 char    *ft_remove_spc(char *arg);
 char    *ft_add_spc(char *arg);
+char	*ft_remove_bslash(char *arg);
+int 	ft_strlenrslash(char *arg);
 	//split
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);

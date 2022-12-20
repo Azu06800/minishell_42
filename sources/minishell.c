@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/17 15:00:31 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:54:59 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	boucle(t_minishell *minishell)
 	{
 		str = readline("minishell$ ");
 		if (*str == '\0')
-			continue ;
-		if (err_unclosed_quote(str))
 			continue ;
 		add_history(str);
 		if (err_unclosed_quote(str))
