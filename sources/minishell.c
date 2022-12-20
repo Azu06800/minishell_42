@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/20 14:54:59 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/21 00:48:27 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ void	ft_freeall(char **token, char *str)
 
 void	boucle(t_minishell *minishell)
 {
-	char	*str;
-	char	**token;
+	char			*str;
+	char			**token;
+	t_parser_token	*parser_token;
 
 	init_signal();
 	while (1)
@@ -51,7 +52,8 @@ void	boucle(t_minishell *minishell)
 		if (err_unclosed_quote(str))
 			continue ;
 		token = ft_lexer(str);
-		ft_parsing(token, minishell);
+		parser_token = ft_parse_tokens(token, minishell);
+		print_token(parser_token);
 		ft_freeall(token, str);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 15:26:52 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/20 14:55:30 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/20 14:58:30 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	cmp_str(char *str, char *cmp)
 	int	i;
 
 	i = -1;
-
 	while (cmp[++i])
 	{
 		if (str[i] != cmp[i])

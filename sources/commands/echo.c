@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/20 14:55:30 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/20 18:46:57 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_echo(char **token, t_minishell *minishell)
 	(void) minishell;
 	i = 1;
 	nflag = 0;
-	if (token[1] && strcmp(token[1], "-n") == 0)
+	if (token[1] && ft_strcmp(token[1], "-n") == 0)
 	{
 		nflag = 1;
 		i++;
