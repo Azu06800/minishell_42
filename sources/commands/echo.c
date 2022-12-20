@@ -6,31 +6,33 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/14 17:54:47 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/17 15:01:36 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_echo(char **token)
+int	ft_echo(char **token, t_minishell *minishell)
 {
 	int	i;
-	int	should_nl;
-	int	start;
+	int	nflag;
 
-	i = 0;
-	start = 0;
-	should_nl = 1;
-	if (ft_strcmp(token[1], "-n"))
+	(void) minishell;
+	i = 1;
+	nflag = 0;
+	if (token[1] && strcmp(token[1], "-n") == 0)
 	{
-		should_nl = 0;
+		nflag = 1;
 		i++;
 	}
-	
-	while (token[++i])
-		print()
+	while (token[i])
+	{
 		printf("%s", token[i]);
-	if (should_nl)
+		if (token[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (!nflag)
 		printf("\n");
 	return (0);
 }

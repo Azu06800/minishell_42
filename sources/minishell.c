@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:44:20 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/17 15:00:31 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_minishell(t_minishell *minishell)
 
 void	ft_freeall(char **token, char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (token[++i])
@@ -36,7 +36,7 @@ void	ft_freeall(char **token, char *str)
 	free(token);
 }
 
-void	boucle(void)
+void	boucle(t_minishell *minishell)
 {
 	char	*str;
 	char	**token;
@@ -53,7 +53,7 @@ void	boucle(void)
 		if (err_unclosed_quote(str))
 			continue ;
 		token = ft_lexer(str);
-		ft_parsing(token);
+		ft_parsing(token, minishell);
 		ft_freeall(token, str);
 	}
 }
@@ -70,7 +70,7 @@ int	main(int ac, char **av, char **env)
 			return (0);
 		minishell->env = env;
 		init_minishell(minishell);
-		boucle();
+		boucle(minishell);
 	}
 	return (1);
 }

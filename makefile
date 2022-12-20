@@ -22,7 +22,7 @@ SRCS			=	minishell.c\
 
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.c=.o))
 
-CFLAGS			=	-Wall -Wextra -Werror -Iincludes
+CFLAGS			=	-Wall -Wextra -Werror -Iincludes -arch x86_64
 CC				=	gcc
 CINCLUDES		=	-I ./includes
 LINK			=	libreadline.a -lreadline -lncurses

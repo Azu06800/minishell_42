@@ -1,0 +1,6 @@
+includes/readline/
+bin/
+*.o
+minishell
+libreadline.a
+.vscode/

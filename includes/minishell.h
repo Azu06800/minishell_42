@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 17:39:42 by baroun           ###   ########.fr       */
+/*   Updated: 2022/12/17 15:00:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ char	**ft_split(char const *s, char c);
 
 //-------------------PARSER-------------------//
 int	cmp_str(char *str, char *cmp);
-void	ft_parsing(char **token);
+void	ft_parsing(char **token, t_minishell *minishell);
 
 //------------------COMMANDS------------------//
-int		ft_cd(char **token);
-int		ft_echo(char **token);
-int		ft_env(char **token);
-int		ft_export(char **token);
-int		ft_pwd(char **token);
-int		ft_unset(char **token);
-void	ft_exit(char **token);
+int		ft_cd(char **token, t_minishell *minishell);
+int		ft_echo(char **token, t_minishell *minishell);
+int		ft_env(char **token, t_minishell *minishell);
+int		ft_export(char **token, t_minishell *minishell);
+int		ft_pwd(char **token, t_minishell *minishell);
+int		ft_unset(char **token, t_minishell *minishell);
+void	ft_exit(char **token, t_minishell *minishell);
 
 //-------------------SIGNAL-------------------//
 void	init_signal(void);
