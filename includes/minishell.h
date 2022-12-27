@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/21 00:48:21 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:30:18 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,19 @@ void			parse_separator_token(char *token, t_parser_token *parsed_tok);
 void			parse_command_token(char **tk, size_t i, t_parser_token *p_tk);
 int				is_redirect(char *token);
 t_redir_type	get_redir_type(char *token);
+void			remove_empty_cmd(t_parser_token *parsed_tokens);
 
 //------------------COMMANDS------------------//
-int				ft_cd(char **token, t_minishell *minishell);
-int				ft_echo(char **token, t_minishell *minishell);
-int				ft_env(char **token, t_minishell *minishell);
-int				ft_export(char **token, t_minishell *minishell);
-int				ft_pwd(char **token, t_minishell *minishell);
-int				ft_unset(char **token, t_minishell *minishell);
-void			ft_exit(char **token, t_minishell *minishell);
+int				ft_cd(t_parser_token *token, t_minishell *minishell);
+int				ft_echo(t_parser_token *token, t_minishell *minishell);
+int				ft_env(t_parser_token *token, t_minishell *minishell);
+int				ft_export(t_parser_token *token, t_minishell *minishell);
+int				ft_pwd(t_parser_token *token, t_minishell *minishell);
+int				ft_unset(t_parser_token *token, t_minishell *minishell);
+void			ft_exit(t_parser_token *token, t_minishell *minishell);
+
+//-------------------EXEC-------------------//
+void			ft_executor(t_parser_token *tokens, t_minishell *minishell);
 
 //-------------------SIGNAL-------------------//
 void			init_signal(void);

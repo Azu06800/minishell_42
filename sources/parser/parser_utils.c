@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 00:33:36 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/21 00:37:44 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:11:21 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,30 @@ void	parse_command_token(char **tk, size_t i, t_parser_token *p_tk)
 		j++;
 	p_tk->command_size = j;
 	p_tk->command = tk + i;
+}
+
+void	remove_empty_cmd(t_parser_token *parsed_tokens)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (parsed_tokens[i].type != TOKEN_END)
+	{
+		if (parsed_tokens[i].type == TOKEN_CMD)
+		{
+			if (parsed_tokens[i].command_size == 0)
+			{
+				j = i;
+				while (parsed_tokens[j].type != TOKEN_END)
+				{
+					parsed_tokens[j] = parsed_tokens[j + 1];
+					j++;
+				}
+				i--;
+			}
+		}
+		i++;
+	}
 }

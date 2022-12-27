@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/21 00:48:27 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:28:08 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	boucle(t_minishell *minishell)
 			continue ;
 		token = ft_lexer(str);
 		parser_token = ft_parse_tokens(token, minishell);
-		print_token(parser_token);
+		ft_executor(parser_token, minishell);
 		ft_freeall(token, str);
 	}
 }

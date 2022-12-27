@@ -6,13 +6,13 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 16:49:40 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/17 15:01:49 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:25:15 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(char **token, t_minishell *minishell)
+int	ft_pwd(t_parser_token *token, t_minishell *minishell)
 {
 	char	*cur_dir;
 
