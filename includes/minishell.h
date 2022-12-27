@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/27 19:30:18 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:50:56 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -62,9 +63,9 @@ typedef struct s_parser_token
 	t_redir_type		redirection[5];
 	char				**command;
 	size_t				command_size;
-	char				**input;
+	char				*input;
 	size_t				input_size;
-	char				**output;
+	char				*output;
 	size_t				output_size;
 }	t_parser_token;
 

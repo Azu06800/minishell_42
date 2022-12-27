@@ -6,16 +6,77 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/27 19:31:25 by emorvan          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:54:41 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	exec_bin(t_parser_token *token)
+void	exec_bin(t_parser_token *tokens)
 {
-	// currently unstable
-	(void) token;
+	int		fd_in;
+	int		fd_out;
+	int		pipe_fds[2];
+	pid_t	pid;
+	int		i;
+
+	fd_in = STDIN_FILENO;
+	fd_out = STDOUT_FILENO;
+	i = 0;
+	while (tokens[i].type != TOKEN_END)
+	{
+		if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_IN)
+			fd_in = open(tokens[i + 1].input, O_RDONLY);
+		else if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_OUT)
+			fd_out = open(tokens[i + 1].output, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+		else if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_APPEND)
+			fd_out = open(tokens[i + 1].output, O_CREAT | O_WRONLY | O_APPEND, 0666);
+		else if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_PIPE)
+		{
+			if (pipe(pipe_fds) < 0)
+			{
+				perror("pipe");
+				exit(EXIT_FAILURE);
+			}
+			fd_out = pipe_fds[1];
+			fd_in = pipe_fds[0];
+		}
+		else if (tokens[i].type == TOKEN_CMD)
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				dup2(fd_in, STDIN_FILENO);
+				dup2(fd_out, STDOUT_FILENO);
+				//close(fd_in);
+				//close(fd_out);
+				if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_PIPE)
+				{
+					close(pipe_fds[0]);
+					close(pipe_fds[1]);
+				}
+				execvp(tokens[i].command[0], tokens[i].command);
+				perror("execvp");
+				exit(EXIT_FAILURE);
+			}
+			else if (pid < 0)
+			{
+				perror("fork");
+				exit(EXIT_FAILURE);
+			}
+			close(fd_in);
+			close(fd_out);
+			if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_PIPE)
+				close(pipe_fds[0]);
+			fd_in = STDIN_FILENO;
+			fd_out = STDOUT_FILENO;
+		}
+		i++;
+	}
+	while (wait(NULL) > 0)
+	{
+		continue ;
+	}
 }
 
 void	ft_executor(t_parser_token *tokens, t_minishell *minishell)
