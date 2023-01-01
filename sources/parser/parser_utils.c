@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 00:33:36 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/27 19:11:21 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/01 23:06:21 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,21 @@ void	remove_empty_cmd(t_parser_token *parsed_tokens)
 		}
 		i++;
 	}
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char) c)
+			return (
+				(char*)s
+			);
+		s++;
+	}
+	if (c == (char) '\0')
+		return (
+			(char*)s
+		);
+	return (NULL);
 }

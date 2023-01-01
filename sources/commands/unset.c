@@ -6,32 +6,18 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/27 19:25:41 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/01 22:21:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// TODO: If variable has been set, then delete it.
 int	ft_unset(t_parser_token *token, t_minishell *minishell)
 {
-	int	i;
-	int	j;
-
-	(void) minishell;
-	i = 0;
-	while (token->command[++i])
+	if (token->command[1] != NULL)
 	{
-		j = -1;
-		while (minishell->env[++j])
-		{
-			if (ft_strncmp(minishell->env[j], token->command[i],
-					ft_strlen(token->command[i])) == 0)
-			{
-				free(minishell->env[j]);
-				minishell->env[j] = NULL;
-			}
-		}
+		if (ft_getenv(minishell, token->command[1]) != NULL)
+			ft_delenv(minishell, token->command[1]);
 	}
 	return (0);
 }

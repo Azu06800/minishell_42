@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/27 19:50:56 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/01 23:44:44 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@
 # include <sys/signal.h>
 
 //-------------------STRUCT-------------------//
+typedef struct s_env
+{
+	char	*name;
+	char	*value;
+}	t_env;
+
 typedef struct s_minishell
 {
-	char	*path;
-	char	**env;
+	t_env	*env;
+	int		env_size;
 	char	**builtins;
 	size_t	last_token_size;
 }	t_minishell;
@@ -110,6 +116,7 @@ void			parse_command_token(char **tk, size_t i, t_parser_token *p_tk);
 int				is_redirect(char *token);
 t_redir_type	get_redir_type(char *token);
 void			remove_empty_cmd(t_parser_token *parsed_tokens);
+char			*ft_strchr(const char *s, int c);
 
 //------------------COMMANDS------------------//
 int				ft_cd(t_parser_token *token, t_minishell *minishell);
@@ -119,6 +126,7 @@ int				ft_export(t_parser_token *token, t_minishell *minishell);
 int				ft_pwd(t_parser_token *token, t_minishell *minishell);
 int				ft_unset(t_parser_token *token, t_minishell *minishell);
 void			ft_exit(t_parser_token *token, t_minishell *minishell);
+int				ft_clear(t_parser_token *token, t_minishell *minishell);
 
 //-------------------EXEC-------------------//
 void			ft_executor(t_parser_token *tokens, t_minishell *minishell);
@@ -139,4 +147,16 @@ int				ft_onlyspace(char *str);
 int				ft_cinstr(char *str, char c);
 size_t			ft_strlen(const char *str);
 
+//-------------------ENV-------------------//
+void			*ft_realloc(void *ptr, size_t size);
+void			ft_addenv(t_minishell *minishell, char *name, char *value);
+void			ft_delenv(t_minishell *minishell, char *name);
+void			ft_modenv(t_minishell *minishell, char *name, char *new_value);
+char			*ft_getenv(t_minishell *minishell, char *name);
+void			ft_initenv(t_minishell *minishell, char **env);
+void			ft_putstr_fd(char *s, int fd);
+int				ft_atoi(const char *str);
+
+//-------------------EXPANDER-------------------//
+void			ft_expander(t_parser_token *token, t_minishell *minishell);
 #endif

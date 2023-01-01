@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/27 19:54:41 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/01 23:45:08 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	exec_bin(t_parser_token *tokens)
 			{
 				dup2(fd_in, STDIN_FILENO);
 				dup2(fd_out, STDOUT_FILENO);
-				//close(fd_in);
-				//close(fd_out);
 				if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_PIPE)
 				{
 					close(pipe_fds[0]);
@@ -64,6 +62,8 @@ void	exec_bin(t_parser_token *tokens)
 				perror("fork");
 				exit(EXIT_FAILURE);
 			}
+			int status;
+			waitpid(pid, &status, 0);
 			close(fd_in);
 			close(fd_out);
 			if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_PIPE)
@@ -71,11 +71,8 @@ void	exec_bin(t_parser_token *tokens)
 			fd_in = STDIN_FILENO;
 			fd_out = STDOUT_FILENO;
 		}
+
 		i++;
-	}
-	while (wait(NULL) > 0)
-	{
-		continue ;
 	}
 }
 
@@ -102,6 +99,8 @@ void	ft_executor(t_parser_token *tokens, t_minishell *minishell)
 				ft_env(tokens, minishell);
 			else if (tokens->command[0] && !ft_strcmp(tokens->command[0], "exit"))
 				ft_exit(tokens, minishell);
+			else if (tokens->command[0] && !ft_strcmp(tokens->command[0], "clear"))
+				ft_clear(tokens, minishell);
 			else
 				exec_bin(tokens);
 		}
