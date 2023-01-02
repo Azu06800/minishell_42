@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:50:36 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/02 16:39:53 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 16:54:45 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_cd_error(char *s1, char *s2)
 	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
-int	ft_cd_no_arg(t_minishell *minishell, t_parser_token *token)
+int	ft_cd_no_arg(t_minishell *minishell, t_parser_token *token, char *oldpwd)
 {
 	char	*home;
 
@@ -37,13 +37,17 @@ int	ft_cd_no_arg(t_minishell *minishell, t_parser_token *token)
 			ft_cd_error("cd", home);
 			return (2);
 		}
+		ft_modenv(minishell, "PWD", home);
+		ft_modenv(minishell, "OLDPWD", oldpwd);
 		return (1);
 	}
 	return (0);
 }
 
-int	ft_cd_one_arg(t_parser_token *token)
+int	ft_cd_one_arg(t_minishell *minishell, t_parser_token *token, char *oldpwd)
 {
+	char	*newpwd;
+
 	if (token->command[2] == NULL)
 	{
 		if (chdir(token->command[1]) != 0)
@@ -51,6 +55,9 @@ int	ft_cd_one_arg(t_parser_token *token)
 			ft_cd_error("minishell: cd", token->command[1]);
 			return (2);
 		}
+		newpwd = getcwd(NULL, 0);
+		ft_modenv(minishell, "PWD", newpwd);
+		ft_modenv(minishell, "OLDPWD", oldpwd);
 		return (1);
 	}
 	return (0);
@@ -58,14 +65,12 @@ int	ft_cd_one_arg(t_parser_token *token)
 
 int	ft_cd(t_parser_token *token, t_minishell *minishell)
 {
-	char	*cur_dir;
 	char	*oldpwd;
 
-	(void) cur_dir;
-	(void) oldpwd;
-	if (ft_cd_no_arg(minishell, token) == 1)
+	oldpwd = getcwd(NULL, 0);
+	if (ft_cd_no_arg(minishell, token, oldpwd) == 1)
 		return (1);
-	if (ft_cd_one_arg(token) == 1)
+	if (ft_cd_one_arg(minishell, token, oldpwd) == 1)
 		return (1);
 	if (token->command[2] != NULL)
 	{
