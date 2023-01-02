@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:50:36 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/01 22:56:33 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 16:39:53 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,16 @@ int	ft_cd(t_parser_token *token, t_minishell *minishell)
 	char	*cur_dir;
 	char	*oldpwd;
 
-	if (ft_cd_no_arg(minishell, token) == 2)
-		return (0);
+	(void) cur_dir;
+	(void) oldpwd;
 	if (ft_cd_no_arg(minishell, token) == 1)
-	{
-		printf("a");
-		cur_dir = getcwd(NULL, 0);
-		ft_modenv(minishell, "PWD", cur_dir);
-		free(cur_dir);
-		oldpwd = ft_getenv(minishell, "OLDPWD");
-		ft_modenv(minishell, "OLDPWD", oldpwd);
 		return (1);
-	}
-	if (ft_cd_one_arg(token) == 2)
-		return (0);
 	if (ft_cd_one_arg(token) == 1)
-	{
-		printf("b");
-		cur_dir = getcwd(NULL, 0);
-		ft_modenv(minishell, "PWD", cur_dir);
-		free(cur_dir);
-		oldpwd = ft_getenv(minishell, "OLDPWD");
-		ft_modenv(minishell, "OLDPWD", oldpwd);
 		return (1);
+	if (token->command[2] != NULL)
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		return (2);
 	}
-	ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 	return (0);
 }
