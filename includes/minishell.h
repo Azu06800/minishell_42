@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/01 23:44:44 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 17:15:01 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,11 @@ int				ft_env(t_parser_token *token, t_minishell *minishell);
 int				ft_export(t_parser_token *token, t_minishell *minishell);
 int				ft_pwd(t_parser_token *token, t_minishell *minishell);
 int				ft_unset(t_parser_token *token, t_minishell *minishell);
-void			ft_exit(t_parser_token *token, t_minishell *minishell);
+int				ft_exit(t_parser_token *token, t_minishell *minishell);
 int				ft_clear(t_parser_token *token, t_minishell *minishell);
 
 //-------------------EXEC-------------------//
-void			ft_executor(t_parser_token *tokens, t_minishell *minishell);
+int				ft_executor(t_parser_token *tokens, t_minishell *minishell);
 
 //-------------------SIGNAL-------------------//
 void			init_signal(void);

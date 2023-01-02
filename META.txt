@@ -1,0 +1,6 @@
+BUGS:
+- When cding into a non-existant directory, it will still update the OLDPWD env variable
+
+TODOS:
+- Pipes and redir
+- Store exit code for $?

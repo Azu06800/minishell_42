@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:10:04 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/01 22:18:12 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 17:12:41 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_is_numeric(char *str)
 	return (1);
 }
 
-void	ft_exit(t_parser_token *token, t_minishell *minishell)
+int	ft_exit(t_parser_token *token, t_minishell *minishell)
 {
 	(void) minishell;
 	ft_putstr_fd("exit", 2);
@@ -52,6 +52,7 @@ void	ft_exit(t_parser_token *token, t_minishell *minishell)
 	else
 	{
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
-		return ;
+		return (1);
 	}
+	return (0);
 }
