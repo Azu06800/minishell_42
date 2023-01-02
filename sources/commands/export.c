@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/02 17:05:40 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 17:09:51 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_export(t_parser_token *token, t_minishell *minishell)
 	char	**tmp;
 
 	i = 1;
-	(void)tmp;
 	if (token->command[1] == NULL)
 	{
 		i = 0;
@@ -37,9 +36,7 @@ int	ft_export(t_parser_token *token, t_minishell *minishell)
 		{
 			tmp = ft_split(token->command[i], '=');
 			if (tmp[1] != NULL)
-			{
 				ft_modenv(minishell, tmp[0], tmp[1]);
-			}
 			i++;
 		}
 	}
