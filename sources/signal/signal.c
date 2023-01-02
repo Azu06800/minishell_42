@@ -3,37 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/01 23:52:18 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 17:39:17 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_signalhandler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (sig == SIGTERM)
-	{
-		ft_putstr_fd("exit", 2);
-		ft_putstr_fd("\n", 2);
-		exit(0);
-	}
-}
+pid_t g_pid;
 
+void sigq()
+{
+    if (g_pid)
+    {
+        if (!kill(g_pid, SIGQUIT))
+            printf("%i	Quit:\n", g_pid);
+    }
+    else
+    {
+        rl_on_new_line();
+        rl_redisplay();
+    }
+    g_pid = 0;
+}
+void sigi()
+{
+    printf("\n");
+    if (g_pid)
+        kill(g_pid, SIGINT);
+    else
+    {
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
+    }
+    g_pid = 0;
+}
+static void ft_signalhandler(int sig)
+{
+    if (sig == SIGINT)
+		sigi();
+    else if (sig == SIGQUIT)
+        sigq();
+    else if (sig == SIGTERM)
+    {
+        ft_putstr_fd("exit", 2);
+        ft_putstr_fd("\n", 2);
+        exit(0);
+    }
+}
 void	init_signal(void)
 {
 	signal(SIGINT, ft_signalhandler);
