@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 17:42:29 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/03 17:45:39 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	shell(t_minishell *minishell)
 	char			**token;
 	t_parser_token	*parser_token;
 
+	(void) minishell;
+	
 	init_signal();
 	while (1)
 	{

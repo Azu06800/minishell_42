@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 16:16:10 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/01 23:16:02 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/03 16:47:10 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ size_t	cpt_word(char *str, int a)
 	b = 0;
 	while (str[a])
 	{
-		if (ft_issep(str[a]) && str[a - 1] != '\\')
+		if (ft_issep(str[a]))
 			i++;
 		while (ft_issep(str[a]) || b)
 		{
-			if (ft_isquote(str[a]) && str[a - 1] != '\\')
+			if (ft_isquote(str[a]))
 				b = !b;
 			a++;
 		}
 		if (!ft_isspace(str[a]) && !ft_issep(str[a]) && str[a])
 		{
 			i++;
-			while ((str[a] && !ft_isspace(str[a]) && (!ft_issep(str[a]) || str[a - 1] == '\\' )))
+			while ((str[a] && !ft_isspace(str[a]) && !ft_issep(str[a])))
 				a++;
 		}
 		else

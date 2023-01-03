@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 14:56:58 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/03 17:45:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ char			*ft_remove_spcqu(char *arg);
 char			*ft_add_spcqu(char *arg);
 char			*ft_remove_spc(char *arg);
 char			*ft_add_spc(char *arg);
-char			*ft_remove_bslash(char *arg);
-int				ft_strlenrslash(char *arg);
+char 			*ft_remove_quotes(char *str);
 	//split
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strdup(const char *s1);
@@ -105,6 +104,7 @@ char			**ft_split(char const *s, char c);
 int				is_arrow(char *token);
 char			*concat_tokens(char *token1, char *token2);
 void			compact_array(char **token, int j, int i);
+void			concat_arrow(char **token);
 
 //-------------------PARSER-------------------//
 int				cmp_str(char *str, char *cmp);
