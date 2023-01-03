@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:19:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 17:11:26 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/03 19:04:34 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*ft_add_spc(char *arg)
 	char	*r;
 	int		i;
 	int		j;
+	char	*token;
 
 	i = 0;
 	j = 1;
@@ -52,8 +53,8 @@ char	*ft_add_spc(char *arg)
 		r[j++] = arg[i++];
 	}
 	r[j] = '\0';
-	//r = ft_add_spcqu(r);
-	return (r);
+	token = ft_add_spcqu(r);
+	return (token);
 }
 
 /* ************************************************************************** */
@@ -106,6 +107,8 @@ char	**ft_lasttoken(char **token)
 	{
 		if (ft_isquote(token[i][0]))
 			token[i] = ft_remove_spc(token[i]);
+		else
+			token[i] = ft_rmspc(token[i]);//peut causer des segfault 
 		i++;
 	}
 	return (token);

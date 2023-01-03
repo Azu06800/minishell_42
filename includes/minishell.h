@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 17:45:17 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/03 18:55:28 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ char			*ft_add_spcqu(char *arg);
 char			*ft_remove_spc(char *arg);
 char			*ft_add_spc(char *arg);
 char 			*ft_remove_quotes(char *str);
+char    		*ft_add_spcqu(char *arg);
+char			*ft_rmspc(char *arg);
 	//split
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strdup(const char *s1);
