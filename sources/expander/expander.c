@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:29:07 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/01 23:42:56 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/02 20:57:48 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,43 @@ char	*ft_strndup(const char *s1, size_t n)
 static void	ft_expander_dollar(t_parser_token *token, t_minishell *minishell,
 	int i)
 {
+	char	*expanded_var;
 	int		j;
-	char	*name;
-	char	*value;
-	char	*temp;
+	int		k;
+	char	*var_name;
 
-	j = 1;
-	while (token->command[i][j] && ft_isalnum(token->command[i][j]))
-		j++;
-	name = ft_strndup(token->command[i] + 1, j - 1);
-	value = ft_getenv(minishell, name);
-	if (value)
+	j = 0;
+	var_name = "";
+	expanded_var = "";
+	while (token->command[i][j])
 	{
-		temp = ft_strjoin(value, token->command[i] + j);
-		free(token->command[i]);
-		token->command[i] = temp;
+		if (token->command[i][j] == '$')
+		{
+			k = j + 1;
+			while (ft_isalnum(token->command[i][k]))
+			{
+				var_name = ft_strndup(token->command[i] + j + 1, k - j - 1);
+				expanded_var = ft_getenv(minishell, var_name);
+				if (expanded_var != NULL)
+				{
+					token->command[i] = ft_strndup(token->command[i], j);
+					token->command[i] = ft_strjoin(token->command[i], expanded_var);
+					token->command[i] = ft_strjoin(token->command[i], token->command[i] + k + 1);
+					free(var_name);
+					var_name = "";
+					expanded_var = "";
+					break ;
+				}
+				k++;
+			}
+			if (expanded_var == NULL)
+				j++;
+		}
+		else
+			j++;
 	}
-	free(name);
 }
+
 
 void	ft_expander(t_parser_token *token, t_minishell *minishell)
 {

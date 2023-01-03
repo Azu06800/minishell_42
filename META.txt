@@ -1,5 +1,6 @@
 BUGS:
 - When cding into a non-existant directory, it will still update the OLDPWD env variable
+- fix expander
 
 TODOS:
 - Pipes and redir

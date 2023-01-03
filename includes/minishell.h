@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/02 17:15:01 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/03 14:56:58 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <signal.h>
 # include <sys/signal.h>
 
+# define BUFFER_SIZE 1000
 //-------------------STRUCT-------------------//
 typedef struct s_env
 {

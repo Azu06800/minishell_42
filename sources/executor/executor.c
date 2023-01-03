@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/02 17:16:38 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/03 17:42:04 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 
 pid_t	g_pid;
 
-int	exec_bin(t_parser_token *token)
+int	exec_1_bin(t_parser_token *token)
 {
 	pid_t	pid;
 	int		status;
+	int		pipefd[2];
+	char	buffer[BUFFER_SIZE];
+	size_t	output_size;
+	size_t	bytes_read;
 
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		return (1);
+	}
 	pid = fork();
 	g_pid = pid;
 	if (pid == 0)
 	{
+		close(pipefd[0]);
+		dup2(pipefd[1], STDOUT_FILENO);
 		if (execvp(token->command[0], token->command) == -1)
 		{
 			perror("execvp");
@@ -37,13 +48,44 @@ int	exec_bin(t_parser_token *token)
 	}
 	else
 	{
+		close(pipefd[1]);
+		output_size = 0;
+		while ((bytes_read = read(pipefd[0], buffer, BUFFER_SIZE)) > 0)
+		{
+			output_size += bytes_read;
+			token->output = realloc(token->output, output_size);
+			memcpy(token->output + output_size - bytes_read, buffer, bytes_read);
+			if (bytes_read < BUFFER_SIZE)
+			{
+				break ;
+			}
+		}
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
 			return (1);
 		}
+		token->output_size = output_size;
+		fwrite(token->output, token->output_size, 1, stdout);
+		close(pipefd[0]);
 	}
 	return (0);
+}
+
+int	exec_bin(t_parser_token *token)
+{
+	(void) token;
+	return (0);
+	//int	i;
+//
+	//i = 0;
+	//while (token->command[i])
+	//{
+	//	if (token->type == TOKEN_REDIR && token->redirection[0] == REDIR_PIPE)
+	//	{
+	//		
+	//	}
+	//}
 }
 
 int	exec_builtin(t_parser_token *token, t_minishell *minishell)
