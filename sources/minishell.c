@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/04 08:23:52 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/04 17:30:02 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	init_minishell(t_minishell *minishell, char **env)
 	minishell->builtins[4] = "unset";
 	minishell->builtins[5] = "env";
 	minishell->builtins[6] = "exit";
+	minishell->builtins[7] = "clear";
+	minishell->builtins[8] = "history";
+	minishell->builtins[9] = NULL;
 	ft_initenv(minishell, env);
 }
 

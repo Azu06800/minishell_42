@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/03 17:42:04 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/04 17:31:46 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,6 @@ int	exec_1_bin(t_parser_token *token)
 	return (0);
 }
 
-int	exec_bin(t_parser_token *token)
-{
-	(void) token;
-	return (0);
-	//int	i;
-//
-	//i = 0;
-	//while (token->command[i])
-	//{
-	//	if (token->type == TOKEN_REDIR && token->redirection[0] == REDIR_PIPE)
-	//	{
-	//		
-	//	}
-	//}
-}
-
 int	exec_builtin(t_parser_token *token, t_minishell *minishell)
 {
 	if (token->command[0] && !ft_strcmp(token->command[0], "echo"))
@@ -106,6 +90,8 @@ int	exec_builtin(t_parser_token *token, t_minishell *minishell)
 		return (ft_exit(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "clear"))
 		return (ft_clear(token, minishell));
+	else if (token->command[0] && !ft_strcmp(token->command[0], "history"))
+		return (ft_history(token, minishell));
 	return (2);
 }
 
@@ -116,19 +102,15 @@ int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
 	i = 0;
 	while (tokens[i].type != TOKEN_END)
 	{
-		if (tokens->type == TOKEN_CMD)
+		if (tokens[i].type == TOKEN_CMD)
 		{
-			if (exec_builtin(tokens, minishell) == 0)
-				return (0);
-			else if (exec_builtin(tokens, minishell) == 1)
-				return (1);
-			else if (exec_builtin(tokens, minishell) == 2)
-			{
-				if (exec_bin(tokens) == 0)
-					return (0);
-				if (exec_bin(tokens) == 1)
-					return (1);
-			}
+			if (exec_builtin(&tokens[i], minishell) == 2)
+				exec_1_bin(&tokens[i]);
+		}
+		if (tokens[i].type == TOKEN_REDIR && tokens[i].redirection[0] == REDIR_PIPE)
+		{
+			if (tokens[i - 1].type == TOKEN_CMD && tokens[i + 1].type == TOKEN_CMD)
+				tokens[i + 1].input = tokens[i - 1].output;
 		}
 		i++;
 	}
