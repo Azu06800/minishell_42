@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:19:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/04 07:22:05 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/04 08:23:00 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_add_spc(char *arg)
 
 	i = 0;
 	j = 1;
-	r = malloc((ft_strlenspc(arg) + 1) * sizeof(char));
+	r = malloc((ft_strlenspc(arg) + 2) * sizeof(char));
 	r[0] = ' ';
 	while (arg[i])
 	{
@@ -52,6 +52,7 @@ char	*ft_add_spc(char *arg)
 		}
 		r[j++] = arg[i++];
 	}
+	r[j++] = ' ';
 	r[j] = '\0';
 	token = ft_add_spcqu(r);
 	return (token);

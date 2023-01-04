@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 18:55:28 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/04 08:23:02 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ int				ft_pwd(t_parser_token *token, t_minishell *minishell);
 int				ft_unset(t_parser_token *token, t_minishell *minishell);
 int				ft_exit(t_parser_token *token, t_minishell *minishell);
 int				ft_clear(t_parser_token *token, t_minishell *minishell);
+void 			ft_history();
 
 //-------------------EXEC-------------------//
 int				ft_executor(t_parser_token *tokens, t_minishell *minishell);

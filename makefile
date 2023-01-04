@@ -13,7 +13,7 @@ SRCS			=	minishell.c\
 					$(addprefix lexer/, lexer.c lexer_utils.c lexer_utils2.c lexer_utils3.c lexer_utils4.c lexer_utils5.c) \
 					$(addprefix signal/, signal.c) \
 					$(addprefix env/, env.c env_utils.c) \
-					$(addprefix commands/, cd.c echo.c env.c exit.c export.c pwd.c unset.c clear.c) \
+					$(addprefix commands/, cd.c echo.c env.c exit.c export.c pwd.c unset.c clear.c history.c) \
 					$(addprefix expander/, expander.c) \
 					$(addprefix utils/, memory.c string.c string2.c utils.c) \
 					$(addprefix error/, error.c error_utils.c) \

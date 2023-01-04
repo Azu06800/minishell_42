@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 19:03:54 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/04 08:23:52 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	shell(t_minishell *minishell)
 	char			*str;
 	char			**token;
 	t_parser_token	*parser_token;
-
 	
 	init_signal();
 	while (1)
