@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/04 17:30:02 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/04 09:06:21 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ pid_t	g_pid;
 
 void	init_minishell(t_minishell *minishell, char **env)
 {
-	minishell->builtins = malloc(sizeof(char *) * 7);
+	minishell->builtins = malloc(sizeof(char *) * 10);
 	minishell->builtins[0] = "echo";
 	minishell->builtins[1] = "cd";
 	minishell->builtins[2] = "pwd";
