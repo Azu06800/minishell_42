@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:19:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 19:04:34 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/04 07:22:05 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	**ft_lasttoken(char **token)
 		if (ft_isquote(token[i][0]))
 			token[i] = ft_remove_spc(token[i]);
 		else
-			token[i] = ft_rmspc(token[i]);//peut causer des segfault 
+			token[i] = ft_rmspc(token[i]);
 		i++;
 	}
 	return (token);

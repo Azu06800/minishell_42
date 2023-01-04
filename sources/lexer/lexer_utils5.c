@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:52:56 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/03 19:02:46 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/04 07:25:26 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int    ft_strlenrmspc(char *arg)
 	int i;
 
 	i = 0;
-	while (!ft_isspace(arg[i]))
+	while (!ft_isspace(arg[i]) && arg[i])
 		i++;
 	return(i);
 }
@@ -83,7 +83,7 @@ char	*ft_rmspc(char *arg)
     i = 0;
     j = 0;
     new = malloc(sizeof(char) * ft_strlenrmspc(arg) + 1);
-    while (!ft_isspace(arg[i]))
+    while (!ft_isspace(arg[i]) && arg[i])
         new[j++] = arg[i++];
     new[j] = '\0';
     free(arg);
