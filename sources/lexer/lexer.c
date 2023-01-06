@@ -6,13 +6,13 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 16:34:45 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/06 16:51:58 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	*ft_sepcpy(char *arg, t_parser_token tokens, int *i)
+void	*ft_sepcpy(char *arg, t_tokens tokens, int *i)
 {
 	char	*d;
 	int		j;
@@ -32,7 +32,7 @@ void	*ft_sepcpy(char *arg, t_parser_token tokens, int *i)
 		d[1] = '\0';
 }
 
-char *ft_argcpy(char *args, int *i, t_parser_token tokens)
+char *ft_argcpy(char *args, int *i, t_tokens tokens)
 {
     char    *arg;
     int        j;
@@ -49,10 +49,10 @@ char *ft_argcpy(char *args, int *i, t_parser_token tokens)
         arg[j++] = args[(*i)++];
     arg[j] = '\0';
 	(*i)--;
-    tokens.command = arg;
+    tokens.str = arg;
 }
 
-void	ft_quotecpy(char *args, int *i, t_parser_token tokens)
+void	ft_quotecpy(char *args, int *i, t_tokens tokens)
 {
     char    *new;
     int        j;
@@ -72,18 +72,18 @@ void	ft_quotecpy(char *args, int *i, t_parser_token tokens)
         new[j++] = args[(*i)++];
     new[j++] = args[(*i)];
     new[j] = '\0';
-    tokens.command = new;
+    tokens.str = new;
 }
 
-t_parser_token	*ft_lexer(char *args)
+t_tokens	*ft_lexer(char *args)
 {
-	t_parser_token	*tokens;
+	t_tokens	*tokens;
 	int			i;
 	int			j;
 
 	i = -1;
 	j = 0;
-	tokens = malloc(sizeof(t_parser_token) * ft_cptword(args));
+	tokens = malloc(sizeof(t_tokens) * ft_cptword(args));
 	while(args[++i])
 	{
 		printf("c = %c ,i = %d\n", args[i], i);
@@ -102,6 +102,6 @@ t_parser_token	*ft_lexer(char *args)
 		else
 			ft_argcpy(args, &i, tokens[j]);
 	}
-	tokens[j].command = NULL;
+	tokens[j].str = NULL;
 	return (tokens);
 }

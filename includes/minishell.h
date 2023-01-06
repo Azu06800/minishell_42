@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 16:23:11 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/06 16:50:13 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,24 @@ typedef enum e_redirection_type
 	REDIR_ERROR
 }	t_redir_type;
 
+typedef struct s_tokens
+{
+	char				*str;
+	int					spcecho
+} t_tokens;
+
 typedef struct s_parser_token
 {
 	t_token_type		type;
 	t_redir_type		redirection[5];
-	char				*command;
+	char				**command;
 	size_t				command_size;
 	char				*input;
 	size_t				input_size;
 	char				*output;
 	size_t				output_size;
-	int					spcecho;
+
+	t_tokens			*tokens;
 }	t_parser_token;
 
 
@@ -101,7 +108,7 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strdup(const char *s1);
 size_t			ft_strlen(const char *s);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
-t_parser_token	*ft_lexer(char *args);
+t_tokens		*ft_lexer(char *args);
 void			ft_lasttoken(char **token);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strjoin(char const *s1, char const *s2);
