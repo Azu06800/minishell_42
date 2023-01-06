@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 18:04:48 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/06 12:32:11 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	shell(t_minishell *minishell)
 		if (err_unclosed_quote(str))
 			continue ;
 		tokens = ft_lexer(str);
-		parser_token = ft_parse_tokens(tokens, minishell);
+		parser_token = ft_parse_tokens(tokentostr(tokens), minishell);
 		test_lexer(tokens);
 		ft_expander(parser_token, minishell);
 		//print_token(parser_token);

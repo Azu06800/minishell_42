@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 00:33:36 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/06 17:30:04 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/06 12:29:37 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,17 @@ void	parse_separator_token(char *token, t_parser_token *parsed_tok)
 	parsed_tok->type = TOKEN_SEP;
 }
 
-void	parse_command_token(t_tokens *tk, size_t i, t_parser_token *p_tk)
+void	parse_command_token(char **tk, size_t i, t_parser_token *p_tk)
 {
 	size_t	j;
 
 	p_tk->type = TOKEN_CMD;
 	j = 0;
-
-	while (tk[i + j].str != NULL && !is_redirect(tk[i + j].str)
-		&& ft_strcmp(tk[i + j].str, ";") != 0)
+	while (tk[i + j] != NULL && !is_redirect(tk[i + j])
+		&& ft_strcmp(tk[i + j], ";") != 0)
 		j++;
 	p_tk->command_size = j;
-	j = 0;
-	p_tk->command = malloc(sizeof(char*) * (p_tk->command_size + 1));
-	while (tk[i].str)
-	{
-		p_tk->command[j] = tk[i].str;
-		i++;
-		j++;
-	}
-	p_tk->command[j] = NULL;
+	p_tk->command = tk + i;
 }
 
 void	remove_empty_cmd(t_parser_token *parsed_tokens)
