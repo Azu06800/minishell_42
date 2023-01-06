@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/04 17:32:02 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/06 16:23:11 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,15 @@ typedef struct s_parser_token
 {
 	t_token_type		type;
 	t_redir_type		redirection[5];
-	char				**command;
+	char				*command;
 	size_t				command_size;
 	char				*input;
 	size_t				input_size;
 	char				*output;
 	size_t				output_size;
+	int					spcecho;
 }	t_parser_token;
+
 
 //-------------------LEXER-------------------//
 	//is
@@ -85,6 +87,7 @@ int				ft_isfle(int c);
 	//malloc split
 size_t			cpt_quote(char *s);
 size_t			cpt_word(char *str, int a);
+size_t    			ft_cptword(char *args);
 	//sep
 char			*ft_remove_spcqu(char *arg);
 char			*ft_add_spcqu(char *arg);
@@ -98,8 +101,8 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strdup(const char *s1);
 size_t			ft_strlen(const char *s);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
-char			**ft_lexer(char *arg);
-char			**ft_lasttoken(char **token);
+t_parser_token	*ft_lexer(char *args);
+void			ft_lasttoken(char **token);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			**ft_split(char const *s, char c);

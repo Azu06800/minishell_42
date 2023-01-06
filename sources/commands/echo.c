@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/01 19:00:15 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/05 20:10:17 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void echo_quote(char *str)
+{
+	int i;
+
+	i = -1;
+	if (ft_isquote(str[0]))
+		i++;
+	while (str[++i])
+		write(1, &str[i], 1);
+}
 
 int	ft_echo(t_parser_token *token, t_minishell *minishell)
 {
