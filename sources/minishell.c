@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 16:49:50 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/06 18:04:48 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	ft_freeall(char **token, char *str)
 	free(token);
 }
 
-void	test_lexer(t_parser_token *token)
+void	test_lexer(t_tokens *token)
 {
 	int	i;
 
 	i = 0;
-	while (token[i].command == NULL)
+	while (token[i].str)
 	{
-		printf("token[%d]: %s %zu\n", i, token[i], ft_strlen(token[i].command));
+		printf("token[%d]: %s %zu\n", i, token[i].str, ft_strlen(token[i].str));
 		i++;
 	}
 }
@@ -75,7 +75,8 @@ void	shell(t_minishell *minishell)
 		if (err_unclosed_quote(str))
 			continue ;
 		tokens = ft_lexer(str);
-		parser_token = ft_parse_tokens(token, minishell);
+		parser_token = ft_parse_tokens(tokens, minishell);
+		test_lexer(tokens);
 		ft_expander(parser_token, minishell);
 		//print_token(parser_token);
 		ft_executor(parser_token, minishell);

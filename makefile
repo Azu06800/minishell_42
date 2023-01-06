@@ -14,7 +14,7 @@ SRCS			=	minishell.c\
 					$(addprefix signal/, signal.c) \
 					$(addprefix env/, env.c env_utils.c) \
 					$(addprefix commands/, cd.c echo.c env.c exit.c export.c pwd.c unset.c clear.c history.c) \
-					$(addprefix expander/, expander.c) \
+					$(addprefix expander/, expander.c expander_utils.c) \
 					$(addprefix utils/, memory.c string.c string2.c utils.c) \
 					$(addprefix error/, error.c error_utils.c) \
 					$(addprefix parser/, parser.c parser_utils.c debug_parser.c) \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 15:09:24 by emorvan           #+#    #+#             */
-/*   Updated: 2022/12/27 19:12:45 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/06 18:05:21 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,30 @@ t_redir_type	get_redir_type(char *token)
 	return (REDIR_ERROR);
 }
 
-size_t	count_tokens(char **tokens)
+size_t	count_tokens(t_tokens *tokens)
 {
 	size_t	num_tokens;
 
 	num_tokens = 0;
-	while (tokens[num_tokens] != NULL)
+	while (tokens[num_tokens].str != NULL)
 		num_tokens++;
 	return (num_tokens);
 }
 
-void	parse_tokens(char **tokens, t_parser_token *parsed_tokens)
+void	parse_tokens(t_tokens *tokens, t_parser_token *parsed_tokens)
 {
 	size_t	i;
 
 	i = 0;
-	while (tokens[i] != NULL)
+	while (tokens[i].str != NULL)
 	{
-		if (is_redirect(tokens[i]))
+		if (is_redirect(tokens[i].str))
 		{
-			parse_redirect_token(tokens[i], &parsed_tokens[i]);
+			parse_redirect_token(tokens[i].str, &parsed_tokens[i]);
 		}
-		else if (ft_strcmp(tokens[i], ";") == 0)
+		else if (ft_strcmp(tokens[i].str, ";") == 0)
 		{
-			parse_separator_token(tokens[i], &parsed_tokens[i]);
+			parse_separator_token(tokens[i].str, &parsed_tokens[i]);
 		}
 		else
 		{
@@ -68,7 +68,7 @@ void	parse_tokens(char **tokens, t_parser_token *parsed_tokens)
 	}
 }
 
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell)
+t_parser_token	*ft_parse_tokens(t_tokens *tokens, t_minishell *minishell)
 {
 	size_t			num_tokens;
 	t_parser_token	*parsed_tokens;
@@ -76,6 +76,7 @@ t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell)
 	(void) minishell;
 	num_tokens = count_tokens(tokens);
 	parsed_tokens = malloc((num_tokens + 1) * sizeof(t_parser_token));
+	parsed_tokens->tokens = tokens;
 	if (parsed_tokens == NULL)
 		return (NULL);
 	parse_tokens(tokens, parsed_tokens);

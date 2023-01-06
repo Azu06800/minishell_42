@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 16:50:13 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/06 17:33:35 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef enum e_redirection_type
 typedef struct s_tokens
 {
 	char				*str;
-	int					spcecho
+	int					spcecho;
 } t_tokens;
 
 typedef struct s_parser_token
@@ -121,11 +121,11 @@ void			concat_arrow(char **token);
 //-------------------PARSER-------------------//
 int				cmp_str(char *str, char *cmp);
 void			ft_parsing(char **token, t_minishell *minishell);
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell);
+t_parser_token	*ft_parse_tokens(t_tokens *tokens, t_minishell *minishell);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
 void			parse_separator_token(char *token, t_parser_token *parsed_tok);
-void			parse_command_token(char **tk, size_t i, t_parser_token *p_tk);
+void			parse_command_token(t_tokens *tk, size_t i, t_parser_token *p_tk);
 int				is_redirect(char *token);
 t_redir_type	get_redir_type(char *token);
 void			remove_empty_cmd(t_parser_token *parsed_tokens);
