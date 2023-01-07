@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:00:21 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 16:34:48 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 07:37:18 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int ft_cptarg(char *args, int *i)
 {
     while (args[*i] && !ft_isspace(args[*i]) && !ft_issep(args[*i]))
         (*i)++;
+    (*i)--;
     return (1);
 }
 

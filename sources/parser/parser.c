@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 15:09:24 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/06 12:29:19 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 07:46:35 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	parse_tokens(char **tokens, t_parser_token *parsed_tokens)
 	}
 }
 
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell)
+t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk)
 {
 	size_t			num_tokens;
 	t_parser_token	*parsed_tokens;
@@ -76,6 +76,7 @@ t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell)
 	(void) minishell;
 	num_tokens = count_tokens(tokens);
 	parsed_tokens = malloc((num_tokens + 1) * sizeof(t_parser_token));
+	parsed_tokens->tokens = tk;
 	if (parsed_tokens == NULL)
 		return (NULL);
 	parse_tokens(tokens, parsed_tokens);

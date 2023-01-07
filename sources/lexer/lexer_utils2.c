@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:36:41 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 16:36:43 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 08:03:26 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ int	ft_isspace(int c)
 		|| c == '\n' || c == '\f' || c == '\r');
 }
 
-int	ft_isword(char *str, int i)
+int	ft_isspcable(int c)
 {
-	return ((str[i] > 32 && str[i] < 127) \
-	&& (ft_isspace(str[i + 1] || str[i + 1] == '\0')));
+	if (ft_isspace(c) || ft_isfle(c))
+		return (0);
+	else
+		return (1);
 }
 
 int	ft_issep(int c)

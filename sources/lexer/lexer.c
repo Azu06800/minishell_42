@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 12:33:28 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 08:03:32 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_argcpy(char *args, int *i, t_tokens *tokens)
 
     j = *i;
 	tokens->spcecho = 1;
-	if (ft_isquote(args[*i - 1]))
+	if (ft_isspcable(args[*i - 1]))
 		tokens->spcecho = 0;
     while (args[j] && !ft_issep(args[j]) && !ft_isspace(args[j]))
         j++;
@@ -77,17 +77,16 @@ void	ft_quotecpy(char *args, int *i, t_tokens *tokens)
 
     j = *i;
 	tokens->spcecho = 1;
-	if (ft_isquote(args[*i - 1]))
+	if (ft_isspcable(args[*i - 1]))
 		tokens->spcecho = 0;
     quote = args[(*i)++];
-    while (args[j] && args[j] != quote)
+    while (args[j] && args[j + 1] != quote)
         j++;
-    new = malloc(sizeof(char) * j - *i + 3);
+    new = malloc(sizeof(char) * j - *i + 2);
     j = 0;
-    new[j++] = args[(*i) - 1];
-    while (args[*i] && args[(*i)] != quote)
+    while (args[*i] && args[(*i) + 1] != quote)
         new[j++] = args[(*i)++];
-    new[j++] = args[(*i)];
+    new[j++] = args[(*i)++];
     new[j] = '\0';
     tokens->str = new;
 }

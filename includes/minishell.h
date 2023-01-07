@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 12:30:55 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 07:58:40 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int				ft_isspace(int c);
 int				ft_issep(int c);
 int				ft_isquote(int c);
 int				ft_isfle(int c);
+int				ft_isspcable(int c);
 	//malloc split
 size_t			cpt_quote(char *s);
 size_t			cpt_word(char *str, int a);
@@ -122,7 +123,7 @@ char			**tokentostr(t_tokens *token);
 //-------------------PARSER-------------------//
 int				cmp_str(char *str, char *cmp);
 void			ft_parsing(char **token, t_minishell *minishell);
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell);
+t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
 void			parse_separator_token(char *token, t_parser_token *parsed_tok);
