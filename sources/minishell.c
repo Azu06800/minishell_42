@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/07 07:51:15 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 08:13:26 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,12 @@ int	main(int ac, char **av, char **env)
 	t_minishell	*minishell;
 
 	(void)av;
-	if (ac == 1)
-	{
-		minishell = malloc(sizeof(t_minishell));
-		if (!minishell)
-			return (0);
-		init_minishell(minishell, env);
-		shell(minishell);
-	}
+	(void)ac;
+
+	minishell = malloc(sizeof(t_minishell));
+	if (!minishell)
+		return (0);
+	init_minishell(minishell, env);
+	shell(minishell);
 	return (1);
 }

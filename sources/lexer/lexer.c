@@ -6,27 +6,11 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/07 08:03:32 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 08:38:22 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	**tokentostr(t_tokens *token)
-{
-	int	i;
-	char **new;
-	
-	i = 0;
-	while (token[i].str != NULL)
-		i++;
-	new = malloc(sizeof(char*) * i + 1);
-	i = -1;
-	while (token[++i].str != NULL)
-		new[i] = token[i].str;
-	new[i] = NULL;
-	return (new);
-}
 
 void	ft_sepcpy(char *arg, t_tokens *tokens, int *i)
 {
@@ -69,6 +53,15 @@ void	ft_argcpy(char *args, int *i, t_tokens *tokens)
     tokens->str = arg;
 }
 
+char	*ft_voidquote()
+{
+	char	*new;
+
+	new = malloc(sizeof(char) * 1);
+	new[0] = '\0';
+	return (new);
+}
+
 void	ft_quotecpy(char *args, int *i, t_tokens *tokens)
 {
     char    *new;
@@ -80,6 +73,10 @@ void	ft_quotecpy(char *args, int *i, t_tokens *tokens)
 	if (ft_isspcable(args[*i - 1]))
 		tokens->spcecho = 0;
     quote = args[(*i)++];
+	if (args[(*i)] == quote)
+		tokens->str = ft_voidquote();
+	if (args[(*i)] == quote)
+		return;
     while (args[j] && args[j + 1] != quote)
         j++;
     new = malloc(sizeof(char) * j - *i + 2);
