@@ -6,7 +6,11 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/08 18:59:52 by emorvan          ###   ########.fr       */
+=======
+/*   Updated: 2023/01/07 08:13:26 by baroun           ###   ########.fr       */
+>>>>>>> 9b7ce78f9c49c3f072bc5065b4c5be984ba215d9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +94,12 @@ int	main(int ac, char **av, char **env)
 	t_minishell	*minishell;
 
 	(void)av;
-	if (ac == 1)
-	{
-		minishell = malloc(sizeof(t_minishell));
-		if (!minishell)
-			return (0);
-		init_minishell(minishell, env);
-		shell(minishell);
-	}
+	(void)ac;
+
+	minishell = malloc(sizeof(t_minishell));
+	if (!minishell)
+		return (0);
+	init_minishell(minishell, env);
+	shell(minishell);
 	return (1);
 }

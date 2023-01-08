@@ -6,11 +6,27 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:00:21 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/07 07:37:18 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/07 08:29:49 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	**tokentostr(t_tokens *token)
+{
+	int	i;
+	char **new;
+	
+	i = 0;
+	while (token[i].str != NULL)
+		i++;
+	new = malloc(sizeof(char*) * i + 1);
+	i = -1;
+	while (token[++i].str != NULL)
+		new[i] = token[i].str;
+	new[i] = NULL;
+	return (new);
+}
 
 int    ft_cptquote(char *args, int *i)
 {
