@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/08 18:59:19 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/08 19:06:39 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,34 @@ void execute_commands(t_parser_token *tokens) {
 	int fd_in = STDIN_FILENO;
 	int fd_out = STDOUT_FILENO;
 	int	fd[2];
+	int skip_next_cmd = 0;
+	t_parser_token *tmp;
 	
 	for (int i = 0; tokens[i].type != TOKEN_END; i++) {
     	if (tokens[i].type == TOKEN_CMD) {
+			if (skip_next_cmd) {
+				skip_next_cmd = 0;
+				continue;
+			}
     		if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].redirection[0] == REDIR_PIPE) {
     			if (pipe(fd) < 0) {
     				perror("Error creating pipe");
     				exit(1);
     			}
     			fd_out = fd[1];
-    		} else {
-    			fd_out = STDOUT_FILENO;
-    		}
+    		} else if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].redirection[0] == REDIR_OUT) {
+				tmp = &tokens[i + 2];
+				skip_next_cmd = 1;
+				fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			} else if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].redirection[0] == REDIR_APPEND) {
+				tmp = &tokens[i + 2];
+				skip_next_cmd = 1;
+				fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
+			} else if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].redirection[0] == REDIR_IN) {
+				tmp = &tokens[i + 2];
+				skip_next_cmd = 1;
+				fd_in = open(tmp->command[0], O_RDONLY);
+			}
     		execute_command(&tokens[i], fd_in, fd_out);
 			if (fd_out != STDOUT_FILENO) {
       			close(fd_out);
