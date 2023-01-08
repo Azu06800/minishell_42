@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/07 07:51:15 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/08 18:59:52 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	shell(t_minishell *minishell)
 			continue ;
 		tokens = ft_lexer(str);
 		parser_token = ft_parse_tokens(tokentostr(tokens), minishell, tokens);
-		test_lexer(parser_token->tokens);
+		//test_lexer(parser_token->tokens);
 		ft_expander(parser_token, minishell);
 		//print_token(parser_token);
 		ft_executor(parser_token, minishell);
