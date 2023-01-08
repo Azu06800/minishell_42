@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/08 19:06:01 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/08 21:54:07 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,32 @@ void	ft_freeall(char **token, char *str)
 	free(token);
 }
 
-void	test_lexer(t_tokens *token)
-{
-	int	i;
+//void	test_lexer(t_tokens *token)
+//{
+//	int	i;
+//
+//	i = 0;
+//	while (token[i].str)
+//	{
+//		printf("token[%d]: %s [%zu] %i\n", i, token[i].str, ft_strlen(token[i].str), token[i].spcecho);
+//		i++;
+//	}
+//}
 
-	i = 0;
-	while (token[i].str)
-	{
-		printf("token[%d]: %s [%zu] %i\n", i, token[i].str, ft_strlen(token[i].str), token[i].spcecho);
-		i++;
-	}
+void	execute_from_args(t_minishell *minishell, char *arg)
+{
+	t_tokens		*tokens;
+	t_parser_token	*parser_token;
+
+	if (err_unclosed_quote(arg))
+		return ;
+	tokens = ft_lexer(arg);
+	parser_token = ft_parse_tokens(tokentostr(tokens), minishell, tokens);
+	ft_expander(parser_token, minishell);
+	ft_executor(parser_token, minishell);
+	g_pid = 0;
 }
+
 void	shell(t_minishell *minishell)
 {
 	char			*str;
@@ -89,8 +104,15 @@ int	main(int ac, char **av, char **env)
 {
 	t_minishell	*minishell;
 
-	(void)av;
-	(void)ac;
+	if (ac >= 3 && !ft_strcmp(av[1], "-c"))
+	{
+		minishell = malloc(sizeof(t_minishell));
+		if (!minishell)
+			return (0);
+		init_minishell(minishell, env);
+		execute_from_args(minishell, av[2]);
+		return (0);
+	}
 
 	minishell = malloc(sizeof(t_minishell));
 	if (!minishell)
