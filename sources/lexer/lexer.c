@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/07 08:38:22 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:20:50 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,25 @@ void	ft_sepcpy(char *arg, t_tokens *tokens, int *i)
 
 void	ft_argcpy(char *args, int *i, t_tokens *tokens)
 {
-    char    *arg;
-    int        j;
+	char	*arg;
+	int		j;
 
-    j = *i;
+	j = *i;
 	tokens->spcecho = 1;
 	if (ft_isspcable(args[*i - 1]))
 		tokens->spcecho = 0;
-    while (args[j] && !ft_issep(args[j]) && !ft_isspace(args[j]))
-        j++;
-    arg = malloc(sizeof(char) * j - *i + 1);
-    j = 0;
-    while (args[*i] && !ft_isspace(args[*i]) && !ft_issep(args[*i]))
-        arg[j++] = args[(*i)++];
-    arg[j] = '\0';
+	while (args[j] && !ft_issep(args[j]) && !ft_isspace(args[j]))
+		j++;
+	arg = malloc(sizeof(char) * j - *i + 1);
+	j = 0;
+	while (args[*i] && !ft_isspace(args[*i]) && !ft_issep(args[*i]))
+		arg[j++] = args[(*i)++];
+	arg[j] = '\0';
 	(*i)--;
-    tokens->str = arg;
+	tokens->str = arg;
 }
 
-char	*ft_voidquote()
+char	*ft_voidquote(void)
 {
 	char	*new;
 
@@ -64,28 +64,28 @@ char	*ft_voidquote()
 
 void	ft_quotecpy(char *args, int *i, t_tokens *tokens)
 {
-    char    *new;
-    int        j;
-    char    quote;
+	char	*new;
+	int		j;
+	char	quote;
 
-    j = *i;
+	j = *i;
 	tokens->spcecho = 1;
 	if (ft_isspcable(args[*i - 1]))
 		tokens->spcecho = 0;
-    quote = args[(*i)++];
+	quote = args[(*i)++];
 	if (args[(*i)] == quote)
 		tokens->str = ft_voidquote();
 	if (args[(*i)] == quote)
-		return;
-    while (args[j] && args[j + 1] != quote)
-        j++;
-    new = malloc(sizeof(char) * j - *i + 2);
-    j = 0;
-    while (args[*i] && args[(*i) + 1] != quote)
-        new[j++] = args[(*i)++];
-    new[j++] = args[(*i)++];
-    new[j] = '\0';
-    tokens->str = new;
+		return ;
+	while (args[j] && args[j + 1] != quote)
+		j++;
+	new = malloc(sizeof(char) * j - *i + 2);
+	j = 0;
+	while (args[*i] && args[(*i) + 1] != quote)
+		new[j++] = args[(*i)++];
+	new[j++] = args[(*i)++];
+	new[j] = '\0';
+	tokens->str = new;
 }
 
 t_tokens	*ft_lexer(char *args)
@@ -97,21 +97,13 @@ t_tokens	*ft_lexer(char *args)
 	i = -1;
 	j = 0;
 	tokens = malloc(sizeof(t_tokens) * ft_cptword(args));
-	while(args[++i])
+	while (args[++i])
 	{
 		if (ft_isquote(args[i]))
-		{
 			ft_quotecpy(args, &i, &tokens[j++]);
-			continue;
-		}
 		else if (ft_isfle(args[i]))
-		{
 			ft_sepcpy(args, &tokens[j++], &i);
-			continue;
-		}
-		else if (ft_isspace(args[i]))
-			continue;
-		else
+		else if (!ft_isspace(args[i]))
 			ft_argcpy(args, &i, &tokens[j++]);
 	}
 	tokens[j].str = NULL;
