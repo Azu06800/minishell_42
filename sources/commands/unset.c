@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:27:21 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 22:32:41 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ int	ft_unset(t_parser_token *token, t_minishell *minishell)
 		if (ft_getenv(minishell, token->command[i]) != NULL)
 			ft_delenv(minishell, token->command[i]);
 	}
-	exit(0);
 	return (0);
 }

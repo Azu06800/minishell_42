@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:47:48 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:23:51 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 22:23:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ int	ft_env(t_parser_token *token, t_minishell *minishell)
 		printf("\n");
 		i++;
 	}
-	exit(0);
 	return (0);
 }

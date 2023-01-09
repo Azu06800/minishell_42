@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 18:40:21 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 22:03:21 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 int	exec_builtin(t_parser_token *token, t_minishell *minishell)
 {
 	if (token->command[0] && !ft_strcmp(token->command[0], "echo"))
-		return (ft_echo(token, minishell));
+		exit(ft_echo(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "cd"))
-		return (ft_cd(token, minishell));
+		exit(ft_cd(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "pwd"))
-		return (ft_pwd(token, minishell));
+		exit(ft_pwd(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "export"))
-		return (ft_export(token, minishell));
+		exit(ft_export(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "unset"))
-		return (ft_unset(token, minishell));
+		exit(ft_unset(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "env"))
-		return (ft_env(token, minishell));
+		exit(ft_env(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "exit"))
-		return (ft_exit(token, minishell));
+		exit(ft_exit(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "clear"))
-		return (ft_clear(token, minishell));
+		exit(ft_clear(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "history"))
-		return (ft_history(token, minishell));
+		exit(ft_history(token, minishell));
 	return (0);
 }
 
@@ -47,6 +47,20 @@ int	is_builtin(t_minishell *minishell, char *str)
 		i++;
 	}
 	return (0);
+}
+
+void	redir_fds(int fd_in, int fd_out)
+{
+	if (fd_in != STDIN_FILENO)
+	{
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+	}
+	if (fd_out != STDOUT_FILENO)
+	{
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
+	}
 }
 
 int	execute_command(t_parser_token *token, t_minishell *minishell, int fd_in,
@@ -70,16 +84,7 @@ int	execute_command(t_parser_token *token, t_minishell *minishell, int fd_in,
 	pid = fork();
 	if (pid == 0)
 	{
-		if (fd_in != STDIN_FILENO)
-		{
-			dup2(fd_in, STDIN_FILENO);
-			close(fd_in);
-		}
-		if (fd_out != STDOUT_FILENO)
-		{
-			dup2(fd_out, STDOUT_FILENO);
-			close(fd_out);
-		}
+		redir_fds(fd_in, fd_out);
 		if (execve(command, args, minishell->envp) < 0)
 		{
 			perror("Error executing command");
@@ -112,16 +117,7 @@ int	execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in,
 	pid = fork();
 	if (pid == 0)
 	{
-		if (fd_in != STDIN_FILENO)
-		{
-			dup2(fd_in, STDIN_FILENO);
-			close(fd_in);
-		}
-		if (fd_out != STDOUT_FILENO)
-		{
-			dup2(fd_out, STDOUT_FILENO);
-			close(fd_out);
-		}
+		redir_fds(fd_in, fd_out);
 		if (exec_builtin(token, minishell) < 0)
 		{
 			perror("Error executing command");

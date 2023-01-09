@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 18:39:48 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 19:24:28 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_minishell
 	char	**builtins;
 	size_t	last_token_size;
 	char	**envp;
+	pid_t	cur_proc_pid;
 }	t_minishell;
 
 typedef enum e_token_type
