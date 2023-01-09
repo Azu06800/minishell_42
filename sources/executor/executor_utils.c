@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 15:25:52 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:37:22 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,59 @@ int	cmd_exists(t_parser_token *token, t_minishell *minishell)
 		path++;
 	}
 	return (0);
+}
+
+static char	*ft_strnew(size_t size)
+{
+	char	*str;
+
+	str = (char *)malloc(sizeof(char) * (size + 1));
+	if (str == NULL)
+		return (NULL);
+	ft_bzero(str, size + 1);
+	return (str);
+}
+
+static int	count_size(int n)
+{
+	int	i;
+
+	i = 0;
+	if (n < 0)
+		n *= -1;
+	while (n != 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_itoa(int n)
+{
+	char		*dst;
+	int			count;
+	int			i;
+	long int	num;
+
+	num = n;
+	count = count_size(num);
+	i = 0;
+	if (num < 0 || count == 0)
+		count++;
+	dst = ft_strnew(count);
+	if (dst == NULL)
+		return (NULL);
+	if (num < 0)
+	{
+		num *= -1;
+		dst[0] = '-';
+		i++;
+	}
+	while (count-- > i)
+	{
+		dst[count] = (num % 10) + '0';
+		num /= 10;
+	}
+	return (dst);
 }

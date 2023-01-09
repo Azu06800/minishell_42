@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 16:05:27 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 14:11:10 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:07:59 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,27 @@ size_t	malloc_size(void *ptr)
 	return (size);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void *realloc(void *ptr, size_t size)
 {
-	void	*new_ptr;
-	size_t	old_size;
-
-	if (!ptr)
-		return (malloc(size));
-	if (!size)
+	if (size == 0)
 	{
 		free(ptr);
-		return (NULL);
-	}	
-	old_size = malloc_size(ptr);
-	if (size <= old_size)
-		return (ptr);
-	new_ptr = malloc(size);
+		return NULL;
+	}
+	if (!ptr)
+	{
+		return malloc(size);
+	}
+	void *new_ptr = malloc(size);
 	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, old_size);
+	{
+		return NULL;
+	}
+	ft_memcpy(new_ptr, ptr, size);
 	free(ptr);
-	return (new_ptr);
+	return new_ptr;
 }
+
 
 int	ft_atoi(const char *str)
 {

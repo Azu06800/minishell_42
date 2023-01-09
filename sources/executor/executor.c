@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 15:26:15 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:38:11 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in, in
 			perror("waitpid");
 			return (1);
 		}
+		ft_modenv(minishell, "$?", ft_itoa(status));
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:32:36 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/06 17:32:54 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:09:52 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,27 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	dst[i] = '\0';
 	return (dst);
 }
+
+char *ft_strndup(const char *s, size_t n)
+{
+	char *result = malloc(n + 1);
+	if (!result)
+	{
+		return NULL;
+	}
+	strncpy(result, s, n);
+	result[n] = '\0';
+	return result;
+}
+
+char *ft_strcpy(char *dest, const char *src)
+{
+	char *ptr = dest;
+	while (*src)
+	{
+		*ptr++ = *src++;
+	}
+	*ptr = '\0';
+	return dest;
+}
+

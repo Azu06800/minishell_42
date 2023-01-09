@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 15:28:22 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:06:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ typedef enum e_redirection_type
 	REDIR_ERROR
 }	t_redir_type;
 
+typedef enum e_quote_type
+{
+	QUOTE_SINGLE,
+	QUOTE_DOUBLE,
+	QUOTE_NONE
+}	t_quote_type;
+
 typedef struct s_tokens
 {
 	char				*str;
@@ -83,6 +90,8 @@ typedef struct s_parser_token
 	size_t				input_size;
 	char				*output;
 	size_t				output_size;
+	t_quote_type		quote;
+
 
 	t_tokens			*tokens;
 }	t_parser_token;
@@ -124,8 +133,6 @@ void			concat_arrow(char **token);
 char			**tokentostr(t_tokens *token);
 
 //-------------------PARSER-------------------//
-int				cmp_str(char *str, char *cmp);
-void			ft_parsing(char **token, t_minishell *minishell);
 t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
@@ -151,7 +158,8 @@ int				ft_history(t_parser_token *token, t_minishell *minishell);
 int				ft_executor(t_parser_token *tokens, t_minishell *minishell);
 char			*ft_strcat(char *dest, char *src);
 int				cmd_exists(t_parser_token *token, t_minishell *minishell);
-
+char			*ft_itoa(int n);
+void			ft_bzero(void *s, size_t n);
 //-------------------SIGNAL-------------------//
 void			echo_control_seq(int c);
 void			init_signal(void);
@@ -182,8 +190,11 @@ void			print_env(t_minishell *minishell);
 
 //-------------------EXPANDER-------------------//
 void			ft_expander(t_parser_token *token, t_minishell *minishell);
+char			*ft_strndup(const char *s, size_t n);
 
 //-------------------VALIDATOR-------------------//
 int				ft_validator(t_parser_token *tokens);
 char    		*redir_type_to_str(t_parser_token *token);
+int				ft_isalpha(char c);
+int				ft_isdigit(char c);
 #endif
