@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:06:37 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:23:24 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_minishell
 	int		env_size;
 	char	**builtins;
 	size_t	last_token_size;
-	char 	**envp;
+	char	**envp;
 }	t_minishell;
 
 typedef enum e_token_type
@@ -78,7 +78,7 @@ typedef struct s_tokens
 {
 	char				*str;
 	int					spcecho;
-} t_tokens;
+}	t_tokens;
 
 typedef struct s_parser_token
 {
@@ -92,10 +92,8 @@ typedef struct s_parser_token
 	size_t				output_size;
 	t_quote_type		quote;
 
-
 	t_tokens			*tokens;
 }	t_parser_token;
-
 
 //-------------------LEXER-------------------//
 	//is
@@ -107,14 +105,14 @@ int				ft_isspcable(int c);
 	//malloc split
 size_t			cpt_quote(char *s);
 size_t			cpt_word(char *str, int a);
-size_t    			ft_cptword(char *args);
+size_t			ft_cptword(char *args);
 	//sep
 char			*ft_remove_spcqu(char *arg);
 char			*ft_add_spcqu(char *arg);
 char			*ft_remove_spc(char *arg);
 char			*ft_add_spc(char *arg);
-char 			*ft_remove_quotes(char *str);
-char    		*ft_add_spcqu(char *arg);
+char			*ft_remove_quotes(char *str);
+char			*ft_add_spcqu(char *arg);
 char			*ft_rmspc(char *arg);
 	//split
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -133,7 +131,8 @@ void			concat_arrow(char **token);
 char			**tokentostr(t_tokens *token);
 
 //-------------------PARSER-------------------//
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk);
+t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell,\ 
+	 t_tokens *tk);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
 void			parse_separator_token(char *token, t_parser_token *parsed_tok);
@@ -194,7 +193,7 @@ char			*ft_strndup(const char *s, size_t n);
 
 //-------------------VALIDATOR-------------------//
 int				ft_validator(t_parser_token *tokens);
-char    		*redir_type_to_str(t_parser_token *token);
+char			*redir_type_to_str(t_parser_token *token);
 int				ft_isalpha(char c);
 int				ft_isdigit(char c);
 #endif
