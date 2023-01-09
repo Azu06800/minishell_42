@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/07 17:34:20 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 10:27:22 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int				ft_history(t_parser_token *token, t_minishell *minishell);
 
 //-------------------EXEC-------------------//
 int				ft_executor(t_parser_token *tokens, t_minishell *minishell);
+char			*ft_strcat(char *dest, char *src);
 
 //-------------------SIGNAL-------------------//
 void			init_signal(void);
@@ -175,4 +176,8 @@ int				ft_atoi(const char *str);
 
 //-------------------EXPANDER-------------------//
 void			ft_expander(t_parser_token *token, t_minishell *minishell);
+
+//-------------------VALIDATOR-------------------//
+int				ft_validator(t_parser_token *tokens);
+char    		*redir_type_to_str(t_parser_token *token);
 #endif

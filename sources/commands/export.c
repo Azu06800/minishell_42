@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/02 17:18:37 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/08 23:18:39 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	ft_export(t_parser_token *token, t_minishell *minishell)
 			i++;
 		}
 	}
+	exit(0);
 	return (0);
 }

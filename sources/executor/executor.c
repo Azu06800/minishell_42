@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/08 19:06:39 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 10:32:16 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,21 @@ int	exec_builtin(t_parser_token *token, t_minishell *minishell)
 		return (ft_clear(token, minishell));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "history"))
 		return (ft_history(token, minishell));
-	return (2);
+	return (0);
+}
+
+int	is_builtin(t_minishell *minishell, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (minishell->builtins[i])
+	{
+		if (!ft_strcmp(str, minishell->builtins[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int execute_command(t_parser_token *token, int fd_in, int fd_out) {
@@ -72,7 +86,66 @@ int execute_command(t_parser_token *token, int fd_in, int fd_out) {
 	return (0);
 }
 
-void execute_commands(t_parser_token *tokens) {
+int execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in, int fd_out) {
+	int pid = fork();
+	int status;
+	if (pid == 0) {
+		if (fd_in != STDIN_FILENO) {
+			dup2(fd_in, STDIN_FILENO);
+			close(fd_in);
+		}
+		if (fd_out != STDOUT_FILENO) {
+			dup2(fd_out, STDOUT_FILENO);
+			close(fd_out);
+		}
+		if (exec_builtin(token, minishell) < 0) {
+			perror("Error executing command");
+			return (1);
+		}
+	} else if (pid < 0) {
+		perror("Error creating child process");
+		return (1);
+	} else {
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			perror("waitpid");
+			return (1);
+		}
+	}
+	return (0);
+}
+
+char *read_heredoc(char *delimiter) {
+	char *line = NULL;
+	int len = 0;
+	int delimiter_len = ft_strlen(delimiter);
+
+	char *heredoc_content = malloc(1);
+	if (heredoc_content == NULL) {
+		perror("Error allocating memory for heredoc content");
+		exit(1);
+	}
+	heredoc_content[0] = '\0';
+
+	while ((line = readline("heredoc> ")) != NULL) {
+		len = ft_strlen(line);
+		if (len == delimiter_len && ft_strncmp(line, delimiter, delimiter_len) == 0) {
+			break;
+		}
+		char *tmp = realloc(heredoc_content, ft_strlen(heredoc_content) + len + 2);
+		if (tmp == NULL) {
+			perror("Error reallocating memory for heredoc content");
+			exit(1);
+		}
+		heredoc_content = tmp;
+		ft_strcat(heredoc_content, line);
+		ft_strcat(heredoc_content, "\n");
+		free(line);
+	}
+	return heredoc_content;
+}
+
+int ft_executor(t_parser_token *tokens, t_minishell *minishell) {
 	int fd_in = STDIN_FILENO;
 	int fd_out = STDOUT_FILENO;
 	int	fd[2];
@@ -103,23 +176,23 @@ void execute_commands(t_parser_token *tokens) {
 				tmp = &tokens[i + 2];
 				skip_next_cmd = 1;
 				fd_in = open(tmp->command[0], O_RDONLY);
+			} else if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].redirection[0] == REDIR_HEREDOC) {
+				char *delimiter = tokens[i + 2].command[0];
+				char *heredoc_content = read_heredoc(delimiter);
+				int fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				write(fd, heredoc_content, ft_strlen(heredoc_content));
+				skip_next_cmd = 1;
+				fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
 			}
-    		execute_command(&tokens[i], fd_in, fd_out);
+			if (is_builtin(minishell, tokens[i].command[0]))
+				execute_builtin(&tokens[i], minishell, fd_in, fd_out);
+			else
+				execute_command(&tokens[i], fd_in, fd_out);
 			if (fd_out != STDOUT_FILENO) {
       			close(fd_out);
       			fd_in = fd[0];
       		}
     	}
   	}
-}
-
-
-int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
-{
-	(void)minishell;
-	if (tokens[0].type == TOKEN_END)
-		return (0);
-	if (exec_builtin(tokens, minishell) == 2)
-		execute_commands(tokens);
 	return (0);
 }

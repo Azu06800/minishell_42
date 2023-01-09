@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.c                                            :+:      :+:    :+:   */
+/*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/01 23:43:38 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/08 23:19:29 by emorvan          ###   ########.fr       */
+/*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
+/*   Updated: 2023/01/09 10:26:54 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	ft_clear(t_parser_token *token, t_minishell *minishell)
+char *ft_strcat(char *dest, char *src)
 {
-	(void) token;
-	(void) minishell;
-	printf("\033[2J\033[1;1H");
-	exit(0);
-	return (0);
+	int i;
+	int j;
+
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	j = 0;
+	while (src[j] != '\0')
+	{
+		dest[i + j] = src[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
 }

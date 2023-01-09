@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/08 21:54:07 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 00:05:30 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	shell(t_minishell *minishell)
 			continue ;
 		tokens = ft_lexer(str);
 		parser_token = ft_parse_tokens(tokentostr(tokens), minishell, tokens);
-		//test_lexer(parser_token->tokens);
-		ft_expander(parser_token, minishell);
-		//print_token(parser_token);
-		ft_executor(parser_token, minishell);
-		//printf("command_out: %s", parser_token->output);
+		if (ft_validator(parser_token))
+		{
+			ft_expander(parser_token, minishell);
+			ft_executor(parser_token, minishell);
+		}
 		g_pid = 0;
 	}
 }

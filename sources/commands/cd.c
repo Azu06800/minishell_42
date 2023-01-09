@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:50:36 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/02 16:54:45 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/08 23:20:51 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,21 @@ int	ft_cd(t_parser_token *token, t_minishell *minishell)
 
 	oldpwd = getcwd(NULL, 0);
 	if (ft_cd_no_arg(minishell, token, oldpwd) == 1)
+	{
+		exit(1);
 		return (1);
+	}
 	if (ft_cd_one_arg(minishell, token, oldpwd) == 1)
+	{
+		exit(1);
 		return (1);
+	}
 	if (token->command[2] != NULL)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return (2);
+		exit(1);
+		return (1);
 	}
+	exit(0);
 	return (0);
 }
