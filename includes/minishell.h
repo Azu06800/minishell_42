@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 14:08:45 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:28:22 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 //------------------INCLUDES------------------//
 
 # include <stdio.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -151,6 +153,7 @@ char			*ft_strcat(char *dest, char *src);
 int				cmd_exists(t_parser_token *token, t_minishell *minishell);
 
 //-------------------SIGNAL-------------------//
+void			echo_control_seq(int c);
 void			init_signal(void);
 
 //-------------------ERROR-------------------//
