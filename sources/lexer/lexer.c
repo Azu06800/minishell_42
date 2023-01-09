@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:59:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:20:50 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 18:12:35 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ void	ft_argcpy(char *args, int *i, t_tokens *tokens)
 	tokens->str = arg;
 }
 
-char	*ft_voidquote(void)
+char	*ft_voidquote(char c)
 {
 	char	*new;
 
-	new = malloc(sizeof(char) * 1);
-	new[0] = '\0';
+	new = malloc(sizeof(char) * 3);
+	new[0] = c;
+	new[1] = c;
+	new[2] = '\0';
 	return (new);
 }
 
@@ -74,16 +76,18 @@ void	ft_quotecpy(char *args, int *i, t_tokens *tokens)
 		tokens->spcecho = 0;
 	quote = args[(*i)++];
 	if (args[(*i)] == quote)
-		tokens->str = ft_voidquote();
+		tokens->str = ft_voidquote(quote);
 	if (args[(*i)] == quote)
 		return ;
 	while (args[j] && args[j + 1] != quote)
 		j++;
-	new = malloc(sizeof(char) * j - *i + 2);
+	new = malloc(sizeof(char) * j - *i + 4);
 	j = 0;
+	new[j++] = quote;
 	while (args[*i] && args[(*i) + 1] != quote)
 		new[j++] = args[(*i)++];
 	new[j++] = args[(*i)++];
+	new[j++] = quote;
 	new[j] = '\0';
 	tokens->str = new;
 }

@@ -33,36 +33,29 @@ LINK			=	libreadline.a -lreadline -lncurses
 ${OBJECTS}/%.o: ${SOURCES}/%.c
 	@if [ ! -d "includes/readline" ]; then make rl; fi
 	@mkdir -p $(dir $@)
-	@echo "⏳ Compilation de $(YEL)${notdir $<}$(EOC). ⏳"
+	@printf "\r\033[K⏳ Compilation de ""$(YEL)${notdir $<}$(EOC). ⏳"
 	@${CC} ${CFLAGS} -o $@ -c $< ${CINCLUDES}
 
 all: ${NAME}
 	
 
 rl:
-	@rm -rf req.sh
-	@rm -rf t
-	@echo "touch readline-8.1.tar.gz" >> req.sh
 	@echo "⏳ Creation de $(YEL)libreadline$(EOC). ⏳"
-	@echo "curl -ks https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz > readline-8.1.tar.gz" >> req.sh
-	@echo "(tar -xf readline-8.1.tar.gz) >> t"  >> req.sh
-	@echo "mv readline-8.1 readline" >> req.sh
-	@echo "rm -rf readline-8.1.tar.gz" >> req.sh
-	@echo "mv readline includes" >> req.sh
-	@echo "cd includes/readline/" >> req.sh
-	@echo "(./configure --prefix=$$(pwd)/includes/readline) >> t" >> req.sh
-	@echo "make && make install && make clean" >> req.sh
-	@echo "rm -rf t" >> req.sh
-	@echo "cd ../../" >> req.sh
-	@echo "clear" >> req.sh
-	@sh req.sh
-	@rm -rf req.sh
-	@rm -rf t
-	@stty -echoctl
+	@curl -ks https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz > readline-8.1.tar.gz
+	@tar -xf readline-8.1.tar.gz 
+	@mv readline-8.1 readline
+	@rm -rf readline-8.1.tar.gz
+	@mv readline includes
+	@cd includes/readline/ && \
+	./configure --prefix=$$(pwd)/includes/readline >> /dev/null && \
+	make -s && make -s install && make -s clean && \
+	cd ../../
+	stty -echoctl
 	@echo "✅ $(GRE)Creation de libreadline terminée.$(EOC) ✅"
 
 ${NAME}: ${OBJS}
-	@echo "\n✅ $(GRE)Compilation terminée.$(EOC) ✅"
+	@clear
+	@echo "✅ $(GRE)Compilation terminée.$(EOC) ✅"
 	@${CC} ${CFLAGS} ${LINK} -o ${NAME} ${OBJS}
 
 clean:
@@ -77,6 +70,7 @@ fclean: clean
 re: fclean all
 
 run: all
+	@clear
 	@./${NAME}
 
 .PHONY:	all clean fclean re run
