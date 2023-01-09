@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 10:27:22 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 14:08:45 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_minishell
 	int		env_size;
 	char	**builtins;
 	size_t	last_token_size;
+	char 	**envp;
 }	t_minishell;
 
 typedef enum e_token_type
@@ -147,6 +148,7 @@ int				ft_history(t_parser_token *token, t_minishell *minishell);
 //-------------------EXEC-------------------//
 int				ft_executor(t_parser_token *tokens, t_minishell *minishell);
 char			*ft_strcat(char *dest, char *src);
+int				cmd_exists(t_parser_token *token, t_minishell *minishell);
 
 //-------------------SIGNAL-------------------//
 void			init_signal(void);
@@ -173,6 +175,7 @@ char			*ft_getenv(t_minishell *minishell, char *name);
 void			ft_initenv(t_minishell *minishell, char **env);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_atoi(const char *str);
+void			print_env(t_minishell *minishell);
 
 //-------------------EXPANDER-------------------//
 void			ft_expander(t_parser_token *token, t_minishell *minishell);
