@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
-/*   Updated: 2022/12/14 16:29:33 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 17:16:08 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ftl_cinstr(char *str, char c)
 	return (0);
 }
 
-int ft_onlyspace(char *str)
+int	ft_onlyspace(char *str)
 {
 	int	i;
 
@@ -38,4 +38,16 @@ int ft_onlyspace(char *str)
 		i++;
 	}
 	return (1);
+}
+
+void	ft_freeall(char **token, char *str)
+{
+	int	i;
+
+	i = -1;
+	while (token[++i])
+		free(token[i]);
+	free(token[i]);
+	free(str);
+	free(token);
 }

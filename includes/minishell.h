@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 17:04:33 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:16:36 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void			concat_arrow(char **token);
 char			**tokentostr(t_tokens *token);
 
 //-------------------PARSER-------------------//
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk);
+t_parser_token	*ft_parse_tokens(char **tks, t_minishell *mshell, t_tokens *tk);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
 void			parse_separator_token(char *token, t_parser_token *parsed_tok);
@@ -196,4 +196,5 @@ int				ft_validator(t_parser_token *tokens);
 char			*redir_type_to_str(t_parser_token *token);
 int				ft_isalpha(char c);
 int				ft_isdigit(int c);
+void			ft_freeall(char **token, char *str);
 #endif

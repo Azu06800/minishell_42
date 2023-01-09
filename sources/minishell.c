@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:49:02 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:16:00 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,6 @@ void	init_minishell(t_minishell *minishell, char **env)
 	ft_initenv(minishell, env);
 }
 
-void	ft_freeall(char **token, char *str)
-{
-	int	i;
-
-	i = -1;
-	while (token[++i])
-		free(token[i]);
-	free(token[i]);
-	free(str);
-	free(token);
-}
-
-//void	test_lexer(t_tokens *token)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (token[i].str)
-//	{
-//		printf("token[%d]: %s [%zu] %i\n", i, token[i].str, ft_strlen(token[i].str), token[i].spcecho);
-//		i++;
-//	}
-//}
-
 void	execute_from_args(t_minishell *minishell, char *arg)
 {
 	t_tokens		*tokens;
@@ -70,7 +46,7 @@ void	execute_from_args(t_minishell *minishell, char *arg)
 
 void	refresh_env(t_minishell *minishell)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;

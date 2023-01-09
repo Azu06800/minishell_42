@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 15:09:24 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:58:20 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:11:35 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,18 @@ void	parse_tokens(char **tokens, t_parser_token *parsed_tokens)
 	}
 }
 
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk)
+t_parser_token	*ft_parse_tokens(char **tks, t_minishell *mshell, t_tokens *tk)
 {
 	size_t			num_tokens;
 	t_parser_token	*parsed_tokens;
 
-	(void) minishell;
-	num_tokens = count_tokens(tokens);
+	(void) mshell;
+	num_tokens = count_tokens(tks);
 	parsed_tokens = malloc((num_tokens + 1) * sizeof(t_parser_token));
 	parsed_tokens->tokens = tk;
 	if (parsed_tokens == NULL)
 		return (NULL);
-	parse_tokens(tokens, parsed_tokens);
+	parse_tokens(tks, parsed_tokens);
 	parsed_tokens[num_tokens].type = TOKEN_END;
 	remove_empty_cmd(parsed_tokens);
 	return (parsed_tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:36:41 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:18:46 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:15:28 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_isspace(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\v'
-			|| c == '\n' || c == '\f' || c == '\r');
+		|| c == '\n' || c == '\f' || c == '\r');
 }
 
 int	ft_isspcable(int c)

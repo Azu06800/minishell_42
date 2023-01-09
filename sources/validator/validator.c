@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 23:49:15 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:58:39 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:14:57 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_parser_token	*no_consecutive_redir(t_parser_token *tokens)
 int	ft_validator(t_parser_token *tokens)
 {
 	t_parser_token	*error;
-	
+
 	if (!at_least_one_cmd(tokens))
 		return (0);
 	error = no_consecutive_redir(tokens);
@@ -76,7 +76,8 @@ int	ft_validator(t_parser_token *tokens)
 	}
 	if (!token_cmd_after_redir(tokens))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token ", 2);
+		ft_putstr_fd("`newline'\n", 2);
 		return (0);
 	}
 	return (1);
