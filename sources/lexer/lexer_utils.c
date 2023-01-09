@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:00:21 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:20:18 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:59:32 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_cptarrow(char *args, int *i)
 	return (1);
 }
 
-size_t	t_cptword(char *args)
+size_t	ft_cptword(char *args)
 {
 	int	i;
 	int	j;

@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:27:07 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:53:06 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // TODO: Export env
 //new
-int	ft_export(t_parser_token *token, t_minishell *minishell)
+/*int	ft_export(t_parser_token *token, t_minishell *minishell)
 {
 	int		i;
 	char	**tmp;
@@ -39,7 +39,7 @@ int	ft_export(t_parser_token *token, t_minishell *minishell)
 	}
 	exit(0);
 	return (0);
-}
+}*/
 
 //old
 int	ft_export(t_parser_token *token, t_minishell *minishell)

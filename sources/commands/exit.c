@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:10:04 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:23:53 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:04:01 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 int	ft_isdigit(int c)
 {
-	if ((c >= '0' && c <= '9') || c == '-')
-		return (1);
-	return (0);
+	return (c >= '0' && c <= '9');
 }
 
 int	ft_is_numeric(char *str)

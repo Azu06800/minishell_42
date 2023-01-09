@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:29:07 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:04:53 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:58:09 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,28 @@ char *expand_variable(t_minishell *minishell, char *string)
 	return buffer;
 }
 
-void expand_variables(t_minishell *minishell, char **strings, size_t size)
+void	expand_variables(t_minishell *minishell, char **strings, size_t size)
 {
-	size_t i;
-	for (i = 0; i < size; i++)
+	size_t	i;
+	char	*current;
+	char	*expanded;
+
+	i = -1;
+	while (++i < size)
 	{
-		char *current = strings[i];
-		char *expanded = expand_variable(minishell, current);
+		current = strings[i];
+		expanded = expand_variable(minishell, current);
 		free(current);
 		strings[i] = expanded;
 	}
 }
 
-void ft_expander(t_parser_token *tokens, t_minishell *minishell)
+void	ft_expander(t_parser_token *tokens, t_minishell *minishell)
 {
-	int i;
-	for (i = 0; tokens[i].type != TOKEN_END; i++)
+	int	i;
+
+	i = -1;
+	while (tokens[++i].type != TOKEN_END)
 	{
 		if (tokens[i].type == TOKEN_CMD)
 		{

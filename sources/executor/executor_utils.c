@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 15:37:22 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:31:19 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char *ft_strcat(char *dest, char *src)
+char	*ft_strcat(char *dest, char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (dest[i] != '\0')
@@ -33,11 +33,12 @@ char *ft_strcat(char *dest, char *src)
 int	cmd_exists(t_parser_token *token, t_minishell *minishell)
 {
 	char	**path;
+	char	*cmd;
 
 	path = ft_split(ft_getenv(minishell, "PATH"), ':');
 	while (path && *path)
 	{
-		char *cmd = ft_strcat(*path, "/");
+		cmd = ft_strcat(*path, "/");
 		cmd = ft_strcat(cmd, token->command[0]);
 		if (access(cmd, F_OK) == 0)
 		{

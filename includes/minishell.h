@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:23:24 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 17:04:33 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,7 @@ void			concat_arrow(char **token);
 char			**tokentostr(t_tokens *token);
 
 //-------------------PARSER-------------------//
-t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell,\ 
-	 t_tokens *tk);
+t_parser_token	*ft_parse_tokens(char **tokens, t_minishell *minishell, t_tokens *tk);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
 void			parse_separator_token(char *token, t_parser_token *parsed_tok);
@@ -190,10 +189,11 @@ void			print_env(t_minishell *minishell);
 //-------------------EXPANDER-------------------//
 void			ft_expander(t_parser_token *token, t_minishell *minishell);
 char			*ft_strndup(const char *s, size_t n);
+char			*ft_strcpy(char *dest, const char *src);
 
 //-------------------VALIDATOR-------------------//
 int				ft_validator(t_parser_token *tokens);
 char			*redir_type_to_str(t_parser_token *token);
 int				ft_isalpha(char c);
-int				ft_isdigit(char c);
+int				ft_isdigit(int c);
 #endif

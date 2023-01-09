@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 15:38:11 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:32:03 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@ int	is_builtin(t_minishell *minishell, char *str)
 }
 
 int execute_command(t_parser_token *token, t_minishell *minishell, int fd_in, int fd_out) {
-	int pid = fork();
-	int status;
-	if (pid == 0) {
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid == 0) 
+	{
 		char *command = token->command[0];
 		char *args[token->command_size + 1];
-		for (size_t i = 0; i < token->command_size; i++) {
+		for (size_t i = 0; i < token->command_size; i++) 
+		{
 			args[i] = token->command[i];
 		}
 		args[token->command_size] = NULL;

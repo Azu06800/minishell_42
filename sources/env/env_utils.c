@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 16:05:27 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:07:59 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 17:07:03 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,26 @@ size_t	malloc_size(void *ptr)
 	return (size);
 }
 
-void *realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t size)
 {
+	void	*new_ptr;
+
 	if (size == 0)
 	{
 		free(ptr);
-		return NULL;
+		return (NULL);
 	}
 	if (!ptr)
 	{
-		return malloc(size);
+		return (malloc(size));
 	}
-	void *new_ptr = malloc(size);
+	new_ptr = malloc(size);
 	if (!new_ptr)
-	{
-		return NULL;
-	}
+		return (NULL);
 	ft_memcpy(new_ptr, ptr, size);
 	free(ptr);
-	return new_ptr;
+	return (new_ptr);
 }
-
 
 int	ft_atoi(const char *str)
 {
@@ -78,8 +77,9 @@ int	ft_atoi(const char *str)
 
 void	print_env(t_minishell *minishell)
 {
-	char **envp = minishell->envp;
+	char	**envp;
 
+	envp = minishell->envp;
 	while (*envp != NULL)
 	{
 		ft_putstr_fd(*envp, 1);

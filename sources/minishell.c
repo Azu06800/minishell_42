@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 14:31:11 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 16:49:02 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	shell(t_minishell *minishell)
 	char			*str;
 	t_parser_token	*parser_token;
 	t_tokens		*tokens;
-	
+
 	init_signal();
 	while (1)
 	{
@@ -100,8 +100,7 @@ void	shell(t_minishell *minishell)
 		str = readline("minishell$ ");
 		if (!str)
 		{
-			ft_putstr_fd("exit", 2);
-			ft_putstr_fd("\n", 2);
+			ft_putstr_fd("exit\n", 2);
 			exit(0);
 		}
 		if (str == NULL || str[0] == '\0')
@@ -134,7 +133,6 @@ int	main(int ac, char **av, char **env)
 		execute_from_args(minishell, av[2]);
 		return (0);
 	}
-
 	minishell = malloc(sizeof(t_minishell));
 	if (!minishell)
 		return (0);
