@@ -33,7 +33,7 @@ LINK			=	libreadline.a -lreadline -lncurses
 ${OBJECTS}/%.o: ${SOURCES}/%.c
 	@if [ ! -d "includes/readline" ]; then make rl; fi
 	@mkdir -p $(dir $@)
-	@echo "⏳ Compilation de $(YEL)${notdir $<}$(EOC). ⏳"
+	@printf "\r\033[K⏳ Compilation de ""$(YEL)${notdir $<}$(EOC). ⏳"
 	@${CC} ${CFLAGS} -o $@ -c $< ${CINCLUDES}
 
 all: ${NAME}
@@ -47,14 +47,15 @@ rl:
 	@rm -rf readline-8.1.tar.gz
 	@mv readline includes
 	@cd includes/readline/ && \
-	./configure --prefix=$$(pwd)/includes/readline > /dev/null 2>&1 && \
+	./configure --prefix=$$(pwd)/includes/readline >> /dev/null && \
 	make -s && make -s install && make -s clean && \
 	cd ../../
 	stty -echoctl
 	@echo "✅ $(GRE)Creation de libreadline terminée.$(EOC) ✅"
 
 ${NAME}: ${OBJS}
-	@echo "\n✅ $(GRE)Compilation terminée.$(EOC) ✅"
+	@clear
+	@echo "✅ $(GRE)Compilation terminée.$(EOC) ✅"
 	@${CC} ${CFLAGS} ${LINK} -o ${NAME} ${OBJS}
 
 clean:
@@ -69,6 +70,7 @@ fclean: clean
 re: fclean all
 
 run: all
+	@clear
 	@./${NAME}
 
 .PHONY:	all clean fclean re run
