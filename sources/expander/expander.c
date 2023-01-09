@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:29:07 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:58:09 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 19:11:21 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 int	ft_isalnum(char str)
 {
@@ -64,8 +63,7 @@ char *expand_variable(t_minishell *minishell, char *string)
 			*ptr++ = *string++;
 	}
 	*ptr = '\0';
-
-	return buffer;
+	return (buffer);
 }
 
 void	expand_variables(t_minishell *minishell, char **strings, size_t size)
@@ -92,9 +90,7 @@ void	ft_expander(t_parser_token *tokens, t_minishell *minishell)
 	while (tokens[++i].type != TOKEN_END)
 	{
 		if (tokens[i].type == TOKEN_CMD)
-		{
-			// Expand variables in the command
-			expand_variables(minishell, tokens[i].command, tokens[i].command_size);
-		}
+			expand_variables(minishell, tokens[i].command,
+				tokens[i].command_size);
 	}
 }

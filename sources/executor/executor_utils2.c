@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 22:03:21 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 00:24:26 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,20 @@ int	execute_command(t_parser_token *token, t_minishell *minishell, int fd_in,
 		redir_fds(fd_in, fd_out);
 		if (execve(command, args, minishell->envp) < 0)
 		{
-			perror("Error executing command");
+			ft_perror_cmd(token->command[0]);
 			exit(1);
 		}
 	}
 	else if (pid < 0)
 	{
-		perror("Error creating child process");
+		perror("minishell: error creating child process");
 		exit(1);
 	}
 	else
 	{
 		if (waitpid(pid, &status, 0) == -1)
 		{
-			perror("waitpid");
+			perror("minishell: waitpid");
 			return (1);
 		}
 	}
@@ -120,20 +120,20 @@ int	execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in,
 		redir_fds(fd_in, fd_out);
 		if (exec_builtin(token, minishell) < 0)
 		{
-			perror("Error executing command");
+			ft_perror_cmd(token->command[0]);
 			exit(1);
 		}
 	}
 	else if (pid < 0)
 	{
-		perror("Error creating child process");
+		perror("minishell: error creating child process");
 		exit(1);
 	}
 	else
 	{
 		if (waitpid(pid, &status, 0) == -1)
 		{
-			perror("waitpid");
+			perror("minishell: waitpid");
 			return (1);
 		}
 		ft_modenv(minishell, "$?", ft_itoa(status));
@@ -155,7 +155,7 @@ char	*read_heredoc(char *delimiter)
 	heredoc_content = malloc(1);
 	if (heredoc_content == NULL)
 	{
-		perror("Error allocating memory for heredoc content");
+		perror("minishell: error allocating memory for heredoc content");
 		exit(1);
 	}
 	heredoc_content[0] = '\0';
@@ -174,7 +174,7 @@ char	*read_heredoc(char *delimiter)
 		tmp = realloc(heredoc_content, ft_strlen(heredoc_content) + len + 2);
 		if (tmp == NULL)
 		{
-			perror("Error reallocating memory for heredoc content");
+			perror("minishell: error reallocating memory for heredoc content");
 			exit(1);
 		}
 		heredoc_content = tmp;

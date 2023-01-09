@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 19:24:28 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 00:31:49 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int				check_cmd(char *str, t_minishell *minishell);
 int				ft_cmdcmp(char *s1, char **s2);
 int				ft_strcmp(const char *s1, const char *s2);
 void			err_not_found(char *cmd);
+void			err_perm_denied(char *cmd);
 
 //-------------------UTILS-------------------//
 int				ft_onlyspace(char *str);
@@ -206,4 +207,5 @@ char			*redir_type_to_str(t_parser_token *token);
 int				ft_isalpha(char c);
 int				ft_isdigit(int c);
 void			ft_freeall(char **token, char *str);
+void			ft_perror_cmd(char *cmd);
 #endif

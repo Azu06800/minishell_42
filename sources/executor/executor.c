@@ -6,13 +6,11 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 19:00:45 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 00:35:04 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-pid_t	g_pid;
 
 int	handle_redirections_in(t_parser_token *tokens, int i, int *skip_next_cmd)
 {
@@ -54,13 +52,20 @@ int	handle_redirections_out(t_parser_token *tokens, int i, int *skip_next_cmd)
 		{
 			tmp = &tokens[i + 2];
 			*skip_next_cmd = 1;
-			fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (!access(tmp->command[0], F_OK | W_OK))
+				fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_TRUNC,
+						0644);
+			else
+				err_perm_denied(tmp->command[0]);
 		}
 		else if (tokens[i + 1].redirection[0] == REDIR_APPEND)
 		{
 			tmp = &tokens[i + 2];
 			*skip_next_cmd = 1;
-			fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (!access(tmp->command[0], F_OK | W_OK))
+				fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_APPEND,
+						0644);
+			err_perm_denied(tmp->command[0]);
 		}
 	}
 	return (fd_out);
@@ -88,18 +93,18 @@ int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
 				i++;
 				continue ;
 			}
+			fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
+			fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
 			if (tokens[i + 1].type == TOKEN_REDIR
 				&& tokens[i + 1].redirection[0] == REDIR_PIPE)
 			{
 				if (pipe(fd) < 0)
 				{
-					perror("Error creating pipe");
+					perror("minishell: error creating pipe");
 					exit(1);
 				}
 				fd_out = fd[1];
 			}
-			fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
-			fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
 			if (is_builtin(minishell, tokens[i].command[0]))
 				execute_builtin(&tokens[i], minishell, fd_in, fd_out);
 			else
@@ -108,6 +113,11 @@ int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
 					execute_command(&tokens[i], minishell, fd_in, fd_out);
 				else
 					err_not_found(tokens[i].command[0]);
+			}
+			if (fd_out != STDOUT_FILENO)
+			{
+				close(fd_out);
+				fd_in = fd[0];
 			}
 		}
 		i++;

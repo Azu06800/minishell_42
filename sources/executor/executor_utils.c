@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:31:19 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 00:16:00 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,25 @@ char	*ft_strcat(char *dest, char *src)
 int	cmd_exists(t_parser_token *token, t_minishell *minishell)
 {
 	char	**path;
-	char	*cmd;
+	char	*full_path;
 
 	path = ft_split(ft_getenv(minishell, "PATH"), ':');
 	while (path && *path)
 	{
-		cmd = ft_strcat(*path, "/");
-		cmd = ft_strcat(cmd, token->command[0]);
-		if (access(cmd, F_OK) == 0)
-		{
-			token->command[0] = ft_strdup(cmd);
-			free(cmd);
+		if (token->command[0][0] == '/' || token->command[0][0] == '.')
 			return (1);
+		full_path = ft_strjoin(*path, "/");
+		full_path = ft_strjoin(full_path, token->command[0]);
+		if (access(full_path, X_OK) == 0)
+		{
+			if (ft_strlen(token->command[0]) > 0)
+			{
+				token->command[0] = ft_strdup(full_path);
+				free(full_path);
+				return (1);
+			}
 		}
-		free(cmd);
+		free(full_path);
 		path++;
 	}
 	return (0);

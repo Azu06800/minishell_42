@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 18:36:58 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 00:31:31 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	err_not_found(char *cmd)
 
 void	err_perm_denied(char *cmd)
 {
-	write(2, "minishell: permission denied: ", 30);
+	write(2, "minishell: ", 30);
 	write(2, cmd, ft_strlen(cmd));
-	write(2, "\n", 1);
+	write(2, ": Permission denied\n", 20);
 }
 
 void	err_no_file_or_dir(char *cmd)
