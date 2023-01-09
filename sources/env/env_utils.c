@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 16:05:27 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/01 22:13:06 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 14:11:10 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,16 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (nb * sign);
+}
+
+void	print_env(t_minishell *minishell)
+{
+	char **envp = minishell->envp;
+
+	while (*envp != NULL)
+	{
+		ft_putstr_fd(*envp, 1);
+		ft_putstr_fd("\n", 1);
+		envp++;
+	}
 }

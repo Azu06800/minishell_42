@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:29:07 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/02 20:57:48 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 13:14:48 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,16 @@ static void	ft_expander_dollar(t_parser_token *token, t_minishell *minishell,
 
 void	ft_expander(t_parser_token *token, t_minishell *minishell)
 {
-	int	i;
-
-	i = 0;
-	while (token->command[i])
-	{
-		if (ft_strchr(token->command[i], '$'))
-			ft_expander_dollar(token, minishell, i);
-		i++;
-	}
+	(void)token;
+	(void)minishell;
+	(void)ft_expander_dollar;
+	//int	i;
+//
+	//i = 0;
+	//while (token->command[i])
+	//{
+	//	if (ft_strchr(token->command[i], '$'))
+	//		ft_expander_dollar(token, minishell, i);
+	//	i++;
+	//}
 }

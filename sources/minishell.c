@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 00:05:30 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 14:31:11 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,25 @@ void	execute_from_args(t_minishell *minishell, char *arg)
 	g_pid = 0;
 }
 
+void	refresh_env(t_minishell *minishell)
+{
+	int	i;
+	char	*tmp;
+
+	i = 0;
+	minishell->envp = malloc(sizeof(char *) * minishell->env_size);
+	while (i < minishell->env_size)
+	{
+		tmp = ft_strjoin(minishell->env[i].name, "=");
+		tmp = ft_strjoin(tmp, minishell->env[i].value);
+		tmp = ft_strjoin(tmp, "\0");
+		minishell->envp[i] = ft_strdup(tmp);
+		free(tmp);
+		i++;
+	}
+	minishell->envp[i] = NULL;
+}
+
 void	shell(t_minishell *minishell)
 {
 	char			*str;
@@ -77,6 +96,7 @@ void	shell(t_minishell *minishell)
 	init_signal();
 	while (1)
 	{
+		refresh_env(minishell);
 		str = readline("minishell$ ");
 		if (!str)
 		{
@@ -93,6 +113,7 @@ void	shell(t_minishell *minishell)
 		parser_token = ft_parse_tokens(tokentostr(tokens), minishell, tokens);
 		if (ft_validator(parser_token))
 		{
+			print_token(parser_token);
 			ft_expander(parser_token, minishell);
 			ft_executor(parser_token, minishell);
 		}

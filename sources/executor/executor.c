@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 10:32:16 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:26:15 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	is_builtin(t_minishell *minishell, char *str)
 	return (0);
 }
 
-int execute_command(t_parser_token *token, int fd_in, int fd_out) {
+int execute_command(t_parser_token *token, t_minishell *minishell, int fd_in, int fd_out) {
 	int pid = fork();
 	int status;
 	if (pid == 0) {
@@ -69,13 +69,13 @@ int execute_command(t_parser_token *token, int fd_in, int fd_out) {
 			dup2(fd_out, STDOUT_FILENO);
 			close(fd_out);
 		}
-		if (execvp(command, args) < 0) {
+		if (execve(command, args, minishell->envp) < 0) {
 			perror("Error executing command");
-			return (1);
+			exit(1);
 		}
 	} else if (pid < 0) {
 		perror("Error creating child process");
-		return (1);
+		exit(1);
 	} else {
 		if (waitpid(pid, &status, 0) == -1)
 		{
@@ -100,11 +100,11 @@ int execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in, in
 		}
 		if (exec_builtin(token, minishell) < 0) {
 			perror("Error executing command");
-			return (1);
+			exit(1);
 		}
 	} else if (pid < 0) {
 		perror("Error creating child process");
-		return (1);
+		exit(1);
 	} else {
 		if (waitpid(pid, &status, 0) == -1)
 		{
@@ -186,8 +186,18 @@ int ft_executor(t_parser_token *tokens, t_minishell *minishell) {
 			}
 			if (is_builtin(minishell, tokens[i].command[0]))
 				execute_builtin(&tokens[i], minishell, fd_in, fd_out);
-			else
-				execute_command(&tokens[i], fd_in, fd_out);
+			else {
+				//print_env(minishell);
+				if (cmd_exists(&tokens[i], minishell)){
+					execute_command(&tokens[i], minishell, fd_in, fd_out);
+				}
+				else
+				{
+					ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
+					ft_putstr_fd(tokens[i].command[0], STDERR_FILENO);
+					ft_putstr_fd("\n", STDERR_FILENO);
+				}
+			}
 			if (fd_out != STDOUT_FILENO) {
       			close(fd_out);
       			fd_in = fd[0];
