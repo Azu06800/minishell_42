@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 10:27:22 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:01:56 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 //------------------INCLUDES------------------//
 
 # include <stdio.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -149,6 +151,7 @@ int				ft_executor(t_parser_token *tokens, t_minishell *minishell);
 char			*ft_strcat(char *dest, char *src);
 
 //-------------------SIGNAL-------------------//
+void			echo_control_seq(int c);
 void			init_signal(void);
 
 //-------------------ERROR-------------------//

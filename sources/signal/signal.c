@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/08 23:40:43 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 15:00:10 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void ft_signalhandler(int sig)
 }
 void	init_signal(void)
 {
+    echo_control_seq(0);
 	signal(SIGINT, ft_signalhandler);
 	signal(SIGQUIT, ft_signalhandler);
 }

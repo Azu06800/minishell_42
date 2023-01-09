@@ -11,7 +11,7 @@ OBJECTS			=	./bin
 
 SRCS			=	minishell.c\
 					$(addprefix lexer/, lexer.c lexer_utils.c lexer_utils2.c) \
-					$(addprefix signal/, signal.c) \
+					$(addprefix signal/, signal.c signal_utils.c) \
 					$(addprefix env/, env.c env_utils.c) \
 					$(addprefix commands/, cd.c echo.c env.c exit.c export.c pwd.c unset.c clear.c history.c) \
 					$(addprefix expander/, expander.c expander_utils.c) \
@@ -62,7 +62,7 @@ rl:
 	@echo "✅ $(GRE)Creation de libreadline terminée.$(EOC) ✅"
 
 ${NAME}: ${OBJS}
-	@echo "✅ $(GRE)Compilation terminée.$(EOC) ✅"
+	@echo "\n✅ $(GRE)Compilation terminée.$(EOC) ✅"
 	@${CC} ${CFLAGS} ${LINK} -o ${NAME} ${OBJS}
 
 clean:
