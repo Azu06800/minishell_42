@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 16:30:50 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/09 18:36:58 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	err_not_found(char *cmd)
 {
-	write(2, "minishell: command not found: ", 30);
-	write(2, cmd, ft_strlen(cmd));
-	write(2, "\n", 1);
+	ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
 void	err_perm_denied(char *cmd)

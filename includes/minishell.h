@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 17:16:36 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/09 18:39:48 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,13 @@ char			*ft_strcat(char *dest, char *src);
 int				cmd_exists(t_parser_token *token, t_minishell *minishell);
 char			*ft_itoa(int n);
 void			ft_bzero(void *s, size_t n);
+int				exec_builtin(t_parser_token *token, t_minishell *minishell);
+int				is_builtin(t_minishell *minishell, char *str);
+int				execute_command(t_parser_token *token, t_minishell *minishell,
+					int fd_in, int fd_out);
+int				execute_builtin(t_parser_token *token, t_minishell *minishell,
+					int fd_in, int fd_out);
+char			*read_heredoc(char *delimiter);
 //-------------------SIGNAL-------------------//
 void			echo_control_seq(int c);
 void			init_signal(void);
@@ -169,6 +176,7 @@ char			**listofcmd(void);
 int				check_cmd(char *str, t_minishell *minishell);
 int				ft_cmdcmp(char *s1, char **s2);
 int				ft_strcmp(const char *s1, const char *s2);
+void			err_not_found(char *cmd);
 
 //-------------------UTILS-------------------//
 int				ft_onlyspace(char *str);

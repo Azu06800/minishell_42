@@ -89,7 +89,7 @@ void	shell(t_minishell *minishell)
 		if (ft_validator(parser_token))
 		{
 			print_token(parser_token);
-			ft_expander(parser_token, minishell);
+			//ft_expander(parser_token, minishell);
 			ft_executor(parser_token, minishell);
 		}
 		g_pid = 0;
