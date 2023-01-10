@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 16:31:21 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 16:43:31 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int	ft_executor(t_parser_token *tokens)
 			}
 			else
 			{
-				fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
-				fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
+				//fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
+				//fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
 			}
 			execute(&tokens[i], fd_in, fd_out, fd);
 		}
