@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 11:31:46 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 15:43:27 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ void	echo_quote(char *str)
 		write(1, &str[i], 1);
 }
 
+void ft_printwithoutquote(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[++i] != str[0])
+		write(1, str + i, 1);
+}
+
 int	ft_echo(t_parser_token *token)
 {
 	int	i;
@@ -37,9 +46,12 @@ int	ft_echo(t_parser_token *token)
 	}
 	while (token->command[i])
 	{
-		printf("%s", token->command[i]);
+		if (ft_isquote(token->command[i][0]))
+			ft_printwithoutquote(token->command[i]);
+		else
+			printf("%s", token->command[i]);
 		if (token->command[i + 1] && token->tokens[i + 1].spcecho)
-			printf(" ");
+			write(1, " ", 1);
 		i++;
 	}
 	if (!nflag)
