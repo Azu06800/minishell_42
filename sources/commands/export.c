@@ -6,13 +6,13 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 14:43:07 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 14:49:17 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	print_export()
+int	print_export(void)
 {
 	int	i;
 
