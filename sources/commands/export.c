@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 11:53:27 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 13:18:33 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	print_export()
 	i = 0;
 	while (i < g_minishell->env_size)
 	{
-		printf("declare -x %s=\"%s\"", g_minishell->env[i].name,
+		printf("export %s=\"%s\"", g_minishell->env[i].name,
 			g_minishell->env[i].value);
 		printf("\n");
 		i++;
@@ -49,7 +49,6 @@ int	ft_export(t_parser_token *token)
 		}
 		else
 			ft_addenv(tmp[0], tmp[1]);
-		print_export();
 		ft_split_free(tmp);
 	}
 	return (0);
