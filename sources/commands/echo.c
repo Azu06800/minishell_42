@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 15:43:27 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 17:50:37 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	ft_echo(t_parser_token *token)
 
 	i = 1;
 	nflag = 0;
+	if (token[i + 1].type != TOKEN_REDIR)
+	{
+		printf("\n");
+		return (0);
+	}
 	if (token->command[1] && ft_strcmp(token->command[1], "-n") == 0)
 	{
 		nflag = 1;
