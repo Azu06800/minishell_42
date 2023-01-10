@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 13:18:33 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 14:43:07 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	ft_export(t_parser_token *token)
 		return (print_export());
 	while (token->command[++i])
 	{
+		if (!ft_strchr(token->command[i], '='))
+			return (0);
 		tmp = ft_split(token->command[i], '=');
 		if (ft_getenv(tmp[0]) != NULL)
 			ft_modenv(tmp[0], tmp[1]);

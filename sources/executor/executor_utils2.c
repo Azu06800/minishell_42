@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 12:53:44 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 14:37:23 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char	*read_heredoc(char *delimiter)
 			free(line);
 			break ;
 		}
-		tmp = realloc(heredoc_content, ft_strlen(heredoc_content) + len + 2);
+		tmp = ft_realloc(heredoc_content, ft_strlen(heredoc_content) + len + 2);
 		if (tmp == NULL)
 		{
 			perror("minishell: error reallocating memory for heredoc content");
