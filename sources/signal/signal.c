@@ -3,44 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 09:41:25 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:57:34 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-pid_t	g_pid;
 
 void	sigq(void)
 {
-	if (g_pid)
+	if (g_minishell->cur_proc_pid)
 	{
-		if (!kill(g_pid, SIGQUIT))
-			printf("%i	Quit:\n", g_pid);
+		if (!kill(g_minishell->cur_proc_pid, SIGQUIT))
+			printf("%i	Quit:\n", g_minishell->cur_proc_pid);
 	}
 	else
 	{
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	g_pid = 0;
+	g_minishell->cur_proc_pid = 0;
 }
 
 void	sigi(void)
 {
 	printf("\n");
-	if (g_pid)
-		kill(g_pid, SIGINT);
+	if (g_minishell->cur_proc_pid)
+		kill(g_minishell->cur_proc_pid, SIGINT);
 	else
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	g_pid = 0;
+	g_minishell->cur_proc_pid = 0;
 }
 
 static void	ft_signalhandler(int sig)
