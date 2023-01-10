@@ -6,11 +6,11 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:54:52 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 20:14:28 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_strcat(char *dest, char *src)
 {

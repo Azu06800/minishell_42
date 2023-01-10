@@ -5,49 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/10 19:16:13 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 19:30:49 by baroun           ###   ########.fr       */
+/*   Created: 2023/01/10 20:14:32 by baroun            #+#    #+#             */
+/*   Updated: 2023/01/10 20:19:58 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	handle_norme(int i, int *skip_next_cmd, t_parser_token *tokens)
+void	redir_fds(int fd_in, int fd_out)
 {
-	int				fd;
-	int				fd_in;
-	char			*heredoc_content;
-
-	fd_in = STDIN_FILENO;
-	heredoc_content = read_heredoc(tokens[i + 2].command[0]);
-	fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	write(fd, heredoc_content, ft_strlen(heredoc_content));
-	*skip_next_cmd = 1;
-	if (tokens[i].command[0]
-		&& ft_strcmp(tokens[i].command[0], "echo"))
-		fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
-	return (fd_in);
+	if (fd_in != STDIN_FILENO)
+	{
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+	}
+	if (fd_out != STDOUT_FILENO)
+	{
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
+	}
 }
 
-int	handle_redirections_in(t_parser_token *tokens, int i, int *skip_next_cmd)
+void	exlael(int fd_out, int fd_in, int fd[2])
 {
-	int				fd_in;
-	t_parser_token	*tmp;
-
-	fd_in = STDIN_FILENO;
-	if (tokens[i + 1].type == TOKEN_REDIR)
+	if (fd_out != STDOUT_FILENO && fd_out == fd[1])
+		close(fd_out);
+	if (fd_in != STDIN_FILENO && fd_in == fd[0])
 	{
-		if (tokens[i + 1].redirection[0] == REDIR_IN)
-		{
-			tmp = &tokens[i + 2];
-			*skip_next_cmd = 1;
-			if (!access(tmp->command[0], F_OK | R_OK))
-				fd_in = open(tmp->command[0], O_RDONLY);
-			else
-				return (-1337);
-		}
-		else if (tokens[i + 1].redirection[0] == REDIR_HEREDOC)
-			fd_in = handle_norme(i, skip_next_cmd, tokens);
+		close(fd_in);
 	}
-	return (fd_in);
+}
+
+void	exeli(int fd_in, int fd_out, char *command, char **args)
+{
+	redir_fds(fd_in, fd_out);
+	if (execve(command, args, g_minishell->envp) < 0)
+	{
+		ft_perror_cmd(command);
+		close(fd_in);
+		close(fd_out);
+		exit(1);
+	}
+}
+
+int	execute_command(t_parser_token *token, int fd_in, int fd_out, int fd[2])
+{
+	char	*command;
+	char	**args;
+	size_t	i;
+
+	command = token->command[0];
+	args = malloc((token->command_size + 1) * sizeof(char *));
+	i = 0;
+	while (i < token->command_size)
+	{
+		args[i] = token->command[i];
+		i++;
+	}
+	args[token->command_size] = NULL;
+	g_minishell->cur_proc_pid = fork();
+	if (g_minishell->cur_proc_pid == 0)
+		exeli(fd_in, fd_out, command, args);
+	else if (g_minishell->cur_proc_pid < 0)
+	{
+		perror("minishell: error creating child process");
+		exit(1);
+	}
+	else
+		exlael(fd_out, fd_in, fd);
+	free(args);
+	return (0);
 }

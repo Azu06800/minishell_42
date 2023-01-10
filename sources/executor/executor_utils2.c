@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:59:22 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 20:15:42 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,67 +46,6 @@ int	is_builtin(char *str)
 			return (1);
 		i++;
 	}
-	return (0);
-}
-
-void	redir_fds(int fd_in, int fd_out)
-{
-	if (fd_in != STDIN_FILENO)
-	{
-		dup2(fd_in, STDIN_FILENO);
-		close(fd_in);
-	}
-	if (fd_out != STDOUT_FILENO)
-	{
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_out);
-	}
-}
-
-int	execute_command(t_parser_token *token, int fd_in, int fd_out, int fd[2])
-{
-	char	*command;
-	char	**args;
-	size_t	i;
-
-	command = token->command[0];
-	args = malloc((token->command_size + 1) * sizeof(char *));
-	i = 0;
-	while (i < token->command_size)
-	{
-		args[i] = token->command[i];
-		i++;
-	}
-	args[token->command_size] = NULL;
-	g_minishell->cur_proc_pid = fork();
-	if (g_minishell->cur_proc_pid == 0)
-	{
-		redir_fds(fd_in, fd_out);
-		if (execve(command, args, g_minishell->envp) < 0)
-		{
-			ft_perror_cmd(token->command[0]);
-			close(fd_in);
-			close(fd_out);
-			exit(1);
-		}
-	}
-	else if (g_minishell->cur_proc_pid < 0)
-	{
-		perror("minishell: error creating child process");
-		exit(1);
-	}
-	else
-	{
-		if (fd_out != STDOUT_FILENO && fd_out == fd[1])
-		{
-			close(fd_out);
-		}
-		if (fd_in != STDIN_FILENO && fd_in == fd[0])
-		{
-			close(fd_in);
-		}
-	}
-	free(args);
 	return (0);
 }
 

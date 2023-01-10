@@ -20,6 +20,7 @@ SRCS			=	minishell.c\
 					$(addprefix parser/, parser.c parser_utils.c debug_parser.c) \
 					$(addprefix executor/, executor.c executor_utils.c executor_utils2.c executor_utils3.c executor_utils4.c) \
 					$(addprefix validator/, validator.c validator_utils.c) \
+					$(addprefix redirection/, redirection_in.c redirection_out.c)
 
 
 

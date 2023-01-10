@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 19:30:35 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 20:16:56 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int				ft_clear(t_parser_token *token);
 int				ft_history(t_parser_token *token);
 
 //-------------------EXEC-------------------//
+void			redir_fds(int fd_in, int fd_out);
 int				ft_executor(t_parser_token *tokens);
 char			*ft_strcat(char *dest, char *src);
 int				cmd_exists(t_parser_token *token);
@@ -158,6 +159,12 @@ int				execute_command(t_parser_token *token,
 int				execute_builtin(t_parser_token *token,
 					int fd_in, int fd_out);
 char			*read_heredoc(char *delimiter);
+int				execute_command(t_parser_token *token, int fd_in, \
+int fd_out, int fd[2]);
+
+//-------------------REDIRECTION-------------------//
+int				handle_redirections_out(t_parser_token *tokens, int i, \
+int *skip_next_cmd);
 int				handle_redirections_in(t_parser_token *tokens, int i, \
 int *skip_next_cmd);
 //-------------------SIGNAL-------------------//
