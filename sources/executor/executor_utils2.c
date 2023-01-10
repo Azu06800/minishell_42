@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 12:49:56 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 12:53:44 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	redir_fds(int fd_in, int fd_out)
 
 int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 {
-	int		pid;
 	int		status;
 	char	*command;
 	char	**args;
@@ -80,8 +79,8 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 		i++;
 	}
 	args[token->command_size] = NULL;
-	pid = fork();
-	if (pid == 0)
+	g_minishell->cur_proc_pid = fork();
+	if (g_minishell->cur_proc_pid == 0)
 	{
 		redir_fds(fd_in, fd_out);
 		if (execve(command, args, g_minishell->envp) < 0)
@@ -90,14 +89,14 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 			exit(1);
 		}
 	}
-	else if (pid < 0)
+	else if (g_minishell->cur_proc_pid < 0)
 	{
 		perror("minishell: error creating child process");
 		exit(1);
 	}
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
+		if (waitpid(g_minishell->cur_proc_pid, &status, 0) == -1)
 		{
 			perror("minishell: waitpid");
 			return (1);
