@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 16:43:31 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 17:35:15 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,21 @@ int	handle_redirections_out(t_parser_token *tokens, int i, int *skip_next_cmd)
 	return (fd_out);
 }
 
-void	execute(t_parser_token *token, int fd_in, int fd_out, int fd[2])
+void	execute(t_parser_token *token, int *fd_in, int *fd_out, int fd[2])
 {
 	if (is_builtin(token->command[0]))
-		execute_builtin(token, fd_in, fd_out);
+		execute_builtin(token, *fd_in, *fd_out);
 	else
 	{
 		if (cmd_exists(token))
-			execute_command(token, fd_in, fd_out, fd);
+			execute_command(token, *fd_in, *fd_out, fd);
 		else
 			err_not_found(token->command[0]);
 	}
-	if (fd_out != STDOUT_FILENO && fd_out == fd[1])
+	if (*fd_out != STDOUT_FILENO && *fd_out == fd[1])
 	{
-    	close(fd_out);
-    	fd_in = fd[0];
+    	close(*fd_out);
+    	*fd_in = fd[0];
 	}
 }
 
@@ -94,6 +94,7 @@ int	ft_executor(t_parser_token *tokens)
 	int	skip_next_cmd;
 	int	i;
 	int	fd[2];
+	int j;
 
 	fd_in = STDIN_FILENO;
 	fd_out = STDOUT_FILENO;
@@ -119,9 +120,15 @@ int	ft_executor(t_parser_token *tokens)
 				//fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
 				//fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
 			}
-			execute(&tokens[i], fd_in, fd_out, fd);
+			execute(&tokens[i], &fd_in, &fd_out, fd);
 		}
 		i++;
+	}
+	j = 3;
+	while (j != 0)
+	{
+		wait(NULL);
+		j--;
 	}
 	return (0);
 }

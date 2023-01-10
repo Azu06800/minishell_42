@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 16:30:57 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 17:32:55 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	redir_fds(int fd_in, int fd_out)
 
 int	execute_command(t_parser_token *token, int fd_in, int fd_out, int fd[2])
 {
-	int		status;
 	char	*command;
 	char	**args;
 	size_t	i;
@@ -98,11 +97,6 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out, int fd[2])
 	}
 	else
 	{
-		if (waitpid(g_minishell->cur_proc_pid, &status, 0) == -1)
-		{
-			perror("minishell: waitpid");
-			return (1);
-		}
 		if (fd_out != STDOUT_FILENO && fd_out == fd[1])
     	{
     	    close(fd_out);

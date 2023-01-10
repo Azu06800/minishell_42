@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 16:00:35 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 17:37:40 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	execute_from_args(char *arg)
 	g_minishell->cur_proc_pid = 0;
 }
 
-void	refresh_env()
+void	refresh_env(void)
 {
 	int		i;
 	char	*tmp;
@@ -87,7 +87,7 @@ void	shell(void)
 			continue ;
 		tokens = ft_lexer(str);
 		parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
-		print_token(parser_token);
+		//print_token(parser_token);
 		if (ft_validator(parser_token))
 		{
 			ft_expander(parser_token);
