@@ -6,7 +6,7 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 11:57:34 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 15:10:55 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sigq(void)
 	if (g_minishell->cur_proc_pid)
 	{
 		if (!kill(g_minishell->cur_proc_pid, SIGQUIT))
-			printf("%i	Quit:\n", g_minishell->cur_proc_pid);
+			printf("Quit: 3\n");
 	}
 	else
 	{

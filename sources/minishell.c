@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 13:15:25 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 15:10:12 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	shell()
 	while (1)
 	{
 		refresh_env();
+		g_minishell->cur_proc_pid = 0;
 		str = readline("minishell$ ");
 		if (!str)
 		{
@@ -92,7 +93,6 @@ void	shell()
 			print_token(parser_token);
 			ft_executor(parser_token);
 		}
-		g_minishell->cur_proc_pid = 0;
 	}
 }
 
