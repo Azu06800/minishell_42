@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:52:13 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 10:23:58 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:14:30 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_initenv(t_minishell *minishell, char **env)
 		tmp = ft_split(env[i], '=');
 		minishell->env[i].name = ft_strdup(tmp[0]);
 		minishell->env[i].value = ft_strdup(tmp[1]);
-		ft_free_split(tmp);
+		ft_split_free(tmp);
 		i++;
 	}
 }
