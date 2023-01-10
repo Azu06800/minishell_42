@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:38:52 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:42:00 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	echo_quote(char *str)
 		write(1, &str[i], 1);
 }
 
-void ft_printwithoutquote(char *str)
+void	ft_printwithoutquote(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[++i] != str[0])

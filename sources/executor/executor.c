@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 17:44:46 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:18:16 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int	handle_redirections_in(t_parser_token *tokens, int i, int *skip_next_cmd)
 			fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			write(fd, heredoc_content, ft_strlen(heredoc_content));
 			*skip_next_cmd = 1;
-			fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
+			if (tokens[i].command[0]
+				&& ft_strcmp(tokens[i].command[0], "echo"))
+			{
+				fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
+			}
 		}
 	}
 	return (fd_in);
