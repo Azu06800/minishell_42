@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 15:10:12 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 16:00:35 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	refresh_env()
 		ft_modenv("PWD", getcwd(NULL, 0));
 }
 
-void	shell()
+void	shell(void)
 {
 	char			*str;
 	t_parser_token	*parser_token;
@@ -87,10 +87,10 @@ void	shell()
 			continue ;
 		tokens = ft_lexer(str);
 		parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
+		print_token(parser_token);
 		if (ft_validator(parser_token))
 		{
 			ft_expander(parser_token);
-			print_token(parser_token);
 			ft_executor(parser_token);
 		}
 	}

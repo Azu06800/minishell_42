@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 15:43:45 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 16:31:21 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,14 @@ void	execute(t_parser_token *token, int fd_in, int fd_out, int fd[2])
 	else
 	{
 		if (cmd_exists(token))
-			execute_command(token, fd_in, fd_out);
+			execute_command(token, fd_in, fd_out, fd);
 		else
 			err_not_found(token->command[0]);
 	}
-	if (fd_out != STDOUT_FILENO)
+	if (fd_out != STDOUT_FILENO && fd_out == fd[1])
 	{
-		close(fd_out);
-		fd_in = fd[0];
-	}
-	if (fd_in != STDIN_FILENO)
-	{
-		close(fd[0]);
+    	close(fd_out);
+    	fd_in = fd[0];
 	}
 }
 
@@ -113,7 +109,7 @@ int	ft_executor(t_parser_token *tokens)
 				i++;
 				continue ;
 			}
-			if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].type == REDIR_PIPE)
+			if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].redirection[0] == REDIR_PIPE)
 			{
 				pipe(fd);
 				fd_out = fd[1];
@@ -122,8 +118,8 @@ int	ft_executor(t_parser_token *tokens)
 			{
 				fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
 				fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
-				execute(&tokens[i], fd_in, fd_out, fd);
 			}
+			execute(&tokens[i], fd_in, fd_out, fd);
 		}
 		i++;
 	}

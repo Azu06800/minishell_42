@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 14:27:29 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 16:31:38 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void			ft_bzero(void *s, size_t n);
 int				exec_builtin(t_parser_token *token);
 int				is_builtin(char *str);
 int				execute_command(t_parser_token *token,
-					int fd_in, int fd_out);
+					int fd_in, int fd_out, int fd[2]);
 int				execute_builtin(t_parser_token *token,
 					int fd_in, int fd_out);
 char			*read_heredoc(char *delimiter);

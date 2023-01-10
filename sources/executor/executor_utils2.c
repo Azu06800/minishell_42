@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 14:37:23 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 16:30:57 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	redir_fds(int fd_in, int fd_out)
 	}
 }
 
-int	execute_command(t_parser_token *token, int fd_in, int fd_out)
+int	execute_command(t_parser_token *token, int fd_in, int fd_out, int fd[2])
 {
 	int		status;
 	char	*command;
@@ -86,6 +86,8 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 		if (execve(command, args, g_minishell->envp) < 0)
 		{
 			ft_perror_cmd(token->command[0]);
+			close(fd_in);
+			close(fd_out);
 			exit(1);
 		}
 	}
@@ -101,6 +103,14 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 			perror("minishell: waitpid");
 			return (1);
 		}
+		if (fd_out != STDOUT_FILENO && fd_out == fd[1])
+    	{
+    	    close(fd_out);
+    	}
+    	if (fd_in != STDIN_FILENO && fd_in == fd[0])
+    	{
+    	    close(fd_in);
+    	}
 	}
 	free(args);
 	return (0);
