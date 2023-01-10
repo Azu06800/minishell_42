@@ -6,12 +6,11 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:57:54 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 15:10:55 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 18:57:16 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	sigq(void)
 {

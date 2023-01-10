@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 17:32:55 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:59:22 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out, int fd[2])
 	else
 	{
 		if (fd_out != STDOUT_FILENO && fd_out == fd[1])
-    	{
-    	    close(fd_out);
-    	}
-    	if (fd_in != STDIN_FILENO && fd_in == fd[0])
-    	{
-    	    close(fd_in);
-    	}
+		{
+			close(fd_out);
+		}
+		if (fd_in != STDIN_FILENO && fd_in == fd[0])
+		{
+			close(fd_in);
+		}
 	}
 	free(args);
 	return (0);
@@ -118,48 +118,4 @@ int	execute_builtin(t_parser_token *token, int fd_in, int fd_out)
 	status = exec_builtin(token);
 	ft_modenv("$?", ft_itoa(status));
 	return (status);
-}
-
-char	*read_heredoc(char *delimiter)
-{
-	char	*line;
-	int		len;
-	int		delimiter_len;
-	char	*heredoc_content;
-	char	*tmp;
-
-	line = NULL;
-	len = 0;
-	delimiter_len = ft_strlen(delimiter);
-	heredoc_content = malloc(1);
-	if (heredoc_content == NULL)
-	{
-		perror("minishell: error allocating memory for heredoc content");
-		exit(1);
-	}
-	heredoc_content[0] = '\0';
-	while (1)
-	{
-		line = readline("heredoc> ");
-		if (line == NULL)
-			break ;
-		len = ft_strlen(line);
-		if (len == delimiter_len && ft_strncmp(line, delimiter, delimiter_len)
-			== 0)
-		{
-			free(line);
-			break ;
-		}
-		tmp = ft_realloc(heredoc_content, ft_strlen(heredoc_content) + len + 2);
-		if (tmp == NULL)
-		{
-			perror("minishell: error reallocating memory for heredoc content");
-			exit(1);
-		}
-		heredoc_content = tmp;
-		ft_strcat(heredoc_content, line);
-		ft_strcat(heredoc_content, "\n");
-		free(line);
-	}
-	return (heredoc_content);
 }

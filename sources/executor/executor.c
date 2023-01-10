@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:18:16 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:56:12 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	execute(t_parser_token *token, int *fd_in, int *fd_out, int fd[2])
 	}
 	if (*fd_out != STDOUT_FILENO && *fd_out == fd[1])
 	{
-    	close(*fd_out);
-    	*fd_in = fd[0];
+		close(*fd_out);
+		*fd_in = fd[0];
 	}
 }
 
