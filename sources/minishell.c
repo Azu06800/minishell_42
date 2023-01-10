@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 18:29:41 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:43:02 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	fetch_command(char *str, t_parser_token *parser_token, t_tokens *tokens)
 	parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
 	if (ft_validator(parser_token))
 	{
-		ft_expander(parser_token);
+		//ft_expander(parser_token);
 		ft_executor(parser_token);
 	}
 }
