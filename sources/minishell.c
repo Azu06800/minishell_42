@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 13:03:29 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 13:15:25 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,15 @@ void	shell()
 
 int	main(int ac, char **av, char **env)
 {
-	if (ac >= 3 && !ft_strcmp(av[1], "-c"))
-	{
-		g_minishell = malloc(sizeof(t_minishell));
-		if (!g_minishell)
-			return (0);
-		init_minishell(env);
-		execute_from_args(av[2]);
-		return (0);
-	}
 	g_minishell = malloc(sizeof(t_minishell));
 	if (!g_minishell)
 		return (0);
 	init_minishell(env);
+	if (ac >= 3 && !ft_strcmp(av[1], "-c"))
+	{
+		execute_from_args(av[2]);
+		return (0);
+	}
 	shell();
-	return (1);
+	return (0);
 }
