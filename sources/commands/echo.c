@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:51:12 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:53:33 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ void	ft_printwithoutquote(char *str)
 		write(1, str + i, 1);
 }
 
+void	ft_echoboucle(t_parser_token *token, int i)
+{
+	while (token->command[i])
+	{
+		if (ft_isquote(token->command[i][0]))
+			ft_printwithoutquote(token->command[i]);
+		else
+			printf("%s", token->command[i]);
+		if (token->command[i + 1] && token->tokens[i + 1].spcecho)
+			write(1, " ", 1);
+		i++;
+	}
+}
+
 int	ft_echo(t_parser_token *token)
 {
 	int	i;
@@ -53,16 +67,7 @@ int	ft_echo(t_parser_token *token)
 		nflag = 1;
 		i++;
 	}
-	while (token->command[i])
-	{
-		if (ft_isquote(token->command[i][0]))
-			ft_printwithoutquote(token->command[i]);
-		else
-			printf("%s", token->command[i]);
-		if (token->command[i + 1] && token->tokens[i + 1].spcecho)
-			write(1, " ", 1);
-		i++;
-	}
+	ft_echoboucle(token, i);
 	if (!nflag)
 		printf("\n");
 	return (0);
