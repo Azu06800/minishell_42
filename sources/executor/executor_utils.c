@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 13:24:18 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 14:34:48 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ int	cmd_exists(t_parser_token *token)
 
 	if (token->command[0][0] == '/' || token->command[0][0] == '.')
 		return (1);
-	if (ft_getenv("PATH") != NULL)
-		path = ft_split(ft_getenv("PATH"), ':');
-	else
+	if (ft_getenv("PATH") == NULL)
 		return (0);
-
+	path = ft_split(ft_getenv("PATH"), ':');
 	while (path && *path)
 	{
 		full_path = ft_strjoin(*path, "/");
@@ -58,7 +56,6 @@ int	cmd_exists(t_parser_token *token)
 		free(full_path);
 		path++;
 	}
-	ft_split_free(path);
 	return (0);
 }
 

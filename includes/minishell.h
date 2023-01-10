@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 11:43:49 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 14:27:29 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,6 @@ typedef enum e_redirection_type
 	REDIR_ERROR
 }	t_redir_type;
 
-typedef enum e_quote_type
-{
-	QUOTE_SINGLE,
-	QUOTE_DOUBLE,
-	QUOTE_NONE
-}	t_quote_type;
-
 typedef struct s_tokens
 {
 	char				*str;
@@ -91,8 +84,6 @@ typedef struct s_parser_token
 	size_t				input_size;
 	char				*output;
 	size_t				output_size;
-	t_quote_type		quote;
-
 	t_tokens			*tokens;
 }	t_parser_token;
 
