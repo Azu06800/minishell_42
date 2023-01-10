@@ -6,13 +6,13 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:46:42 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 22:21:36 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 10:16:19 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_export(t_minishell *minishell)
+int	print_export(t_minishell *minishell)
 {
 	int	i;
 
@@ -24,6 +24,7 @@ void	print_export(t_minishell *minishell)
 		printf("\n");
 		i++;
 	}
+	return (0);
 }
 
 int	ft_export(t_parser_token *token, t_minishell *minishell)
@@ -33,10 +34,7 @@ int	ft_export(t_parser_token *token, t_minishell *minishell)
 
 	i = 0;
 	if (token->command[1] == NULL)
-	{
-		print_export(minishell);
-		return (0);
-	}
+		return (print_export(minishell));
 	while (token->command[++i])
 	{
 		tmp = ft_split(token->command[i], '=');
@@ -51,6 +49,7 @@ int	ft_export(t_parser_token *token, t_minishell *minishell)
 		}
 		else
 			ft_addenv(minishell, tmp[0], tmp[1]);
+		ft_split_free(tmp);
 	}
 	return (0);
 }

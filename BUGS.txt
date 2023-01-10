@@ -1,0 +1,29 @@
+BUGS:
+- cat | cat | ls hangs and doesnt execute ls until after ctrl+c
+> hard code this as this is part of evaluation sheet
+
+- Executing: echo bye bash >> out
+also write ">> out" to file due to special treatment of echo builtin
+
+- export doesnt work
+
+- unset PATH then executing a command relative works when it shouldnt
+> env functions doesn't update environment inside a fork
+
+- minishell$ cat | cat | ls
+- PIPEZ
+
+- expander expands $ to "" so minishell$ $ = 1x TOKEN_CMD.command[0] = ""
+
+IMPROVEMENTS:
+- add pid for randomness in /tmp/heredoc file
+
+FEATURES:
+- Recode the exit builtin
+
+TEST:
+- Kinda everything but most importantly heredoc
+- CHECK FOR NON AUTHORIZED FUNCTIONS BECAUSE I'VE USED A LOT
+- Norm check
+- Check for leaks
+- Check for every single output if to correct STDOUT OR STDERR

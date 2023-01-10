@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:52:13 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 16:30:45 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 10:23:58 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_addenv(t_minishell *minishell, char *name, char *value)
 	int		i;
 
 	new_env = (t_env *)malloc(sizeof(t_env) * (minishell->env_size + 1));
+	if (!new_env)
+		return ;
 	i = 0;
 	while (i < minishell->env_size)
 	{
@@ -26,8 +28,8 @@ void	ft_addenv(t_minishell *minishell, char *name, char *value)
 	}
 	free(minishell->env);
 	minishell->env = new_env;
-	minishell->env[minishell->env_size].name = name;
-	minishell->env[minishell->env_size].value = value;
+	minishell->env[minishell->env_size].name = ft_strdup(name);
+	minishell->env[minishell->env_size].value = ft_strdup(value);
 	minishell->env_size++;
 }
 
@@ -38,6 +40,8 @@ void	ft_delenv(t_minishell *minishell, char *name)
 	int		j;
 
 	new_env = (t_env *)malloc(sizeof(t_env) * (minishell->env_size - 1));
+	if (!new_env)
+		return ;
 	i = 0;
 	j = 0;
 	while (i < minishell->env_size)
@@ -64,7 +68,7 @@ void	ft_modenv(t_minishell *minishell, char *name, char *new_value)
 		if (ft_strcmp(minishell->env[i].name, name) == 0)
 		{
 			free(minishell->env[i].value);
-			minishell->env[i].value = new_value;
+			minishell->env[i].value = ft_strdup(new_value);
 			return ;
 		}
 		i++;
@@ -100,9 +104,9 @@ void	ft_initenv(t_minishell *minishell, char **env)
 	while (env[i])
 	{
 		tmp = ft_split(env[i], '=');
-		minishell->env[i].name = tmp[0];
-		minishell->env[i].value = tmp[1];
-		free(tmp);
+		minishell->env[i].name = ft_strdup(tmp[0]);
+		minishell->env[i].value = ft_strdup(tmp[1]);
+		ft_free_split(tmp);
 		i++;
 	}
 }

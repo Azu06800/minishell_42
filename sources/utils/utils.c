@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:54:32 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 00:25:15 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 10:13:48 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,17 @@ void	ft_perror_cmd(char *cmd)
 	message = ft_strjoin("minishell: ", cmd);
 	perror(message);
 	free(message);
+}
+
+void	ft_split_free(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

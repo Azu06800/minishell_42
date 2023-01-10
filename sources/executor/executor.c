@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 00:35:04 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 10:38:54 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	handle_redirections_in(t_parser_token *tokens, int i, int *skip_next_cmd)
 		{
 			tmp = &tokens[i + 2];
 			*skip_next_cmd = 1;
-			fd_in = open(tmp->command[0], O_RDONLY);
+			if (!access(tmp->command[0], F_OK | R_OK))
+				fd_in = open(tmp->command[0], O_RDONLY);
+			else
+				return (-1337);
 		}
 		else if (tokens[i + 1].redirection[0] == REDIR_HEREDOC)
 		{
@@ -52,20 +55,15 @@ int	handle_redirections_out(t_parser_token *tokens, int i, int *skip_next_cmd)
 		{
 			tmp = &tokens[i + 2];
 			*skip_next_cmd = 1;
-			if (!access(tmp->command[0], F_OK | W_OK))
-				fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_TRUNC,
-						0644);
-			else
-				err_perm_denied(tmp->command[0]);
+			fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_TRUNC,
+					0644);
 		}
 		else if (tokens[i + 1].redirection[0] == REDIR_APPEND)
 		{
 			tmp = &tokens[i + 2];
 			*skip_next_cmd = 1;
-			if (!access(tmp->command[0], F_OK | W_OK))
-				fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_APPEND,
-						0644);
-			err_perm_denied(tmp->command[0]);
+			fd_out = open(tmp->command[0], O_WRONLY | O_CREAT | O_APPEND,
+					0644);
 		}
 	}
 	return (fd_out);
@@ -95,13 +93,15 @@ int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
 			}
 			fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
 			fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
+			if (fd_out == -1337 || fd_in == -1337)
+				break ;
 			if (tokens[i + 1].type == TOKEN_REDIR
 				&& tokens[i + 1].redirection[0] == REDIR_PIPE)
 			{
 				if (pipe(fd) < 0)
 				{
 					perror("minishell: error creating pipe");
-					exit(1);
+					return (1);
 				}
 				fd_out = fd[1];
 			}

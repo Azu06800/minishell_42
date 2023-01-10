@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/09 23:18:40 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 09:03:49 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	refresh_env(t_minishell *minishell, int *debug_flag)
 	minishell->envp[i] = NULL;
 	if (ft_getenv(minishell, "PWD") == NULL)
 		ft_modenv(minishell, "PWD", getcwd(NULL, 0));
-    if (!ft_strcmp(ft_getenv(minishell, "USER"), "evan") && *debug_flag == 0) {
-        ft_modenv(minishell, "PATH",
-                  "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki");
-        *debug_flag = 1;
-    }
+	if (!ft_strcmp(ft_getenv(minishell, "USER"), "evan") && *debug_flag == 0)
+	{
+		ft_modenv(minishell, "PATH",
+			"/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki");
+		*debug_flag = 1;
+	}
 }
 
 void	shell(t_minishell *minishell)
@@ -75,9 +76,9 @@ void	shell(t_minishell *minishell)
 	char			*str;
 	t_parser_token	*parser_token;
 	t_tokens		*tokens;
-    int             debug_flag;
+	int				debug_flag;
 
-    debug_flag = 0;
+	debug_flag = 0;
 	init_signal();
 	while (1)
 	{
