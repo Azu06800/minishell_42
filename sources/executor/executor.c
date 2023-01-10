@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 13:08:48 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 15:43:45 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,28 @@ int	handle_redirections_out(t_parser_token *tokens, int i, int *skip_next_cmd)
 	return (fd_out);
 }
 
+void	execute(t_parser_token *token, int fd_in, int fd_out, int fd[2])
+{
+	if (is_builtin(token->command[0]))
+		execute_builtin(token, fd_in, fd_out);
+	else
+	{
+		if (cmd_exists(token))
+			execute_command(token, fd_in, fd_out);
+		else
+			err_not_found(token->command[0]);
+	}
+	if (fd_out != STDOUT_FILENO)
+	{
+		close(fd_out);
+		fd_in = fd[0];
+	}
+	if (fd_in != STDIN_FILENO)
+	{
+		close(fd[0]);
+	}
+}
+
 int	ft_executor(t_parser_token *tokens)
 {
 	int	fd_in;
@@ -91,33 +113,16 @@ int	ft_executor(t_parser_token *tokens)
 				i++;
 				continue ;
 			}
-			fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
-			fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
-			if (fd_out == -1337 || fd_in == -1337)
-				break ;
-			if (tokens[i + 1].type == TOKEN_REDIR
-				&& tokens[i + 1].redirection[0] == REDIR_PIPE)
+			if (tokens[i + 1].type == TOKEN_REDIR && tokens[i + 1].type == REDIR_PIPE)
 			{
-				if (pipe(fd) < 0)
-				{
-					perror("minishell: error creating pipe");
-					return (1);
-				}
+				pipe(fd);
 				fd_out = fd[1];
 			}
-			if (is_builtin(tokens[i].command[0]))
-				execute_builtin(&tokens[i], fd_in, fd_out);
 			else
 			{
-				if (cmd_exists(&tokens[i]))
-					execute_command(&tokens[i], fd_in, fd_out);
-				else
-					err_not_found(tokens[i].command[0]);
-			}
-			if (fd_out != STDOUT_FILENO)
-			{
-				close(fd_out);
-				fd_in = fd[0];
+				fd_in = handle_redirections_in(tokens, i, &skip_next_cmd);
+				fd_out = handle_redirections_out(tokens, i, &skip_next_cmd);
+				execute(&tokens[i], fd_in, fd_out, fd);
 			}
 		}
 		i++;
