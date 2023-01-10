@@ -6,13 +6,11 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 11:50:05 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 12:46:07 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-pid_t	g_pid;
 
 void	init_minishell(char **env)
 {
@@ -41,7 +39,7 @@ void	execute_from_args(char *arg)
 	parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
 	ft_expander(parser_token);
 	ft_executor(parser_token);
-	g_pid = 0;
+	g_minishell->cur_proc_pid = 0;
 }
 
 void	refresh_env()
@@ -90,12 +88,11 @@ void	shell()
 		parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
 		if (ft_validator(parser_token))
 		{
-			printf("\n\n%p\n\n", &g_minishell);
 			ft_expander(parser_token);
 			//print_token(parser_token);
 			ft_executor(parser_token);
 		}
-		g_pid = 0;
+		g_minishell->cur_proc_pid = 0;
 	}
 }
 

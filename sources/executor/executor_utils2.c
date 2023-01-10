@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 11:48:07 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 12:49:56 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 int	exec_builtin(t_parser_token *token)
 {
 	if (token->command[0] && !ft_strcmp(token->command[0], "echo"))
-		exit(ft_echo(token));
+		return (ft_echo(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "cd"))
-		exit(ft_cd(token));
+		return (ft_cd(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "pwd"))
-		exit(ft_pwd(token));
+		return (ft_pwd(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "export"))
-		exit(ft_export(token));
+		return (ft_export(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "unset"))
-		exit(ft_unset(token));
+		return (ft_unset(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "env"))
-		exit(ft_env(token));
+		return (ft_env(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "exit"))
-		exit(ft_exit(token));
+		return (ft_exit(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "clear"))
-		exit(ft_clear(token));
+		return (ft_clear(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "history"))
-		exit(ft_history(token));
+		return (ft_history(token));
 	return (0);
 }
 
@@ -109,34 +109,12 @@ int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 
 int	execute_builtin(t_parser_token *token, int fd_in, int fd_out)
 {
-	int	pid;
 	int	status;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		redir_fds(fd_in, fd_out);
-		if (exec_builtin(token) < 0)
-		{
-			ft_perror_cmd(token->command[0]);
-			exit(1);
-		}
-	}
-	else if (pid < 0)
-	{
-		perror("minishell: error creating child process");
-		exit(1);
-	}
-	else
-	{
-		if (waitpid(pid, &status, 0) == -1)
-		{
-			perror("minishell: waitpid");
-			return (1);
-		}
-		ft_modenv("$?", ft_itoa(status));
-	}
-	return (0);
+	redir_fds(fd_in, fd_out);
+	status = exec_builtin(token);
+	ft_modenv("$?", ft_itoa(status));
+	return (status);
 }
 
 char	*read_heredoc(char *delimiter)

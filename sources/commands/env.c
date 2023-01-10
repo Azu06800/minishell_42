@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:47:48 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 11:50:23 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 12:40:32 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_env(t_parser_token *token)
 	int	i;
 
 	(void) token;
-	printf("\n\n%p\n\n", &g_minishell);
 	i = 0;
 	while (i < g_minishell->env_size)
 	{
