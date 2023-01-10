@@ -18,7 +18,7 @@ SRCS			=	minishell.c\
 					$(addprefix utils/, memory.c string.c string2.c utils.c) \
 					$(addprefix error/, error.c error_utils.c) \
 					$(addprefix parser/, parser.c parser_utils.c debug_parser.c) \
-					$(addprefix executor/, executor.c executor_utils.c executor_utils2.c executor_utils3.c) \
+					$(addprefix executor/, executor.c executor_utils.c executor_utils2.c executor_utils3.c executor_utils4.c) \
 					$(addprefix validator/, validator.c validator_utils.c) \
 
 

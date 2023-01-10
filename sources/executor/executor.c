@@ -6,46 +6,11 @@
 /*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:56:12 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 19:16:33 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	handle_redirections_in(t_parser_token *tokens, int i, int *skip_next_cmd)
-{
-	int				fd_in;
-	t_parser_token	*tmp;
-	char			*heredoc_content;
-	int				fd;
-
-	fd_in = STDIN_FILENO;
-	if (tokens[i + 1].type == TOKEN_REDIR)
-	{
-		if (tokens[i + 1].redirection[0] == REDIR_IN)
-		{
-			tmp = &tokens[i + 2];
-			*skip_next_cmd = 1;
-			if (!access(tmp->command[0], F_OK | R_OK))
-				fd_in = open(tmp->command[0], O_RDONLY);
-			else
-				return (-1337);
-		}
-		else if (tokens[i + 1].redirection[0] == REDIR_HEREDOC)
-		{
-			heredoc_content = read_heredoc(tokens[i + 2].command[0]);
-			fd = open("/tmp/heredoc_tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			write(fd, heredoc_content, ft_strlen(heredoc_content));
-			*skip_next_cmd = 1;
-			if (tokens[i].command[0]
-				&& ft_strcmp(tokens[i].command[0], "echo"))
-			{
-				fd_in = open("/tmp/heredoc_tmp", O_RDONLY);
-			}
-		}
-	}
-	return (fd_in);
-}
 
 int	handle_redirections_out(t_parser_token *tokens, int i, int *skip_next_cmd)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 16:31:38 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 19:30:35 by baroun           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ int				execute_command(t_parser_token *token,
 int				execute_builtin(t_parser_token *token,
 					int fd_in, int fd_out);
 char			*read_heredoc(char *delimiter);
+int				handle_redirections_in(t_parser_token *tokens, int i, \
+int *skip_next_cmd);
 //-------------------SIGNAL-------------------//
 void			echo_control_seq(int c);
 void			init_signal(void);
