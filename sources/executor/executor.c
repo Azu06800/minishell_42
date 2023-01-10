@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 22:31:26 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 10:38:54 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:47:09 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	handle_redirections_out(t_parser_token *tokens, int i, int *skip_next_cmd)
 	return (fd_out);
 }
 
-int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
+int	ft_executor(t_parser_token *tokens)
 {
 	int	fd_in;
 	int	fd_out;
@@ -105,12 +105,12 @@ int	ft_executor(t_parser_token *tokens, t_minishell *minishell)
 				}
 				fd_out = fd[1];
 			}
-			if (is_builtin(minishell, tokens[i].command[0]))
-				execute_builtin(&tokens[i], minishell, fd_in, fd_out);
+			if (is_builtin(tokens[i].command[0]))
+				execute_builtin(&tokens[i], fd_in, fd_out);
 			else
 			{
-				if (cmd_exists(&tokens[i], minishell))
-					execute_command(&tokens[i], minishell, fd_in, fd_out);
+				if (cmd_exists(&tokens[i]))
+					execute_command(&tokens[i], fd_in, fd_out);
 				else
 					err_not_found(tokens[i].command[0]);
 			}

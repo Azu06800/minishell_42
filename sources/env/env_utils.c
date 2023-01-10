@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baroun <baroun@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 16:05:27 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 17:07:03 by baroun           ###   ########.fr       */
+/*   Updated: 2023/01/10 11:43:58 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ int	ft_atoi(const char *str)
 	return (nb * sign);
 }
 
-void	print_env(t_minishell *minishell)
+void	print_env(void)
 {
 	char	**envp;
 
-	envp = minishell->envp;
+	envp = g_minishell->envp;
 	while (*envp != NULL)
 	{
 		ft_putstr_fd(*envp, 1);

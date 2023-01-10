@@ -6,91 +6,91 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:52:13 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 11:14:30 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:46:03 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_addenv(t_minishell *minishell, char *name, char *value)
+void	ft_addenv(char *name, char *value)
 {
 	t_env	*new_env;
 	int		i;
 
-	new_env = (t_env *)malloc(sizeof(t_env) * (minishell->env_size + 1));
+	new_env = (t_env *)malloc(sizeof(t_env) * (g_minishell->env_size + 1));
 	if (!new_env)
 		return ;
 	i = 0;
-	while (i < minishell->env_size)
+	while (i < g_minishell->env_size)
 	{
-		new_env[i] = minishell->env[i];
+		new_env[i] = g_minishell->env[i];
 		i++;
 	}
-	free(minishell->env);
-	minishell->env = new_env;
-	minishell->env[minishell->env_size].name = ft_strdup(name);
-	minishell->env[minishell->env_size].value = ft_strdup(value);
-	minishell->env_size++;
+	free(g_minishell->env);
+	g_minishell->env = new_env;
+	g_minishell->env[g_minishell->env_size].name = ft_strdup(name);
+	g_minishell->env[g_minishell->env_size].value = ft_strdup(value);
+	g_minishell->env_size++;
 }
 
-void	ft_delenv(t_minishell *minishell, char *name)
+void	ft_delenv(char *name)
 {
 	t_env	*new_env;
 	int		i;
 	int		j;
 
-	new_env = (t_env *)malloc(sizeof(t_env) * (minishell->env_size - 1));
+	new_env = (t_env *)malloc(sizeof(t_env) * (g_minishell->env_size - 1));
 	if (!new_env)
 		return ;
 	i = 0;
 	j = 0;
-	while (i < minishell->env_size)
+	while (i < g_minishell->env_size)
 	{
-		if (ft_strcmp(minishell->env[i].name, name) != 0)
+		if (ft_strcmp(g_minishell->env[i].name, name) != 0)
 		{
-			new_env[j] = minishell->env[i];
+			new_env[j] = g_minishell->env[i];
 			j++;
 		}
 		i++;
 	}
-	free(minishell->env);
-	minishell->env = new_env;
-	minishell->env_size--;
+	free(g_minishell->env);
+	g_minishell->env = new_env;
+	g_minishell->env_size--;
 }
 
-void	ft_modenv(t_minishell *minishell, char *name, char *new_value)
+void	ft_modenv(char *name, char *new_value)
 {
 	int	i;
 
 	i = 0;
-	while (i < minishell->env_size)
+	while (i < g_minishell->env_size)
 	{
-		if (ft_strcmp(minishell->env[i].name, name) == 0)
+		if (ft_strcmp(g_minishell->env[i].name, name) == 0)
 		{
-			free(minishell->env[i].value);
-			minishell->env[i].value = ft_strdup(new_value);
+			free(g_minishell->env[i].value);
+			g_minishell->env[i].value = ft_strdup(new_value);
 			return ;
 		}
 		i++;
 	}
-	ft_addenv(minishell, name, new_value);
+	ft_addenv(name, new_value);
 }
 
-char	*ft_getenv(t_minishell *minishell, char *name)
+char	*ft_getenv(char *name)
 {
 	int	i;
 
 	i = 0;
-	while (i < minishell->env_size)
+	while (i < g_minishell->env_size)
 	{
-		if (ft_strcmp(minishell->env[i].name, name) == 0)
-			return (minishell->env[i].value);
+		if (ft_strcmp(g_minishell->env[i].name, name) == 0)
+			return (g_minishell->env[i].value);
 		i++;
 	}
 	return (NULL);
 }
 
-void	ft_initenv(t_minishell *minishell, char **env)
+void	ft_initenv(char **env)
 {
 	int		i;
 	char	**tmp;
@@ -98,14 +98,14 @@ void	ft_initenv(t_minishell *minishell, char **env)
 	i = 0;
 	while (env[i])
 		i++;
-	minishell->env = malloc(sizeof(t_env) * i);
-	minishell->env_size = i;
+	g_minishell->env = malloc(sizeof(t_env) * i);
+	g_minishell->env_size = i;
 	i = 0;
 	while (env[i])
 	{
 		tmp = ft_split(env[i], '=');
-		minishell->env[i].name = ft_strdup(tmp[0]);
-		minishell->env[i].value = ft_strdup(tmp[1]);
+		g_minishell->env[i].name = ft_strdup(tmp[0]);
+		g_minishell->env[i].value = ft_strdup(tmp[1]);
 		ft_split_free(tmp);
 		i++;
 	}

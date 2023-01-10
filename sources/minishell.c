@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:59:43 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 11:15:26 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:50:05 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 pid_t	g_pid;
 
-void	init_minishell(t_minishell *minishell, char **env)
+void	init_minishell(char **env)
 {
-	minishell->builtins = malloc(sizeof(char *) * 10);
-	minishell->builtins[0] = "echo";
-	minishell->builtins[1] = "cd";
-	minishell->builtins[2] = "pwd";
-	minishell->builtins[3] = "export";
-	minishell->builtins[4] = "unset";
-	minishell->builtins[5] = "env";
-	minishell->builtins[6] = "exit";
-	minishell->builtins[7] = "clear";
-	minishell->builtins[8] = "history";
-	minishell->builtins[9] = NULL;
-	ft_initenv(minishell, env);
+	g_minishell->builtins = malloc(sizeof(char *) * 10);
+	g_minishell->builtins[0] = "echo";
+	g_minishell->builtins[1] = "cd";
+	g_minishell->builtins[2] = "pwd";
+	g_minishell->builtins[3] = "export";
+	g_minishell->builtins[4] = "unset";
+	g_minishell->builtins[5] = "env";
+	g_minishell->builtins[6] = "exit";
+	g_minishell->builtins[7] = "clear";
+	g_minishell->builtins[8] = "history";
+	g_minishell->builtins[9] = NULL;
+	ft_initenv(env);
 }
 
-void	execute_from_args(t_minishell *minishell, char *arg)
+void	execute_from_args(char *arg)
 {
 	t_tokens		*tokens;
 	t_parser_token	*parser_token;
@@ -38,51 +38,43 @@ void	execute_from_args(t_minishell *minishell, char *arg)
 	if (err_unclosed_quote(arg))
 		return ;
 	tokens = ft_lexer(arg);
-	parser_token = ft_parse_tokens(tokentostr(tokens), minishell, tokens);
-	ft_expander(parser_token, minishell);
-	ft_executor(parser_token, minishell);
+	parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
+	ft_expander(parser_token);
+	ft_executor(parser_token);
 	g_pid = 0;
 }
 
-void	refresh_env(t_minishell *minishell, int *debug_flag)
+void	refresh_env()
 {
 	int		i;
 	char	*tmp;
 
 	i = 0;
-	minishell->envp = malloc(sizeof(char *) * minishell->env_size);
-	while (i < minishell->env_size)
+	g_minishell->envp = malloc(sizeof(char *) * g_minishell->env_size);
+	while (i < g_minishell->env_size)
 	{
-		tmp = ft_strjoin(minishell->env[i].name, "=");
-		tmp = ft_strjoin(tmp, minishell->env[i].value);
+		tmp = ft_strjoin(g_minishell->env[i].name, "=");
+		tmp = ft_strjoin(tmp, g_minishell->env[i].value);
 		tmp = ft_strjoin(tmp, "\0");
-		minishell->envp[i] = ft_strdup(tmp);
+		g_minishell->envp[i] = ft_strdup(tmp);
 		free(tmp);
 		i++;
 	}
-	minishell->envp[i] = NULL;
-	if (ft_getenv(minishell, "PWD") == NULL)
-		ft_modenv(minishell, "PWD", getcwd(NULL, 0));
-	if (!ft_strcmp(ft_getenv(minishell, "USER"), "evan") && *debug_flag == 0)
-	{
-		ft_modenv(minishell, "PATH",
-			"/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki");
-		*debug_flag = 1;
-	}
+	g_minishell->envp[i] = NULL;
+	if (ft_getenv("PWD") == NULL)
+		ft_modenv("PWD", getcwd(NULL, 0));
 }
 
-void	shell(t_minishell *minishell)
+void	shell()
 {
 	char			*str;
 	t_parser_token	*parser_token;
 	t_tokens		*tokens;
-	int				debug_flag;
 
-	debug_flag = 0;
 	init_signal();
 	while (1)
 	{
-		refresh_env(minishell, &debug_flag);
+		refresh_env();
 		str = readline("minishell$ ");
 		if (!str)
 		{
@@ -95,12 +87,13 @@ void	shell(t_minishell *minishell)
 		if (err_unclosed_quote(str))
 			continue ;
 		tokens = ft_lexer(str);
-		parser_token = ft_parse_tokens(tokentostr(tokens), minishell, tokens);
+		parser_token = ft_parse_tokens(tokentostr(tokens), tokens);
 		if (ft_validator(parser_token))
 		{
-			ft_expander(parser_token, minishell);
+			printf("\n\n%p\n\n", &g_minishell);
+			ft_expander(parser_token);
 			//print_token(parser_token);
-			ft_executor(parser_token, minishell);
+			ft_executor(parser_token);
 		}
 		g_pid = 0;
 	}
@@ -108,21 +101,19 @@ void	shell(t_minishell *minishell)
 
 int	main(int ac, char **av, char **env)
 {
-	t_minishell	*minishell;
-
 	if (ac >= 3 && !ft_strcmp(av[1], "-c"))
 	{
-		minishell = malloc(sizeof(t_minishell));
-		if (!minishell)
+		g_minishell = malloc(sizeof(t_minishell));
+		if (!g_minishell)
 			return (0);
-		init_minishell(minishell, env);
-		execute_from_args(minishell, av[2]);
+		init_minishell(env);
+		execute_from_args(av[2]);
 		return (0);
 	}
-	minishell = malloc(sizeof(t_minishell));
-	if (!minishell)
+	g_minishell = malloc(sizeof(t_minishell));
+	if (!g_minishell)
 		return (0);
-	init_minishell(minishell, env);
-	shell(minishell);
+	init_minishell(env);
+	shell();
 	return (1);
 }

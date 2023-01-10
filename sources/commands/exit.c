@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:10:04 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 22:33:09 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:31:59 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ int	ft_is_numeric(char *str)
 	return (1);
 }
 
-int	ft_exit(t_parser_token *token, t_minishell *minishell)
+int	ft_exit(t_parser_token *token)
 {
-	(void) minishell;
 	ft_putstr_fd("exit", 2);
 	ft_putstr_fd("\n", 2);
 	if (token->command[1] == NULL)

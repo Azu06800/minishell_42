@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:29:39 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 10:15:42 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:43:49 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_parser_token
 	t_tokens			*tokens;
 }	t_parser_token;
 
+t_minishell	*g_minishell;
 //-------------------LEXER-------------------//
 	//is
 int				ft_isspace(int c);
@@ -132,7 +133,7 @@ void			concat_arrow(char **token);
 char			**tokentostr(t_tokens *token);
 
 //-------------------PARSER-------------------//
-t_parser_token	*ft_parse_tokens(char **tks, t_minishell *mshell, t_tokens *tk);
+t_parser_token	*ft_parse_tokens(char **tks, t_tokens *tk);
 void			print_token(t_parser_token *token);
 void			parse_redirect_token(char *token, t_parser_token *parsed_token);
 void			parse_separator_token(char *token, t_parser_token *parsed_tok);
@@ -143,27 +144,27 @@ void			remove_empty_cmd(t_parser_token *parsed_tokens);
 char			*ft_strchr(const char *s, int c);
 
 //------------------COMMANDS------------------//
-int				ft_cd(t_parser_token *token, t_minishell *minishell);
-int				ft_echo(t_parser_token *token, t_minishell *minishell);
-int				ft_env(t_parser_token *token, t_minishell *minishell);
-int				ft_export(t_parser_token *token, t_minishell *minishell);
-int				ft_pwd(t_parser_token *token, t_minishell *minishell);
-int				ft_unset(t_parser_token *token, t_minishell *minishell);
-int				ft_exit(t_parser_token *token, t_minishell *minishell);
-int				ft_clear(t_parser_token *token, t_minishell *minishell);
-int				ft_history(t_parser_token *token, t_minishell *minishell);
+int				ft_cd(t_parser_token *token);
+int				ft_echo(t_parser_token *token);
+int				ft_env(t_parser_token *token);
+int				ft_export(t_parser_token *token);
+int				ft_pwd(t_parser_token *token);
+int				ft_unset(t_parser_token *token);
+int				ft_exit(t_parser_token *token);
+int				ft_clear(t_parser_token *token);
+int				ft_history(t_parser_token *token);
 
 //-------------------EXEC-------------------//
-int				ft_executor(t_parser_token *tokens, t_minishell *minishell);
+int				ft_executor(t_parser_token *tokens);
 char			*ft_strcat(char *dest, char *src);
-int				cmd_exists(t_parser_token *token, t_minishell *minishell);
+int				cmd_exists(t_parser_token *token);
 char			*ft_itoa(int n);
 void			ft_bzero(void *s, size_t n);
-int				exec_builtin(t_parser_token *token, t_minishell *minishell);
-int				is_builtin(t_minishell *minishell, char *str);
-int				execute_command(t_parser_token *token, t_minishell *minishell,
+int				exec_builtin(t_parser_token *token);
+int				is_builtin(char *str);
+int				execute_command(t_parser_token *token,
 					int fd_in, int fd_out);
-int				execute_builtin(t_parser_token *token, t_minishell *minishell,
+int				execute_builtin(t_parser_token *token,
 					int fd_in, int fd_out);
 char			*read_heredoc(char *delimiter);
 //-------------------SIGNAL-------------------//
@@ -174,7 +175,7 @@ void			init_signal(void);
 int				error_quote(char *str);
 int				err_unclosed_quote(char *str);
 char			**listofcmd(void);
-int				check_cmd(char *str, t_minishell *minishell);
+int				check_cmd(char *str);
 int				ft_cmdcmp(char *s1, char **s2);
 int				ft_strcmp(const char *s1, const char *s2);
 void			err_not_found(char *cmd);
@@ -188,17 +189,17 @@ size_t			ft_strlen(const char *str);
 
 //-------------------ENV-------------------//
 void			*ft_realloc(void *ptr, size_t size);
-void			ft_addenv(t_minishell *minishell, char *name, char *value);
-void			ft_delenv(t_minishell *minishell, char *name);
-void			ft_modenv(t_minishell *minishell, char *name, char *new_value);
-char			*ft_getenv(t_minishell *minishell, char *name);
-void			ft_initenv(t_minishell *minishell, char **env);
+void			ft_addenv(char *name, char *value);
+void			ft_delenv(char *name);
+void			ft_modenv(char *name, char *new_value);
+char			*ft_getenv(char *name);
+void			ft_initenv(char **env);
 void			ft_putstr_fd(char *s, int fd);
 int				ft_atoi(const char *str);
-void			print_env(t_minishell *minishell);
+void			print_env(void);
 
 //-------------------EXPANDER-------------------//
-void			ft_expander(t_parser_token *token, t_minishell *minishell);
+void			ft_expander(t_parser_token *token);
 char			*ft_strndup(const char *s, size_t n);
 char			*ft_strcpy(char *dest, const char *src);
 

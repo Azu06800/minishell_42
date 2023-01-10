@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 15:09:24 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 17:11:35 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:38:59 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ void	parse_tokens(char **tokens, t_parser_token *parsed_tokens)
 	}
 }
 
-t_parser_token	*ft_parse_tokens(char **tks, t_minishell *mshell, t_tokens *tk)
+t_parser_token	*ft_parse_tokens(char **tks, t_tokens *tk)
 {
 	size_t			num_tokens;
 	t_parser_token	*parsed_tokens;
 
-	(void) mshell;
 	num_tokens = count_tokens(tks);
 	parsed_tokens = malloc((num_tokens + 1) * sizeof(t_parser_token));
 	parsed_tokens->tokens = tk;

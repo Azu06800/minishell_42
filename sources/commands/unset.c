@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:40:18 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 22:32:41 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:32:35 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_isalpha(char str)
 	return (0);
 }
 
-int	ft_unset(t_parser_token *token, t_minishell *minishell)
+int	ft_unset(t_parser_token *token)
 {
 	int	i;
 
@@ -34,8 +34,8 @@ int	ft_unset(t_parser_token *token, t_minishell *minishell)
 			ft_putstr_fd(token->command[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 		}
-		if (ft_getenv(minishell, token->command[i]) != NULL)
-			ft_delenv(minishell, token->command[i]);
+		if (ft_getenv(token->command[i]) != NULL)
+			ft_delenv(token->command[i]);
 	}
 	return (0);
 }

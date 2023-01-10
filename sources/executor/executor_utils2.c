@@ -6,43 +6,43 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:25:02 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 10:33:54 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:48:07 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exec_builtin(t_parser_token *token, t_minishell *minishell)
+int	exec_builtin(t_parser_token *token)
 {
 	if (token->command[0] && !ft_strcmp(token->command[0], "echo"))
-		exit(ft_echo(token, minishell));
+		exit(ft_echo(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "cd"))
-		exit(ft_cd(token, minishell));
+		exit(ft_cd(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "pwd"))
-		exit(ft_pwd(token, minishell));
+		exit(ft_pwd(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "export"))
-		exit(ft_export(token, minishell));
+		exit(ft_export(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "unset"))
-		exit(ft_unset(token, minishell));
+		exit(ft_unset(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "env"))
-		exit(ft_env(token, minishell));
+		exit(ft_env(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "exit"))
-		exit(ft_exit(token, minishell));
+		exit(ft_exit(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "clear"))
-		exit(ft_clear(token, minishell));
+		exit(ft_clear(token));
 	else if (token->command[0] && !ft_strcmp(token->command[0], "history"))
-		exit(ft_history(token, minishell));
+		exit(ft_history(token));
 	return (0);
 }
 
-int	is_builtin(t_minishell *minishell, char *str)
+int	is_builtin(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (minishell->builtins[i])
+	while (g_minishell->builtins[i])
 	{
-		if (!ft_strcmp(str, minishell->builtins[i]))
+		if (!ft_strcmp(str, g_minishell->builtins[i]))
 			return (1);
 		i++;
 	}
@@ -63,8 +63,7 @@ void	redir_fds(int fd_in, int fd_out)
 	}
 }
 
-int	execute_command(t_parser_token *token, t_minishell *minishell, int fd_in,
-	int fd_out)
+int	execute_command(t_parser_token *token, int fd_in, int fd_out)
 {
 	int		pid;
 	int		status;
@@ -85,7 +84,7 @@ int	execute_command(t_parser_token *token, t_minishell *minishell, int fd_in,
 	if (pid == 0)
 	{
 		redir_fds(fd_in, fd_out);
-		if (execve(command, args, minishell->envp) < 0)
+		if (execve(command, args, g_minishell->envp) < 0)
 		{
 			ft_perror_cmd(token->command[0]);
 			exit(1);
@@ -108,8 +107,7 @@ int	execute_command(t_parser_token *token, t_minishell *minishell, int fd_in,
 	return (0);
 }
 
-int	execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in,
-	int fd_out)
+int	execute_builtin(t_parser_token *token, int fd_in, int fd_out)
 {
 	int	pid;
 	int	status;
@@ -118,7 +116,7 @@ int	execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in,
 	if (pid == 0)
 	{
 		redir_fds(fd_in, fd_out);
-		if (exec_builtin(token, minishell) < 0)
+		if (exec_builtin(token) < 0)
 		{
 			ft_perror_cmd(token->command[0]);
 			exit(1);
@@ -136,7 +134,7 @@ int	execute_builtin(t_parser_token *token, t_minishell *minishell, int fd_in,
 			perror("minishell: waitpid");
 			return (1);
 		}
-		ft_modenv(minishell, "$?", ft_itoa(status));
+		ft_modenv("$?", ft_itoa(status));
 	}
 	return (0);
 }

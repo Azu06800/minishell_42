@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 14:29:07 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 19:11:21 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:46:45 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isalnum(char str)
 	return (0);
 }
 
-char *expand_variable(t_minishell *minishell, char *string)
+char *expand_variable(char *string)
 {
 	size_t buffer_size = ft_strlen(string) + 1;
 	char *buffer = malloc(buffer_size);
@@ -38,7 +38,7 @@ char *expand_variable(t_minishell *minishell, char *string)
 			while (ft_isalnum(*string) || *string == '_')
 				string++;
 			char *var_name = ft_strndup(var_start, string - var_start);
-			char *var_value = ft_getenv(minishell, var_name);
+			char *var_value = ft_getenv(var_name);
 			if (var_value)
 			{
 				size_t value_length = ft_strlen(var_value);
@@ -66,7 +66,7 @@ char *expand_variable(t_minishell *minishell, char *string)
 	return (buffer);
 }
 
-void	expand_variables(t_minishell *minishell, char **strings, size_t size)
+void	expand_variables(char **strings, size_t size)
 {
 	size_t	i;
 	char	*current;
@@ -76,13 +76,13 @@ void	expand_variables(t_minishell *minishell, char **strings, size_t size)
 	while (++i < size)
 	{
 		current = strings[i];
-		expanded = expand_variable(minishell, current);
+		expanded = expand_variable(current);
 		free(current);
 		strings[i] = expanded;
 	}
 }
 
-void	ft_expander(t_parser_token *tokens, t_minishell *minishell)
+void	ft_expander(t_parser_token *tokens)
 {
 	int	i;
 
@@ -90,7 +90,7 @@ void	ft_expander(t_parser_token *tokens, t_minishell *minishell)
 	while (tokens[++i].type != TOKEN_END)
 	{
 		if (tokens[i].type == TOKEN_CMD)
-			expand_variables(minishell, tokens[i].command,
+			expand_variables(tokens[i].command,
 				tokens[i].command_size);
 	}
 }

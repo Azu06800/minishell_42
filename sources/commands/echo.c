@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/09 22:24:05 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:31:46 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ void	echo_quote(char *str)
 		write(1, &str[i], 1);
 }
 
-int	ft_echo(t_parser_token *token, t_minishell *minishell)
+int	ft_echo(t_parser_token *token)
 {
 	int	i;
 	int	nflag;
 
-	(void) minishell;
 	i = 1;
 	nflag = 0;
 	if (token->command[1] && ft_strcmp(token->command[1], "-n") == 0)

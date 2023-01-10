@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:07:48 by baroun            #+#    #+#             */
-/*   Updated: 2023/01/10 00:31:31 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:34:50 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int	err_unclosed_quote(char *str)
 	return (0);
 }
 
-int	check_cmd(char *str, t_minishell *minishell)
+int	check_cmd(char *str)
 {
 	char	**cmd;
 
-	cmd = minishell->builtins;
+	cmd = g_minishell->builtins;
 	if (ft_cmdcmp(str, cmd) == 1)
 	{
 		printf("minishell: command not found: %s\n", str);

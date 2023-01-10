@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 10:25:14 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 10:29:53 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 11:47:26 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-int	cmd_exists(t_parser_token *token, t_minishell *minishell)
+int	cmd_exists(t_parser_token *token)
 {
 	char	**path;
 	char	*full_path;
 
-	path = ft_split(ft_getenv(minishell, "PATH"), ':');
+	path = ft_split(ft_getenv("PATH"), ':');
 	while (path && *path)
 	{
 		if (token->command[0][0] == '/' || token->command[0][0] == '.')
