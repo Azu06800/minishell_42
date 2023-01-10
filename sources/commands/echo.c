@@ -6,7 +6,7 @@
 /*   By: emorvan <emorvan@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 17:12:46 by emorvan           #+#    #+#             */
-/*   Updated: 2023/01/10 18:44:20 by emorvan          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:51:12 by emorvan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,15 @@ int	ft_echo(t_parser_token *token)
 
 	i = 1;
 	nflag = 0;
-	if (token[i + 1].type == TOKEN_REDIR
-		&& token[i + 1].redirection[0] == REDIR_HEREDOC)
+	token++;
+	if (token->type == TOKEN_REDIR
+		&& token->redirection[0] == REDIR_HEREDOC)
 	{
 		printf("\n");
+		token--;
 		return (0);
 	}
+	token--;
 	if (token->command[1] && ft_strcmp(token->command[1], "-n") == 0)
 	{
 		nflag = 1;
